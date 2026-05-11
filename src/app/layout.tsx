@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: "Polimelo — Dijital Deneyimler Stüdyosu",
   description:
     "Öğrenmeyi, oynamayı ve keşfetmeyi bir araya getiren modern dijital deneyimler.",
+  other: {
+    "google-adsense-account": "ca-pub-3798429741438186",
+  },
 };
 
 export default function RootLayout({
