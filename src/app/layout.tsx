@@ -31,6 +31,7 @@ export default function RootLayout({
       lang="tr"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
+    
       <body>
         <ThemeProvider>{children}</ThemeProvider>
         <Script
