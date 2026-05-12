@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import Nav from "@/components/Nav";
+import Image from "next/image";
 
 /* ─── veri ─────────────────────────────────────────────── */
 
@@ -19,6 +20,8 @@ const apps = [
       "Aralıklı tekrar (SM-2) algoritması ve oyun tabanlı aktivitelerle kelime dağarcığınızı kısa sürede, kalıcı biçimde geliştirin.",
     platforms: ["Web", "Android"],
     webUrl: "https://polyvo.polimelo.com",
+    imageSrc: "/images/polyvo/tablet-home-screen.png", // Resim yolu
+    mediaFooter: "Polyvo Dashboard — Tablet Görünümü", // Alt bilgi
     dark: false,
     accentColor: "#4f46e5",
     mediaLabel: "Polyvo — uygulama ekranı (önerilen: 800×600, PNG/WEBP)",
@@ -33,6 +36,8 @@ const apps = [
       "Grid tabanlı eş zamanlılık bulmacası. Her tuşa bastığında iki nesne birden hareket eder — biri ileri giderken diğeri geri gidebilir.",
     platforms: ["Web", "Android", "Masaüstü"],
     webUrl: "https://syncron.polimelo.com",
+    imageSrc: "/images/syncron/gameplay-tablet.png", // Resim yolu
+    mediaFooter: "Syncron — Seviye 12 Eş Zamanlılık Bulmacası", // Alt bilgi
     dark: true,
     accentColor: "#4ade80",
     mediaLabel: "Syncron — oyun ekranı (önerilen: 800×600, 16:9, PNG/WEBP)",
@@ -268,9 +273,8 @@ function AppFeatureSection({
   return (
     <motion.section
       ref={ref}
-      className={`relative min-h-screen flex items-center overflow-hidden px-6 md:px-12 py-28 ${
-        app.dark ? "bg-[#080808]" : "bg-[var(--bg)]"
-      }`}
+      className={`relative min-h-screen flex items-center overflow-hidden px-6 md:px-12 py-28 ${app.dark ? "bg-[#080808]" : "bg-[var(--bg)]"
+        }`}
     >
       {/* Koyu bölümlerde çizgi grid */}
       {app.dark && (
@@ -336,9 +340,8 @@ function AppFeatureSection({
           >
             <Link
               href={app.slug}
-              className={`inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-opacity hover:opacity-80 ${
-                app.dark ? "bg-white text-black" : "bg-[var(--fg)] text-[var(--bg)]"
-              }`}
+              className={`inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-opacity hover:opacity-80 ${app.dark ? "bg-white text-black" : "bg-[var(--fg)] text-[var(--bg)]"
+                }`}
             >
               Ayrıntılar <ArrowUpRight size={15} />
             </Link>
@@ -346,11 +349,10 @@ function AppFeatureSection({
               href={app.webUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold border transition-colors ${
-                app.dark
-                  ? "border-white/20 text-white/70 hover:border-white/50 hover:text-white"
-                  : "border-[var(--border)] text-[var(--fg-muted)] hover:border-[var(--fg)] hover:text-[var(--fg)]"
-              }`}
+              className={`inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold border transition-colors ${app.dark
+                ? "border-white/20 text-white/70 hover:border-white/50 hover:text-white"
+                : "border-[var(--border)] text-[var(--fg-muted)] hover:border-[var(--fg)] hover:text-[var(--fg)]"
+                }`}
             >
               Web&apos;de Oyna <ExternalLink size={13} />
             </a>
@@ -375,27 +377,23 @@ function AppFeatureSection({
             <span className="text-xs font-mono">{app.name}</span>
           </div>
 
-          {/* Ekran görüntüsü alanı */}
+          {/* Gerçek Ekran Görüntüsü Alanı */}
           <div
-            className={`aspect-[4/3] border flex flex-col items-center justify-center gap-2 ${borderColor}`}
-            style={{ borderStyle: "dashed" }}
+            className={`relative overflow-hidden aspect-[4/3] border shadow-2xl ${borderColor}`}
+            style={{ borderRadius: '4px' }} // Tasarıma uygun hafif yuvarlatma
           >
-            <span
-              className="text-5xl font-extrabold leading-none select-none"
-              style={{ color: `${app.accentColor}25` }}
-            >
-              {app.name[0]}
-            </span>
-            <p
-              className={`text-[11px] font-mono text-center px-4 ${fgMuted} opacity-50`}
-            >
-              [ {app.mediaLabel} ]
-            </p>
+            <Image
+              src={app.imageSrc}
+              alt={`${app.name} Uygulama Ekranı`}
+              fill
+              className="object-cover"
+              unoptimized // output: 'export' kullandığın için ekliyoruz
+            />
           </div>
 
-          {/* Alt bilgi */}
-          <p className={`mt-3 text-xs font-mono ${fgMuted} opacity-40`}>
-            Yer tutucu — görüntüyü buraya yerleştirin
+          {/* Alt bilgi (Data'dan geliyor) */}
+          <p className={`mt-4 text-xs font-mono ${fgMuted} opacity-60 italic`}>
+            {app.mediaFooter}
           </p>
         </motion.div>
       </div>

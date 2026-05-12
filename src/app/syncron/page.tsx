@@ -110,28 +110,30 @@ export default function SyncronPage() {
             }}
           />
 
-          {/* Oyun videosu / ekran görüntüsü placeholder */}
+          {/* Oyun videosu alanı */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.2, delay: 0.3 }}
-              className="w-[min(55vw,700px)] aspect-video border border-dashed flex flex-col items-center justify-center gap-3"
-              style={{ borderColor: `${NEON}20` }}
+              // aspect-video yerine aspect-square kullandık ve boyutu kareye göre dengeledik
+              className="relative overflow-hidden w-[min(55vw,450px)] aspect-square border rounded-xl shadow-2xl pointer-events-auto"
+              style={{
+                borderColor: `${NEON}30`,
+                boxShadow: `0 0 60px ${NEON}15` // Neon estetiğine uygun dış parlama
+              }}
             >
-              <span
-                className="text-6xl font-extrabold font-mono select-none"
-                style={{ color: `${NEON}15` }}
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
               >
-                S
-              </span>
-              <p
-                className="text-xs font-mono text-center px-6"
-                style={{ color: `${NEON}30` }}
-              >
-                [ Syncron — oyun videosu veya ekran görüntüsü ]<br />
-                Önerilen: 1280×720, MP4 veya WEBP
-              </p>
+                {/* Çektiğin kare videonun tam yolunu buraya yazacaksın */}
+                <source src="/images/syncron/gameplay-loop.mp4" type="video/mp4" />
+                Tarayıcınız video etiketini desteklemiyor.
+              </video>
             </motion.div>
           </div>
 

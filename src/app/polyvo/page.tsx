@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { ArrowUpRight, ExternalLink, Globe, Smartphone, BrainCircuit, BookOpen, PenLine, Layers, Gamepad2 } from "lucide-react";
 import Nav from "@/components/Nav";
 import Link from "next/link";
+import Image from "next/image";
 
 /* ─── veri ──────────────────────────────────────────────── */
 
@@ -141,21 +142,17 @@ export default function PolyvoPage() {
               initial={{ opacity: 0, x: 40, rotate: 3 }}
               animate={{ opacity: 1, x: 0, rotate: 3 }}
               transition={{ duration: 1.1, delay: 0.4 }}
-              className="w-[min(32vw,340px)] aspect-[9/16] border border-dashed flex flex-col items-center justify-center gap-3 rounded-2xl"
+              // DİKKAT: aspect-[9/16] kısmını aspect-[430/932] olarak değiştirdik
+              className="relative overflow-hidden shadow-2xl w-[min(32vw,340px)] aspect-[9/16] border flex flex-col items-center justify-center rounded-2xl"
               style={{ borderColor: `${ACCENT}25` }}
             >
-              <span
-                className="text-5xl font-extrabold font-mono select-none"
-                style={{ color: `${ACCENT}18` }}
-              >
-                P
-              </span>
-              <p
-                className="text-[10px] font-mono text-center px-4 leading-relaxed"
-                style={{ color: `${ACCENT}30` }}
-              >
-                [ Polyvo — mobil ekran<br />görüntüsü, 9:16 PNG ]
-              </p>
+              <Image
+                src="/images/polyvo/mobile-home-screen.png"
+                alt="Polyvo Mobil Ekran Görüntüsü"
+                fill
+                className="object-cover"
+                priority
+              />
             </motion.div>
           </div>
 

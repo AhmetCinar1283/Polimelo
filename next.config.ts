@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   // eslint: {
   //   ignoreDuringBuilds: true, // Build sırasında lint hatalarını geçici olarak yoksaymak için
   // },
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
