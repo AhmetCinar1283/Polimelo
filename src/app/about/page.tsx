@@ -137,16 +137,17 @@ export default function AboutPage() {
               transition={{ duration: 0.7, delay: 0.15 }}
               className="space-y-6 text-[var(--fg-muted)] text-base leading-relaxed"
             >
+              {/* Polimelo poli-melodi isim hikayesi ve ürün felsefesi */}
               <p>
-                Polimelo bir ürünün etrafında oluştu: kelime öğrenimini daha
-                akıllı yapabilir miydik? Polyvo bu soruya verilen yanıttı.
-                Ama aynı soru farklı alanlarda da geçerliydi.
+                Müziği ve sanatı gerçek dünyaya taşıyan <b>Polimelo</b>,
+                müzikte bağımsız melodilerin bir araya gelerek oluşturduğu o kusursuz çok sesli uyum, 
+                geliştirdiğimiz her üründe farklı mekaniklerin ve kullanıcı deneyiminin harmonisini temsil ediyor.
               </p>
               <p>
-                Syncron, "tek nesne yerine iki nesneyi aynı anda hareket
-                ettir" fikrinin ne kadar derin bir bulmaca yaratacağını
-                merak etmekten doğdu. Her ürünün kendi sorusu, kendi dili
-                var. Polimelo bu soruları sormaktan vazgeçmeyen bir alan.
+                İlk melodimiz olan Polyvo, dil öğrenimini akıllı algoritmalarla eşleştirme arayışımızdan doğdu. 
+                Ardından gelen Syncron ise, tıpkı müzikteki kontrpuan gibi, iki bağımsız nesnenin grid üzerinde 
+                aynı anda hareket ederek oluşturduğu eşsiz bir bulmaca ritmiydi. Her ürünümüz, kendi hikayesini 
+                anlatan ayrı bir tınıdır.
               </p>
             </motion.div>
           </div>
@@ -295,9 +296,11 @@ export default function AboutPage() {
           <Link href="/" className="font-bold text-lg text-[var(--fg)]">
             Polimelo.
           </Link>
-          <nav className="flex items-center gap-6 text-sm text-[var(--fg-muted)]">
+          <nav className="flex flex-wrap items-center gap-6 text-sm text-[var(--fg-muted)]">
             <Link href="/syncron" className="hover:text-[var(--fg)] transition-colors">Syncron</Link>
             <Link href="/polyvo" className="hover:text-[var(--fg)] transition-colors">Polyvo</Link>
+            <Link href="/privacy" className="hover:text-[var(--fg)] transition-colors">Gizlilik</Link>
+            <Link href="/terms" className="hover:text-[var(--fg)] transition-colors">Koşullar</Link>
           </nav>
           <p className="text-[var(--fg-muted)] text-xs">
             © {new Date().getFullYear()} Polimelo

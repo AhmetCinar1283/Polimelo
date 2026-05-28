@@ -7,50 +7,49 @@ import Nav from "@/components/Nav";
 import Link from "next/link";
 import Image from "next/image";
 
-/* ─── veri ──────────────────────────────────────────────── */
-
+// Polyvo veri modelleri ve özellikleri
 const studyModes = [
   {
     icon: BookOpen,
     name: "Flashcard",
-    desc: "Klasik kart çevirme; telaffuz, tanım, eş anlamlı ve örnek cümle desteğiyle İngilizce ↔ Türkçe yönünde.",
+    desc: "Bilişsel temelli kart çevirme; kelimenin telaffuzu, Türkçe/İngilizce tanımları, eş anlamlıları ve cümle içindeki örnekleriyle derinlemesine öğrenme.",
   },
   {
     icon: PenLine,
     name: "Cloze",
-    desc: "Cümle içindeki boşluğu bağlamdan tahmin et. Kelimeyi izole değil, kullanımı içinde öğren.",
+    desc: "Cümle içindeki boşluğu bağlamdan tahmin etme. Kelimeleri izole kelime listeleri yerine doğal ve gerçekçi kullanım yapılarıyla öğrenmenizi sağlar.",
   },
   {
     icon: Layers,
     name: "Test",
-    desc: "Çoktan seçmeli sorularla bilgiyi ölç ve pekiştir. SM-2 algoritmasıyla bütünleşik.",
+    desc: "Çoktan seçmeli interaktif testlerle bilginizi ölçün. Hatalı cevaplanan tüm kelimeler SM-2 tarafından otomatik olarak yeniden planlanır.",
   },
   {
     icon: BrainCircuit,
     name: "Deeplearn",
-    desc: "Gelişmiş seans modu; kart sırası ve oturum yönetimi üzerinde tam kontrol.",
+    desc: "Gelişmiş tekrar seansı. Kart sıralama, zorluk katsayısı ve odaklanılmış öğrenme oturumları üzerinde tam kontrol elde etmenizi sağlar.",
   },
 ];
 
 const games = [
   {
     name: "PolyFlip",
-    desc: "Eşleştirme kartı oyunu — kelime çiftlerini hafızanda bulmanın yarışması.",
+    desc: "Eşleştirme kartı oyunu. Kelimelerin Türkçe karşılıklarını hafızanızda en hızlı şekilde eşleştirmek için zamana karşı yarışın.",
     emoji: "🃏",
   },
   {
     name: "FlapyChicken",
-    desc: "Flappy Bird tarzı: uçan tavukla doğru kelimeyi seç, yanlışı seçince düşersin.",
+    desc: "Hız ve refleks odaklı kelime seçimi. Uçan tavukla engelleri aşarken doğru kelime anlamına yönelin, yanlışta düşüşe geçin.",
     emoji: "🐔",
   },
   {
     name: "Tug of War",
-    desc: "Kelime yazma yarışı; AI rakiple hız ve doğruluk sınavına gir.",
+    desc: "Kelime yazma yarışı. Yapay zeka destekli rakibinize karşı kelimeleri en hızlı ve doğru yazarak halatı kendi tarafınıza çekin.",
     emoji: "💪",
   },
   {
     name: "Bil ve Fethet",
-    desc: "Altıgen harita üzerinde toprak fethi — her doğru cevap yeni alan kazandırır.",
+    desc: "Altıgen haritada stratejik toprak fethi. Doğru cevaplar vererek haritadaki kaleleri ve toprakları ele geçirin, alanınızı büyütün.",
     emoji: "🗺️",
   },
 ];
@@ -58,19 +57,19 @@ const games = [
 const features = [
   {
     title: "Çevrimdışı Çalışma",
-    desc: "İnternet olmadan tam işlevsellik. Bağlantı gelince otomatik senkronize edilir.",
+    desc: "İnternet bağlantınız olmasa dahi Dexie.js (IndexedDB) yerel veritabanı sayesinde tüm uygulamayı kullanabilirsiniz. Bağlantı geldiğinde otomatik senkronize olur.",
   },
   {
-    title: "Kişisel Deste Yönetimi",
-    desc: "Kendi kart destelerini oluştur, düzenle, klasörlere ayır ve paylaş.",
+    title: "Gelişmiş PDF Okuyucu",
+    desc: "Öğrenmek istediğiniz dilde kitapları okurken bilinmeyen kelimelerin üzerine tıklayarak anında kendi çalışma destenize ekleyebilir ve Polyvo ekosistemine dahil edebilirsiniz.",
   },
   {
-    title: "Topluluk İçerikleri",
-    desc: "Diğer kullanıcıların destelerini keşfet ve doğrudan çalışmaya başla.",
+    title: "Bulut Senkronizasyonu",
+    desc: "Firebase Firestore ve Cloudflare Workers + D1 + KV hibrit altyapısı sayesinde tüm cihazlarınızda (Web ve Android) verileriniz anında eşitlenir.",
   },
   {
-    title: "İlerleme Takibi",
-    desc: "Her kelimenin öğrenme aşaması ayrı izlenir: başlangıç → tekrar → mezun.",
+    title: "Bireysel Deste Yönetimi",
+    desc: "Kendi özel kelime destelerinizi oluşturabilir, kategorilere ayırabilir ve toplulukla paylaşarak kolektif bir öğrenme başlatabilirsiniz.",
   },
 ];
 
@@ -78,17 +77,17 @@ const platforms = [
   {
     icon: Globe,
     name: "Web",
-    detail: "polyvo.polimelo.com — kurulum gerektirmez",
+    detail: "polyvo.polimelo.com — tarayıcınızdan kurulum gerektirmeden anında çalışın",
     url: "https://polyvo.polimelo.com",
-    cta: "Oyna",
+    cta: "Web Uygulaması",
     available: true,
   },
   {
     icon: Smartphone,
     name: "Android",
-    detail: "Mobil dokunma ve kaydırma desteğiyle tam senkronizasyon",
+    detail: "Capacitor altyapısıyla geliştirilen native uygulama sayesinde mobil cihazlarda pürüzsüz kaydırma ve bildirim destekli deneyim.",
     url: "#",
-    cta: "Yakında",
+    cta: "Yakında Google Play'de",
     available: false,
   },
 ];
@@ -446,12 +445,26 @@ export default function PolyvoPage() {
 
         {/* ── FOOTER / GERİ ───────────────────────────────── */}
         <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <Link
-            href="/"
-            className="text-[var(--fg-muted)] text-sm hover:text-[var(--fg)] transition-colors font-mono"
-          >
-            ← Polimelo
-          </Link>
+          <div className="flex flex-wrap items-center gap-6">
+            <Link
+              href="/"
+              className="text-[var(--fg-muted)] text-sm hover:text-[var(--fg)] transition-colors font-mono"
+            >
+              ← Polimelo
+            </Link>
+            <Link
+              href="/privacy"
+              className="text-[var(--fg-muted)] text-xs hover:text-[var(--fg)] transition-colors font-mono"
+            >
+              Gizlilik Politikası
+            </Link>
+            <Link
+              href="/terms"
+              className="text-[var(--fg-muted)] text-xs hover:text-[var(--fg)] transition-colors font-mono"
+            >
+              Kullanım Koşulları
+            </Link>
+          </div>
           <p className="text-[var(--fg-muted)] text-xs">
             © {new Date().getFullYear()} Polimelo — Polyvo
           </p>

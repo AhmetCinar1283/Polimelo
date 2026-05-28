@@ -9,6 +9,7 @@ import Image from "next/image";
 
 /* ─── veri ─────────────────────────────────────────────── */
 
+// Polimelo bünyesindeki uygulamaların listesi ve özellikleri
 const apps = [
   {
     id: "polyvo",
@@ -17,7 +18,7 @@ const apps = [
     name: "Polyvo",
     tagline: "İngilizce öğrenmenin akıllı yolu.",
     description:
-      "Aralıklı tekrar (SM-2) algoritması ve oyun tabanlı aktivitelerle kelime dağarcığınızı kısa sürede, kalıcı biçimde geliştirin.",
+      "Aralıklı tekrar (SM-2) algoritması, kişiselleştirilmiş kelime desteleri, entegre PDF okuyucu ve eğlenceli mini oyunlarla İngilizce kelime dağarcığınızı kalıcı şekilde geliştirin.",
     platforms: ["Web", "Android"],
     webUrl: "https://polyvo.polimelo.com",
     imageSrc: "/images/polyvo/tablet-home-screen.png", // Resim yolu
@@ -33,7 +34,7 @@ const apps = [
     name: "Syncron",
     tagline: "İki adım at, her ikisi de sayılsın.",
     description:
-      "Grid tabanlı eş zamanlılık bulmacası. Her tuşa bastığında iki nesne birden hareket eder — biri ileri giderken diğeri geri gidebilir.",
+      "Grid tabanlı siberpunk bulmaca platformu. Tek tuşla iki objeyi aynı anda (zıt ve normal modda) hareket ettirin, buz slide'ları, ışınlayıcılar ve gelişmiş seviye editörüyle zihninizi zorlayın.",
     platforms: ["Web", "Android", "Masaüstü"],
     webUrl: "https://syncron.polimelo.com",
     imageSrc: "/images/syncron/gameplay-tablet.png", // Resim yolu
@@ -230,7 +231,7 @@ export default function Home() {
         {/* ── FOOTER ───────────────────────────────────────── */}
         <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <span className="font-bold text-lg text-[var(--fg)]">Polimelo.</span>
-          <nav className="flex items-center gap-6 text-sm text-[var(--fg-muted)]">
+          <nav className="flex flex-wrap items-center gap-6 text-sm text-[var(--fg-muted)]">
             <Link href="/syncron" className="hover:text-[var(--fg)] transition-colors">
               Syncron
             </Link>
@@ -239,6 +240,12 @@ export default function Home() {
             </Link>
             <Link href="/about" className="hover:text-[var(--fg)] transition-colors">
               Hakkımızda
+            </Link>
+            <Link href="/privacy" className="hover:text-[var(--fg)] transition-colors">
+              Gizlilik
+            </Link>
+            <Link href="/terms" className="hover:text-[var(--fg)] transition-colors">
+              Koşullar
             </Link>
           </nav>
           <p className="text-[var(--fg-muted)] text-xs">

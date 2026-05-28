@@ -7,31 +7,31 @@ import Nav from "@/components/Nav";
 import Link from "next/link";
 
 /* ─── veri ──────────────────────────────────────────────── */
-
+// Syncron mekanikleri ve oynanış verileri
 const mechanics = [
   {
     title: "Eş Zamanlı Hareket",
-    desc: "Her tuşa bastığında iki karakter aynı anda hareket eder. Biri ileri giderken diğeri geri gidebilir.",
+    desc: "Oyuncu tek bir yön tuşuna bastığında ızgara üzerindeki iki farklı objeyi aynı anda hareket ettirir. Biri normal yönde ilerlerken, diğeri zıt (reversed) yönde hareket edebilir.",
   },
   {
     title: "Buz Zeminleri",
-    desc: "Kaygan yüzeylerde dur komutu verilene kadar kayma devam eder. Momentum hesaplamalara girer.",
+    desc: "Kaygan yüzeyler momentumu korur. Objeler bir duvara ya da engele çarpana kadar durmaksızın kayar, bu da koordinasyon planlamasını derinleştirir.",
   },
   {
     title: "Konveyör Bantları",
-    desc: "Karakteri yön fark etmeksizin fırlatır. Hem engel hem de araç olarak kullanılabilir.",
+    desc: "Objeleri yönlerinden bağımsız olarak bant yönünde fırlatan mekanik. Stratejik olarak kutuları itmek veya kendinizi konumlandırmak için kullanın.",
   },
   {
     title: "Işınlayıcılar",
-    desc: "Portal çiftleri: bir tarafa giren diğer taraftan çıkar. Eş zamanlı ışınlanma kombinasyonları yaratır.",
+    desc: "Portal çiftleri sayesinde objeleri haritanın diğer ucuna anında nakledin. Eşzamanlı geçiş kombinasyonları ile zihninizi zorlayın.",
   },
   {
-    title: "İtilebilir Kutular",
-    desc: "Haritadaki kutuları iterek yol açabilir, düşmanları engelleyebilir veya baskül mekanizmalarını tetikleyebilirsin.",
+    title: "Kutular ve Ağırlıklar",
+    desc: "Izgaradaki kutuları iterek geçiş yolları açın, lazer engellerini kapatın veya siber zeminlerdeki ağırlık butonlarını tetikleyin.",
   },
   {
-    title: "Kenar Portalları",
-    desc: "Harita kenarına ulaşan karakter karşı kenara geçer. Sonsuz alan yanılsaması yaratır.",
+    title: "Enerji Sistemleri",
+    desc: "Oyun alanındaki enerji jeneratörlerini ve kabloları aktif hale getirerek kapıları açın, siberpunk evrenin kurallarını lehinize çevirin.",
   },
 ];
 
@@ -39,37 +39,36 @@ const platforms = [
   {
     icon: Globe,
     name: "Web",
-    detail: "Tarayıcıdan anında oyna — kurulum yok",
+    detail: "syncron.polimelo.com — Modern tarayıcılar üzerinden kurulum gerektirmeden, anında 60 FPS siber-bulmaca keyfi.",
     url: "https://syncron.polimelo.com",
-    cta: "Oyna",
+    cta: "Web'de Oyna",
     available: true,
   },
   {
     icon: Smartphone,
     name: "Android",
-    detail: "Kaydırma hareketleriyle doğal hissettiren mobil deneyim",
+    detail: "Capacitor entegrasyonu ile dokunmatik cihazlara özel swipe (kaydırma) hareketleriyle optimize edilmiş native mobil sürüm.",
     url: "#",
-    cta: "Yakında",
+    cta: "Yakında Google Play'de",
     available: false,
   },
   {
     icon: Monitor,
     name: "Masaüstü",
-    detail: "Tam ekran, klavye odaklı — Windows / Mac / Linux",
+    detail: "Electron tabanlı tam ekran klavye odaklı sürüm. Windows, macOS ve Linux üzerinde tam performanslı çalışır.",
     url: "#",
-    cta: "Yakında",
+    cta: "Yakında Steam'de",
     available: false,
   },
 ];
 
 const scores = [
-  { icon: Star, label: "1–3 Yıldız", desc: "Her seviye hamle sayına göre yıldızlandırılır" },
-  { icon: Trophy, label: "Dünya Rekoru", desc: "En az hamleyle çözen oyuncuya özel rozet" },
-  { icon: Users, label: "Topluluk Seviyeleri", desc: "Seviye editörüyle kendi bulmacalarını gönder" },
+  { icon: Star, label: "1–3 Yıldız Derecesi", desc: "Çözdüğünüz her seviye, harcadığınız hamle sayısına göre derecelendirilir. En optimize yolu bulmaya çalışın." },
+  { icon: Trophy, label: "Level Editor (Editör)", desc: "Kendi siber-bulmacalarınızı tasarlayın, Dexie (IndexedDB) ile kaydedin veya Firebase Firestore ile buluta yükleyip paylaşın." },
+  { icon: Users, label: "Çevrimdışı & Bulut Eşitleme", desc: "İnternet olmasa da Dexie altyapısıyla kesintisiz oynayın, bağlandığınızda Firebase üzerinden ilerlemenizi tüm cihazlarda eşitleyin." },
 ];
 
-/* ─── sayfa ─────────────────────────────────────────────── */
-
+// Tasarım sabitleri ve neon rengi
 const NEON = "#4ade80";
 
 export default function SyncronPage() {
@@ -401,12 +400,26 @@ export default function SyncronPage() {
 
         {/* ── FOOTER / GERİ ───────────────────────────────── */}
         <footer className="px-6 md:px-12 py-10 border-t border-white/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <Link
-            href="/"
-            className="text-white/40 text-sm hover:text-white transition-colors font-mono"
-          >
-            ← Polimelo
-          </Link>
+          <div className="flex flex-wrap items-center gap-6">
+            <Link
+              href="/"
+              className="text-white/40 text-sm hover:text-white transition-colors font-mono"
+            >
+              ← Polimelo
+            </Link>
+            <Link
+              href="/privacy"
+              className="text-white/40 text-xs hover:text-white transition-colors font-mono"
+            >
+              Gizlilik Politikası
+            </Link>
+            <Link
+              href="/terms"
+              className="text-white/40 text-xs hover:text-white transition-colors font-mono"
+            >
+              Kullanım Koşulları
+            </Link>
+          </div>
           <p className="text-white/20 text-xs">
             © {new Date().getFullYear()} Polimelo — Syncron
           </p>
