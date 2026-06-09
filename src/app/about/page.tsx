@@ -101,14 +101,14 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="max-w-5xl mx-auto"
           >
-            <div
+            {/* <div
               className="w-full aspect-[16/7] border border-dashed border-[var(--border)] flex flex-col items-center justify-center gap-3"
             >
               <p className="text-[var(--fg-muted)] text-xs font-mono opacity-40 text-center px-4">
-                [ Stüdyo fotoğrafı veya atmosfer görseli ]<br />
+                GÖRSEL: [ Stüdyo fotoğrafı veya atmosfer görseli ]<br />
                 Önerilen: 1600×700, geniş format, WEBP
               </p>
-            </div>
+            </div> */}
           </motion.div>
         </section>
 
