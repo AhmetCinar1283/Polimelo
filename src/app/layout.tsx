@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   title: "Polimelo — Dijital Deneyimler Stüdyosu",
   description:
     "Öğrenmeyi, oynamayı ve keşfetmeyi bir araya getiren modern dijital deneyimler.",
+  icons: {
+    icon: "/polimelo-logo-round.png",
+    shortcut: "/polimelo-logo-round.png",
+    apple: "/polimelo-logo-round.png",
+  },
   other: {
     "google-adsense-account": "ca-pub-3798429741438186",
   },

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import Nav from "@/components/Nav";
 
@@ -56,6 +57,22 @@ export default function AboutPage() {
       <main className="bg-[var(--bg)] text-[var(--fg)]">
         {/* ── BAŞLIK ─────────────────────────────────────── */}
         <section className="pt-40 pb-28 px-6 md:px-12 max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-8"
+          >
+            <Image
+              src="/polimelo-logo-round.png"
+              alt="Polimelo Logo"
+              width={72}
+              height={72}
+              unoptimized
+              className="w-18 h-18 rounded-2xl object-contain dark:invert transition-all duration-300 hover:scale-105"
+            />
+          </motion.div>
+
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -293,8 +310,16 @@ export default function AboutPage() {
 
         {/* ── FOOTER ───────────────────────────────────────── */}
         <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <Link href="/" className="font-bold text-lg text-[var(--fg)]">
-            Polimelo.
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <Image
+              src="/polimelo-logo-round.png"
+              alt="Polimelo Logo"
+              width={32}
+              height={32}
+              unoptimized
+              className="w-8 h-8 rounded-lg object-contain dark:invert transition-all duration-300 group-hover:scale-105"
+            />
+            <span className="font-bold text-lg text-[var(--fg)]">Polimelo</span>
           </Link>
           <nav className="flex flex-wrap items-center gap-6 text-sm text-[var(--fg-muted)]">
             <Link href="/syncron" className="hover:text-[var(--fg)] transition-colors">Syncron</Link>

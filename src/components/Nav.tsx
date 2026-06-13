@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
@@ -22,6 +23,7 @@ export default function Nav({ startsOverDark = false }: NavProps) {
   }, []);
 
   const overDark = startsOverDark && !scrolled;
+  const isDarkHeader = overDark || theme === "dark";
 
   return (
     <motion.nav
@@ -36,11 +38,19 @@ export default function Nav({ startsOverDark = false }: NavProps) {
     >
       <Link
         href="/"
-        className={`font-bold text-lg tracking-tight transition-colors duration-300 ${
-          overDark ? "text-white" : "text-[var(--fg)]"
-        }`}
+        className="flex items-center"
       >
-        Polimelo.
+        <Image
+          src="/polimelo-logo-name-optimized.png"
+          alt="Polimelo"
+          width={112}
+          height={63}
+          priority
+          unoptimized
+          className={`h-9 w-auto object-contain transition-all duration-300 ${
+            isDarkHeader ? "invert" : ""
+          }`}
+        />
       </Link>
 
       <div className="flex items-center gap-5 text-sm font-medium">
