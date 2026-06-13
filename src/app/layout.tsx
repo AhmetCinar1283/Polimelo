@@ -15,9 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://polimelo.com"),
   title: "Polimelo — Dijital Deneyimler Stüdyosu",
   description:
     "Öğrenmeyi, oynamayı ve keşfetmeyi bir araya getiren modern dijital deneyimler.",
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: "/polimelo-logo-round.png",
     shortcut: "/polimelo-logo-round.png",
