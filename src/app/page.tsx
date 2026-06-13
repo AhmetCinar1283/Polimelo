@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import Nav from "@/components/Nav";
 import Image from "next/image";
@@ -48,6 +48,7 @@ const apps = [
 /* ─── sayfa ─────────────────────────────────────────────── */
 
 export default function Home() {
+  const [isVideoActive, setIsVideoActive] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: heroScroll } = useScroll({
     target: heroRef,
@@ -66,6 +67,8 @@ export default function Home() {
           ref={heroRef}
           className="relative h-screen bg-[#080808] overflow-hidden flex flex-col justify-end pb-16 px-6 md:px-12 select-none"
         >
+          {/* Performance-optimized background video / fallback media */}
+          <HeroBackgroundMedia onVideoActive={setIsVideoActive} />
           {/* Subtle grid overlay */}
           <div
             aria-hidden
@@ -98,10 +101,18 @@ export default function Home() {
             </motion.p>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="text-white font-extrabold leading-[0.9] tracking-tight"
+              initial={{ opacity: 0, y: 30, filter: "blur(0px)" }}
+              animate={
+                isVideoActive
+                  ? { opacity: 0, y: -45, filter: "blur(24px)" }
+                  : { opacity: 1, y: 0, filter: "blur(0px)" }
+              }
+              transition={
+                isVideoActive
+                  ? { duration: 1.5, ease: [0.16, 1, 0.3, 1] }
+                  : { duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }
+              }
+              className="text-white font-extrabold leading-[0.9] tracking-tight pointer-events-none"
               style={{ fontSize: "clamp(4.5rem, 15vw, 17rem)" }}
             >
               Polimelo
@@ -232,7 +243,7 @@ export default function Home() {
         <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <Link href="/" className="flex items-center gap-2.5 group">
             <Image
-              src="/polimelo-logo-round.png"
+              src="/polimelo-logo-round.webp"
               alt="Polimelo Logo"
               width={32}
               height={32}
@@ -417,3 +428,100 @@ function AppFeatureSection({
     </motion.section>
   );
 }
+
+/* ─── HeroBackgroundMedia ────────────────────────────────── */
+
+function HeroBackgroundMedia({
+  onVideoActive,
+}: {
+  onVideoActive: (active: boolean) => void;
+}) {
+  const [shouldPlayVideo, setShouldPlayVideo] = useState(false);
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
+  const [videoEnded, setVideoEnded] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoUnmounted, setVideoUnmounted] = useState(false);
+
+  useEffect(() => {
+    // Mobil kontrolü (768px altı mobil sayılır)
+    const isMobile = window.innerWidth < 768;
+
+    // Yavaş bağlantı ve veri tasarrufu modu kontrolü
+    let isSlowConnection = false;
+    if (typeof navigator !== "undefined") {
+      const conn = (navigator as any).connection;
+      if (conn) {
+        if (conn.saveData) {
+          isSlowConnection = true;
+        }
+        const effectiveType = conn.effectiveType;
+        if (effectiveType === "2g" || effectiveType === "3g") {
+          isSlowConnection = true;
+        }
+      }
+    }
+
+    // Yalnızca hızlı bağlantıya sahip masaüstü cihazlarda videoyu yükle
+    if (!isMobile && !isSlowConnection) {
+      setShouldPlayVideo(true);
+      // İlk boyamayı (initial paint) engellememek için kaynağı mount sonrasında atıyoruz
+      setVideoSrc("/videos/hero");
+    }
+  }, []);
+
+  const handleVideoEnded = () => {
+    setVideoEnded(true);
+    // Opaklık geçişinin tamamlanması için 1 saniye bekleyip video elementini DOM'dan kaldırıyoruz
+    setTimeout(() => {
+      setVideoUnmounted(true);
+    }, 1000);
+  };
+
+  return (
+    <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden select-none z-0">
+      {/* 1. İlk Kare / Yedek Görsel (Video yüklenene kadar veya video yüklenemezse gösterilir) */}
+      {(!videoLoaded || !shouldPlayVideo) && (
+        <div
+          className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-25 animate-pulse-slow"
+          style={{
+            backgroundImage: "url('/images/hero-first-frame.webp')",
+            backgroundColor: "#080808",
+          }}
+        />
+      )}
+
+      {/* 2. Arka Plan Videosu */}
+      {shouldPlayVideo && videoSrc && !videoUnmounted && (
+        <video
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+          onEnded={handleVideoEnded}
+          onCanPlay={() => {
+            setVideoLoaded(true);
+            onVideoActive(true);
+          }}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+            videoLoaded && !videoEnded ? "opacity-25" : "opacity-0"
+          }`}
+        >
+          <source src={`${videoSrc}.webm`} type="video/webm" />
+          <source src={`${videoSrc}.mp4`} type="video/mp4" />
+        </video>
+      )}
+
+      {/* 3. Son Kare Görseli (Video bittiğinde gösterilir) */}
+      {videoEnded && (
+        <div
+          className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-25"
+          style={{
+            backgroundImage: "url('/images/hero-last-frame.webp')",
+            backgroundColor: "#080808",
+          }}
+        />
+      )}
+    </div>
+  );
+}
+

@@ -64,7 +64,7 @@ export default function AboutPage() {
             className="mb-8"
           >
             <Image
-              src="/polimelo-logo-round.png"
+              src="/polimelo-logo-round.webp"
               alt="Polimelo Logo"
               width={72}
               height={72}
@@ -312,7 +312,7 @@ export default function AboutPage() {
         <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-2.5 group">
             <Image
-              src="/polimelo-logo-round.png"
+              src="/polimelo-logo-round.webp"
               alt="Polimelo Logo"
               width={32}
               height={32}

@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: "/polimelo-logo-round.png",
-    shortcut: "/polimelo-logo-round.png",
-    apple: "/polimelo-logo-round.png",
+    icon: "/polimelo-logo-round.webp",
+    shortcut: "/polimelo-logo-round.webp",
+    apple: "/polimelo-logo-round.webp",
   },
   other: {
     "google-adsense-account": "ca-pub-3798429741438186",
