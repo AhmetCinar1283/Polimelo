@@ -308,6 +308,7 @@ export default function AboutPage() {
           </div>
         </section>
 
+
         {/* ── FOOTER ───────────────────────────────────────── */}
         <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-2.5 group">
