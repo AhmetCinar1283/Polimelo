@@ -1,15 +1,36 @@
 import { MetadataRoute } from "next";
+import { BLOG_POSTS } from "@/data/posts";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://polimelo.com";
-  const routes = ["", "/about", "/polyvo", "/syncron", "/privacy", "/terms"];
+  const routes = [
+    "", 
+    "/about", 
+    "/polyvo", 
+    "/syncron", 
+    "/privacy", 
+    "/terms",
+    "/blog",
+    "/contact",
+    "/spaced-repetition-hesaplayici"
+  ];
 
-  return routes.map((route) => ({
+  const staticSitemap = routes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: route === "" || route === "/polyvo" || route === "/syncron" ? "weekly" : "monthly",
-    priority: route === "" ? 1.0 : route === "/polyvo" || route === "/syncron" ? 0.9 : 0.5,
+    changeFrequency: (route === "" || route === "/polyvo" || route === "/syncron" || route === "/blog" ? "weekly" : "monthly") as any,
+    priority: route === "" ? 1.0 : route === "/polyvo" || route === "/syncron" || route === "/blog" ? 0.9 : 0.5,
   }));
+
+  const blogSitemap = BLOG_POSTS.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as any,
+    priority: 0.8,
+  }));
+
+  return [...staticSitemap, ...blogSitemap];
 }
+

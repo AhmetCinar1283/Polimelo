@@ -297,23 +297,67 @@ export default function SyncronPage() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.85 }}
             >
-              <div
-                className="aspect-[4/3] border border-dashed flex flex-col items-center justify-center gap-3"
-                style={{ borderColor: `${NEON}18` }}
-              >
-                <span
-                  className="font-mono text-2xl"
-                  style={{ color: `${NEON}20` }}
-                >
-                  ◈ ◈
-                </span>
-                <p
-                  className="text-xs font-mono text-center px-6"
-                  style={{ color: `${NEON}25` }}
-                >
-                  [ Syncron — oyun içi ekran görüntüsü / atmosfer görseli ]<br />
-                  Önerilen: 800×600, PNG
-                </p>
+              {/* Custom CSS Animation definitions */}
+              <style dangerouslySetInnerHTML={{ __html: `
+                @keyframes syncronPlayerA {
+                  0%, 100% { left: 0%; top: 0%; }
+                  25% { left: 83.3%; top: 0%; }
+                  50% { left: 83.3%; top: 83.3%; }
+                  75% { left: 0%; top: 83.3%; }
+                }
+                @keyframes syncronPlayerB {
+                  0%, 100% { left: 83.3%; top: 83.3%; }
+                  25% { left: 0%; top: 83.3%; }
+                  50% { left: 0%; top: 0%; }
+                  75% { left: 83.3%; top: 0%; }
+                }
+              `}} />
+
+              {/* Cyber Grid Gameplay Simulator */}
+              <div className="relative aspect-[4/3] bg-neutral-950 border border-emerald-500/30 rounded-lg flex items-center justify-center overflow-hidden shadow-[0_0_50px_rgba(74,222,128,0.08)]">
+                {/* 6x6 Grid Cells */}
+                <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 p-4 gap-1.5 pointer-events-none opacity-40">
+                  {Array.from({ length: 36 }).map((_, idx) => (
+                    <div key={idx} className="border border-emerald-500/15 rounded bg-emerald-500/[0.02]" />
+                  ))}
+                </div>
+
+                {/* Simulation Area */}
+                <div className="absolute inset-4">
+                  {/* Central Portal Target */}
+                  <div 
+                    className="absolute w-1/6 h-1/6 flex items-center justify-center"
+                    style={{ left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}
+                  >
+                    <div className="w-8 h-8 rounded-full border-2 border-dashed border-emerald-400 animate-spin" style={{ animationDuration: '6s' }} />
+                    <div className="absolute w-3 h-3 rounded-full bg-emerald-400/30 animate-ping" />
+                    <div className="absolute w-2 h-2 rounded-full bg-emerald-400" />
+                  </div>
+
+                  {/* Player A (Green - Normal Movement) */}
+                  <div 
+                    className="absolute w-1/6 h-1/6 p-2 transition-all duration-1000 ease-in-out"
+                    style={{
+                      animation: "syncronPlayerA 6s infinite steps(1)"
+                    }}
+                  >
+                    <div className="w-full h-full rounded bg-emerald-400 shadow-[0_0_15px_#4ade80] flex items-center justify-center text-[10px] font-extrabold text-black font-mono">
+                      A
+                    </div>
+                  </div>
+
+                  {/* Player B (Cyan - Reversed Movement) */}
+                  <div 
+                    className="absolute w-1/6 h-1/6 p-2 transition-all duration-1000 ease-in-out"
+                    style={{
+                      animation: "syncronPlayerB 6s infinite steps(1)"
+                    }}
+                  >
+                    <div className="w-full h-full rounded bg-cyan-400 shadow-[0_0_15px_#22d3ee] flex items-center justify-center text-[10px] font-extrabold text-black font-mono">
+                      B
+                    </div>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -398,6 +442,58 @@ export default function SyncronPage() {
           </div>
         </section>
 
+        {/* ── BİLİMSEL ARKA PLAN & REHBERLER ─────────────── */}
+        <section className="px-6 md:px-12 py-24 border-t border-white/[0.06] bg-black">
+          <div className="max-w-6xl mx-auto">
+            <div className="max-w-2xl mb-12">
+              <span className="font-mono text-xs tracking-[0.3em] uppercase mb-4 block" style={{ color: `${NEON}60` }}>
+                Geliştirme Günlükleri
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extrabold leading-tight text-white">
+                Oyun Tasarımının Detayları
+              </h2>
+            </div>
+            
+            <div className="grid sm:grid-cols-2 gap-8 max-w-4xl">
+              <div className="p-8 border border-white/[0.06] bg-[#0a0a0a] flex flex-col justify-between rounded-lg">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-3">
+                    Sıfırdan Bulmaca Oyunu Tasarlamak
+                  </h3>
+                  <p className="text-sm text-white/55 leading-relaxed mb-6">
+                    Syncron'un "Eş Zamanlı Hareket" mekaniği nasıl şekillendi? Sade kurallardan karmaşık ve tatmin edici bulmacalar üretmenin tasarım aşamaları.
+                  </p>
+                </div>
+                <Link
+                  href="/blog/puzzle-oyunu-tasarlamak"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors hover:text-white"
+                  style={{ color: NEON }}
+                >
+                  Geliştirici Günlüğünü Oku <ArrowUpRight size={14} />
+                </Link>
+              </div>
+
+              <div className="p-8 border border-white/[0.06] bg-[#0a0a0a] flex flex-col justify-between rounded-lg">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-3">
+                    Veriye Dayalı Zorluk Ayarlama
+                  </h3>
+                  <p className="text-sm text-white/55 leading-relaxed mb-6">
+                    Bir bulmaca seviyesi ne zaman çok zor veya sıkıcıdır? Beta testlerinden gelen hamle sayıları ve sıfırlama metrikleriyle zorluk dengesini kurma.
+                  </p>
+                </div>
+                <Link
+                  href="/blog/puzzle-oyunlarinda-zorluk-ayarlama"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors hover:text-white"
+                  style={{ color: NEON }}
+                >
+                  Detaylı Analizi Oku <ArrowUpRight size={14} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ── FOOTER / GERİ ───────────────────────────────── */}
         <footer className="px-6 md:px-12 py-10 border-t border-white/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-6">
@@ -406,6 +502,12 @@ export default function SyncronPage() {
               className="text-white/40 text-sm hover:text-white transition-colors font-mono"
             >
               ← Polimelo
+            </Link>
+            <Link
+              href="/blog"
+              className="text-white/40 text-xs hover:text-white transition-colors font-mono"
+            >
+              Blog
             </Link>
             <Link
               href="/privacy"

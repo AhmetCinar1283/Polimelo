@@ -123,12 +123,20 @@ export default function PrivacyPage() {
 
         {/* Alt Bilgi ve Geri Dönüş */}
         <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-between gap-4 max-w-6xl mx-auto">
-          <Link
-            href="/"
-            className="text-[var(--fg-muted)] text-sm hover:text-[var(--fg)] transition-colors font-mono"
-          >
-            ← Polimelo Anasayfa
-          </Link>
+          <div className="flex flex-wrap items-center gap-6">
+            <Link
+              href="/"
+              className="text-[var(--fg-muted)] text-sm hover:text-[var(--fg)] transition-colors font-mono"
+            >
+              ← Polimelo Anasayfa
+            </Link>
+            <Link
+              href="/blog"
+              className="text-[var(--fg-muted)] text-xs hover:text-[var(--fg)] transition-colors font-mono"
+            >
+              Blog
+            </Link>
+          </div>
           <p className="text-[var(--fg-muted)] text-xs">
             © {new Date().getFullYear()} Polimelo
           </p>

@@ -443,6 +443,56 @@ export default function PolyvoPage() {
           </div>
         </section>
 
+        {/* ── BİLİMSEL ARKA PLAN & REHBERLER ─────────────── */}
+        <section className="px-6 md:px-12 py-24 border-t border-[var(--border)] bg-[var(--card-bg)]">
+          <div className="max-w-6xl mx-auto">
+            <div className="max-w-2xl mb-12">
+              <span className="font-mono text-xs tracking-[0.3em] uppercase text-[var(--fg-muted)] mb-4 block">
+                Bilimsel Arka Plan
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extrabold leading-tight text-[var(--fg)]">
+                Öğrenmenin Bilimsel Yönü
+              </h2>
+            </div>
+            
+            <div className="grid sm:grid-cols-2 gap-8 max-w-4xl">
+              <div className="p-8 border border-[var(--border)] bg-[var(--bg)] flex flex-col justify-between rounded-lg">
+                <div>
+                  <h3 className="text-xl font-bold text-[var(--fg)] mb-3">
+                    SM-2 Algoritması ve Hafıza Bilimi
+                  </h3>
+                  <p className="text-sm text-[var(--fg-muted)] leading-relaxed mb-6">
+                    Polyvo'nun temelinde yatan SuperMemo-2 (SM-2) algoritması, insan beyninin unutma eğrisini nasıl tersine çevirir? Matematiksel altyapıyı ve bilimsel araştırmaları inceleyin.
+                  </p>
+                </div>
+                <Link
+                  href="/blog/sm2-algoritmasi-ve-ogrenme"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-500 hover:text-indigo-400"
+                >
+                  Detaylı Makaleyi Oku <ArrowUpRight size={14} />
+                </Link>
+              </div>
+
+              <div className="p-8 border border-[var(--border)] bg-[var(--bg)] flex flex-col justify-between rounded-lg">
+                <div>
+                  <h3 className="text-xl font-bold text-[var(--fg)] mb-3">
+                    Dil Öğreniminde Aktif Hatırlama (Active Recall)
+                  </h3>
+                  <p className="text-sm text-[var(--fg-muted)] leading-relaxed mb-6">
+                    Sadece kelime listesi ezberlemek neden etkisizdir? Zihni zorlayan aktif geri çağırma yönteminin öğrenme hızınızı nasıl 3 katına çıkardığını öğrenin.
+                  </p>
+                </div>
+                <Link
+                  href="/blog/dil-ogreniminde-aktif-geri-cagirma"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-500 hover:text-indigo-400"
+                >
+                  Detaylı Makaleyi Oku <ArrowUpRight size={14} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ── FOOTER / GERİ ───────────────────────────────── */}
         <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-6">
@@ -451,6 +501,12 @@ export default function PolyvoPage() {
               className="text-[var(--fg-muted)] text-sm hover:text-[var(--fg)] transition-colors font-mono"
             >
               ← Polimelo
+            </Link>
+            <Link
+              href="/blog"
+              className="text-[var(--fg-muted)] text-xs hover:text-[var(--fg)] transition-colors font-mono"
+            >
+              Blog
             </Link>
             <Link
               href="/privacy"

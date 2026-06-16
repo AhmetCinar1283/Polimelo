@@ -6,6 +6,7 @@ import { useRef, useState, useEffect } from "react";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import Nav from "@/components/Nav";
 import Image from "next/image";
+import { BLOG_POSTS } from "@/data/posts";
 
 /* ─── veri ─────────────────────────────────────────────── */
 
@@ -239,6 +240,57 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ── BLOGDAN SEÇMELER ──────────────────────────────── */}
+        <section className="py-28 px-6 md:px-12 bg-[var(--card-bg)] border-t border-[var(--border)]">
+          <div className="max-w-5xl mx-auto">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+              <div>
+                <span className="inline-block text-[var(--fg-muted)] text-xs font-mono tracking-[0.3em] uppercase mb-4">
+                  Kaynaklar & Yazılar
+                </span>
+                <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--fg)] leading-tight">
+                  Stüdyodan Haberler
+                </h2>
+              </div>
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--fg)] border-b border-[var(--fg)] pb-0.5 hover:pb-1.5 transition-all duration-300"
+              >
+                Tüm yazıları gör <ArrowUpRight size={14} />
+              </Link>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {BLOG_POSTS.slice(0, 3).map((post, i) => (
+                <motion.div
+                  key={post.slug}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                  className="group flex flex-col justify-between p-6 bg-[var(--bg)] border border-[var(--border)] hover:border-[var(--fg-muted)] rounded-lg transition-all duration-300"
+                >
+                  <div>
+                    <span className="text-xs font-mono text-[var(--fg-muted)] block mb-2">{post.category}</span>
+                    <h3 className="text-lg font-bold text-[var(--fg)] mb-3 leading-snug group-hover:text-[var(--fg)]">
+                      {post.title}
+                    </h3>
+                    <p className="text-sm text-[var(--fg-muted)] leading-relaxed mb-6">
+                      {post.description}
+                    </p>
+                  </div>
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--fg-muted)] group-hover:text-[var(--fg)] transition-all duration-300"
+                  >
+                    Yazıyı Oku <ArrowUpRight size={12} />
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ── FOOTER ───────────────────────────────────────── */}
         <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <Link href="/" className="flex items-center gap-2.5 group">
@@ -261,6 +313,15 @@ export default function Home() {
             </Link>
             <Link href="/about" className="hover:text-[var(--fg)] transition-colors">
               Hakkımızda
+            </Link>
+            <Link href="/blog" className="hover:text-[var(--fg)] transition-colors">
+              Blog
+            </Link>
+            <Link href="/spaced-repetition-hesaplayici" className="hover:text-[var(--fg)] transition-colors">
+              Hesaplayıcı
+            </Link>
+            <Link href="/contact" className="hover:text-[var(--fg)] transition-colors">
+              İletişim
             </Link>
             <Link href="/privacy" className="hover:text-[var(--fg)] transition-colors">
               Gizlilik

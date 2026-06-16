@@ -325,6 +325,7 @@ export default function AboutPage() {
           <nav className="flex flex-wrap items-center gap-6 text-sm text-[var(--fg-muted)]">
             <Link href="/syncron" className="hover:text-[var(--fg)] transition-colors">Syncron</Link>
             <Link href="/polyvo" className="hover:text-[var(--fg)] transition-colors">Polyvo</Link>
+            <Link href="/blog" className="hover:text-[var(--fg)] transition-colors">Blog</Link>
             <Link href="/privacy" className="hover:text-[var(--fg)] transition-colors">Gizlilik</Link>
             <Link href="/terms" className="hover:text-[var(--fg)] transition-colors">Koşullar</Link>
           </nav>

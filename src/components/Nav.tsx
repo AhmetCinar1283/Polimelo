@@ -74,6 +74,36 @@ export default function Nav({ startsOverDark = false }: NavProps) {
         >
           Hakkımızda
         </Link>
+        <Link
+          href="/blog"
+          className={`hidden sm:block transition-colors duration-300 ${
+            overDark
+              ? "text-white/60 hover:text-white"
+              : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
+          }`}
+        >
+          Blog
+        </Link>
+        <Link
+          href="/spaced-repetition-hesaplayici"
+          className={`hidden sm:block transition-colors duration-300 ${
+            overDark
+              ? "text-white/60 hover:text-white"
+              : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
+          }`}
+        >
+          SM-2'nin gücü
+        </Link>
+        <Link
+          href="/contact"
+          className={`hidden sm:block transition-colors duration-300 ${
+            overDark
+              ? "text-white/60 hover:text-white"
+              : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
+          }`}
+        >
+          İletişim
+        </Link>
         <button
           onClick={toggleTheme}
           aria-label="Tema değiştir"
