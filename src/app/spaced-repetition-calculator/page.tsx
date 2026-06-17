@@ -1,26 +1,56 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { motion } from "framer-motion";
-import { ArrowLeft, Brain, Calendar, Info, RefreshCw, Sparkles, TrendingUp, BookOpen, Clock, Zap, Check, ArrowRight } from "lucide-react";
+import { useState, useMemo, useEffect } from "react";
+import { ArrowLeft, Brain, Info, Sparkles, TrendingUp, Clock, Zap, Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Nav from "@/components/Nav";
-
-// SM-2 Hatırlama kalitesi dereceleri
-const ratings = [
-  { val: 0, label: "0 - Tamamen Unuttum", desc: "Kelimeye dair hiçbir şey hatırlamıyorum." },
-  { val: 1, label: "1 - Çok Zayıf / Tanıdık", desc: "Yanlış hatırladım ama görünce tanıdım." },
-  { val: 2, label: "2 - Zor Hatırlama", desc: "Hatalı hatırladım, cevabı görünce anımsadım." },
-  { val: 3, label: "3 - Güçlükle Doğru", desc: "Zorlanarak da olsa doğru hatırladım." },
-  { val: 4, label: "4 - Küçük Duraksama", desc: "Kısa bir duraksama sonrası doğru bildim." },
-  { val: 5, label: "5 - Kusursuz / Anında", desc: "Hiç düşünmeden, mükemmel hatırladım." },
-];
+import Footer from "@/components/Footer";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function SpacedRepetitionCalculator() {
-  const [concept, setConcept] = useState("İngilizce: 'Persistent' (Kalıcı)");
+  const { language, t } = useLanguage();
+  const [concept, setConcept] = useState("");
   const [quality, setQuality] = useState<number>(4);
   const [historyRepetitions, setHistoryRepetitions] = useState<number>(0);
   const [currentEF, setCurrentEF] = useState<number>(2.5);
+
+  useEffect(() => {
+    setConcept(language === "tr" ? "İngilizce: 'Persistent' (Kalıcı)" : "English: 'Persistent'");
+  }, [language]);
+
+  // SM-2 Hatırlama kalitesi dereceleri
+  const ratings = useMemo(() => [
+    { 
+      val: 0, 
+      label: language === "tr" ? "0 - Tamamen Unuttum" : "0 - Completely Forgot", 
+      desc: language === "tr" ? "Kelimeye dair hiçbir şey hatırlamıyorum." : "I don't remember anything about the word." 
+    },
+    { 
+      val: 1, 
+      label: language === "tr" ? "1 - Çok Zayıf / Tanıdık" : "1 - Very Weak / Familiar", 
+      desc: language === "tr" ? "Yanlış hatırladım ama görünce tanıdım." : "Incorrect recall, but recognized it upon seeing it." 
+    },
+    { 
+      val: 2, 
+      label: language === "tr" ? "2 - Zor Hatırlama" : "2 - Difficult Recall", 
+      desc: language === "tr" ? "Hatalı hatırladım, cevabı görünce anımsadım." : "Incorrect recall, but remembered upon seeing the answer." 
+    },
+    { 
+      val: 3, 
+      label: language === "tr" ? "3 - Güçlükle Doğru" : "3 - Correct with Difficulty", 
+      desc: language === "tr" ? "Zorlanarak da olsa doğru hatırladım." : "Correct recall but required significant effort." 
+    },
+    { 
+      val: 4, 
+      label: language === "tr" ? "4 - Küçük Duraksama" : "4 - Correct with Hesitation", 
+      desc: language === "tr" ? "Kısa bir duraksama sonrası doğru bildim." : "Correct recall after a short hesitation." 
+    },
+    { 
+      val: 5, 
+      label: language === "tr" ? "5 - Kusursuz / Anında" : "5 - Perfect / Instant", 
+      desc: language === "tr" ? "Hiç düşünmeden, mükemmel hatırladım." : "Perfect, instant recall without any hesitation." 
+    },
+  ], [language]);
 
   // SM-2 Hesaplamaları
   const calculations = useMemo(() => {
@@ -179,7 +209,7 @@ export default function SpacedRepetitionCalculator() {
               className="inline-flex items-center gap-2 text-sm text-[var(--fg-muted)] hover:text-[var(--fg)] transition-colors group font-mono"
             >
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-              ← Blog & Kaynaklar
+              {t("common.blogListBack")}
             </Link>
           </div>
 
@@ -187,13 +217,13 @@ export default function SpacedRepetitionCalculator() {
           <section className="mb-20">
             <div className="flex items-center gap-2 mb-4">
               <Brain className="text-indigo-500" size={24} />
-              <span className="font-mono text-xs tracking-[0.3em] uppercase text-[var(--fg-muted)]">Bilimsel Analiz</span>
+              <span className="font-mono text-xs tracking-[0.3em] uppercase text-[var(--fg-muted)]">{t("spacedRepetition.badge")}</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-none mb-6">
-              Aralıklı Tekrar ve SM-2 Algoritmasının Gücü
+              {t("spacedRepetition.title")}
             </h1>
             <p className="text-lg md:text-xl text-[var(--fg-muted)] font-light max-w-3xl leading-relaxed">
-              Öğrenmek beynin kurduğu bir bağı güçlendirmektir; unutmak ise biyolojik bir tasarruftur. SuperMemo-2 (SM-2) algoritması, bilginin hafızadan silinme anını milimetrik hesaplayarak kalıcı öğrenmeyi mümkün kılar.
+              {t("spacedRepetition.desc")}
             </p>
           </section>
 
@@ -201,40 +231,40 @@ export default function SpacedRepetitionCalculator() {
           <section className="grid md:grid-cols-2 gap-12 mb-24 items-center">
             <div>
               <h2 className="text-2xl md:text-3xl font-extrabold mb-5 text-[var(--fg)]">
-                Unutma Eğrisini Bükmek
+                {t("spacedRepetition.sec1Title")}
               </h2>
               <p className="text-[var(--fg-muted)] text-sm md:text-base leading-relaxed mb-4">
-                1885 yılında Hermann Ebbinghaus, insan beyninin yeni öğrendiği bilgileri nasıl unuttuğunu araştırdı. Sonuç çarpıcıydı: Öğrendiğimiz bir bilginin <strong>%80'ini ilk 48 saat içinde unutup gidiyoruz.</strong>
+                {t("spacedRepetition.sec1Desc1")}
               </p>
               <p className="text-[var(--fg-muted)] text-sm md:text-base leading-relaxed mb-6">
-                Ancak, bilgi tam da hafızadan silinmek üzereyken (örneğin bellek oranı %10-20'ye düşmüşken) tekrar edilirse, beyin bu bilginin hayati olduğunu düşünür ve sinaptik bağı çok daha güçlü bir şekilde yeniden inşa eder. Her bir aralıklı tekrar, unutma hızını yavaşlatır; yani eğriyi bükerek kalıcı hafızaya aktarır.
+                {t("spacedRepetition.sec1Desc2")}
               </p>
               
               <div className="flex flex-col gap-3">
                 <div className="flex items-start gap-2.5">
                   <Check size={16} className="text-indigo-500 shrink-0 mt-0.5" />
-                  <span className="text-xs text-[var(--fg-muted)]"><strong>%90 Zaman Tasarrufu:</strong> Gereksiz tekrarlardan kaçınarak sadece unutma sınırında çalışırsınız.</span>
+                  <span className="text-xs text-[var(--fg-muted)]" dangerouslySetInnerHTML={{ __html: t("spacedRepetition.sec1Check1") }} />
                 </div>
                 <div className="flex items-start gap-2.5">
                   <Check size={16} className="text-indigo-500 shrink-0 mt-0.5" />
-                  <span className="text-xs text-[var(--fg-muted)]"><strong>Aktif Hatırlama Köprüsü:</strong> Zihnin bilgiyi geri çağırma kaslarını çalıştırarak öğrenmeyi kalıcı hale getirir.</span>
+                  <span className="text-xs text-[var(--fg-muted)]" dangerouslySetInnerHTML={{ __html: t("spacedRepetition.sec1Check2") }} />
                 </div>
               </div>
             </div>
 
             <div className="bg-[var(--card-bg)] border border-[var(--border)] p-8 rounded-xl shadow-lg flex flex-col gap-6">
               <h3 className="text-base font-bold uppercase font-mono text-[var(--fg-muted)] flex items-center gap-1.5">
-                <Clock size={16} className="text-indigo-400" /> Geleneksel Ezber vs. SM-2 Algoritması
+                <Clock size={16} className="text-indigo-400" /> {t("spacedRepetition.cardTitle")}
               </h3>
               
               <div className="space-y-4">
                 <div className="p-4 bg-[var(--bg)] border border-red-500/10 rounded-md">
-                  <h4 className="text-xs font-bold text-red-400 uppercase font-mono">Geleneksel Ezber (Cramming)</h4>
-                  <p className="text-xs text-[var(--fg-muted)] mt-1">Sınav gecesi veya tek bir günde saatlerce kelimeleri okumak. Bilgi hızlıca kısa süreli belleğe yığılır ve 3 gün sonra %90'ı tamamen unutulur.</p>
+                  <h4 className="text-xs font-bold text-red-400 uppercase font-mono">{t("spacedRepetition.cramTitle")}</h4>
+                  <p className="text-xs text-[var(--fg-muted)] mt-1">{t("spacedRepetition.cramDesc")}</p>
                 </div>
                 <div className="p-4 bg-[var(--bg)] border border-indigo-500/15 rounded-md">
-                  <h4 className="text-xs font-bold text-indigo-400 uppercase font-mono">SM-2 Aralıklı Tekrar</h4>
-                  <p className="text-xs text-[var(--fg-muted)] mt-1">Kelime 1. Gün, 6. Gün, 15. Gün ve 35. Gün olmak üzere sadece unutma eşiklerinde 10'ar saniye tekrarlanır. Minimum çabayla ömür boyu kalıcı öğrenme sağlanır.</p>
+                  <h4 className="text-xs font-bold text-indigo-400 uppercase font-mono">{t("spacedRepetition.sm2Title")}</h4>
+                  <p className="text-xs text-[var(--fg-muted)] mt-1">{t("spacedRepetition.sm2Desc")}</p>
                 </div>
               </div>
             </div>
@@ -243,10 +273,10 @@ export default function SpacedRepetitionCalculator() {
           {/* SECTION 2: INTERACTIVE SIMULATOR (THE CALCULATOR & SVG CHART) */}
           <section className="border-t border-[var(--border)] pt-20 mb-24">
             <div className="mb-10 text-center max-w-2xl mx-auto">
-              <span className="px-3 py-1 bg-indigo-500/10 text-indigo-500 text-xs font-bold font-mono rounded-full uppercase">Etkileşimli Deney İstasyonu</span>
-              <h2 className="text-3xl font-extrabold mt-4">SM-2 Algoritma Simülatörü</h2>
+              <span className="px-3 py-1 bg-indigo-500/10 text-indigo-500 text-xs font-bold font-mono rounded-full uppercase">{t("spacedRepetition.stationBadge")}</span>
+              <h2 className="text-3xl font-extrabold mt-4">{t("spacedRepetition.simTitle")}</h2>
               <p className="text-sm text-[var(--fg-muted)] mt-2">
-                Aşağıdaki araç ile hafıza parametrelerini değiştirerek beynin hatırlama oranının 30 gün içinde nasıl değiştiğini ve tekrarların unutma dalgalarını nasıl sıfırladığını gerçek zamanlı izleyin.
+                {t("spacedRepetition.simDesc")}
               </p>
             </div>
 
@@ -254,12 +284,12 @@ export default function SpacedRepetitionCalculator() {
               {/* CALCULATOR CONTROLS (Col-5) */}
               <div className="md:col-span-5 bg-[var(--card-bg)] border border-[var(--border)] rounded-xl p-6 shadow-xl flex flex-col gap-6">
                 <h3 className="text-base font-bold flex items-center gap-2 pb-3 border-b border-[var(--border)]">
-                  <Sparkles size={16} className="text-indigo-400" /> Değerleri Değiştir & Eğriyi İzle
+                  <Sparkles size={16} className="text-indigo-400" /> {t("spacedRepetition.simCardTitle")}
                 </h3>
 
                 {/* Concept Input */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-[10px] font-semibold uppercase text-[var(--fg-muted)] font-mono">Simüle Edilen Kavram</label>
+                  <label className="text-[10px] font-semibold uppercase text-[var(--fg-muted)] font-mono">{t("spacedRepetition.simConceptLabel")}</label>
                   <input 
                     type="text" 
                     value={concept} 
@@ -270,7 +300,7 @@ export default function SpacedRepetitionCalculator() {
 
                 {/* Quality Rating Buttons */}
                 <div className="flex flex-col gap-3">
-                  <label className="text-[10px] font-semibold uppercase text-[var(--fg-muted)] font-mono">Hatırlama Kalitesi (q: 0-5)</label>
+                  <label className="text-[10px] font-semibold uppercase text-[var(--fg-muted)] font-mono">{t("spacedRepetition.simQualityLabel")}</label>
                   <div className="grid grid-cols-6 gap-1.5">
                     {[0, 1, 2, 3, 4, 5].map((val) => (
                       <button
@@ -296,7 +326,7 @@ export default function SpacedRepetitionCalculator() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-1">
-                      <label className="text-[9px] font-semibold uppercase text-[var(--fg-muted)] font-mono">Önceki Başarılı Tekrar</label>
+                      <label className="text-[9px] font-semibold uppercase text-[var(--fg-muted)] font-mono">{t("spacedRepetition.simPrevRep")}</label>
                     </div>
                     <input 
                       type="number" 
@@ -307,7 +337,7 @@ export default function SpacedRepetitionCalculator() {
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label className="text-[9px] font-semibold uppercase text-[var(--fg-muted)] font-mono">Önceki Kolaylık (EF)</label>
+                    <label className="text-[9px] font-semibold uppercase text-[var(--fg-muted)] font-mono">{t("spacedRepetition.simPrevEF")}</label>
                     <input 
                       type="number" 
                       step={0.1}
@@ -322,7 +352,7 @@ export default function SpacedRepetitionCalculator() {
                 <div className="text-[11px] text-[var(--fg-muted)] flex items-start gap-1.5 leading-relaxed bg-indigo-500/5 p-3 border border-indigo-500/10 rounded-md">
                   <Info size={14} className="shrink-0 text-indigo-500 mt-0.5" />
                   <span>
-                    Tekrar sayısını artırdıkça mor eğrinin sönümlenme hızının nasıl yavaşladığını (neredeyse düzleştiğini) izleyin. Bu, bilginin uzun süreli belleğe yerleştiğinin kanıtıdır.
+                    {t("spacedRepetition.simQualityInfo")}
                   </span>
                 </div>
               </div>
@@ -332,15 +362,15 @@ export default function SpacedRepetitionCalculator() {
                 {/* Output Stats Dashboard */}
                 <div className="grid grid-cols-3 gap-4">
                   <div className="bg-[var(--card-bg)] border border-[var(--border)] p-4 rounded-xl shadow-md text-center">
-                    <p className="text-[9px] uppercase font-mono text-[var(--fg-muted)]">Sonraki Aralık</p>
-                    <p className="text-2xl font-extrabold text-indigo-500 mt-1">{calculations.interval} <span className="text-xs font-normal text-[var(--fg)]">Gün</span></p>
+                    <p className="text-[9px] uppercase font-mono text-[var(--fg-muted)]">{t("spacedRepetition.outInterval")}</p>
+                    <p className="text-2xl font-extrabold text-indigo-500 mt-1">{calculations.interval} <span className="text-xs font-normal text-[var(--fg)]">{t("spacedRepetition.outDays")}</span></p>
                   </div>
                   <div className="bg-[var(--card-bg)] border border-[var(--border)] p-4 rounded-xl shadow-md text-center">
-                    <p className="text-[9px] uppercase font-mono text-[var(--fg-muted)]">Yeni Kolaylık (EF)</p>
+                    <p className="text-[9px] uppercase font-mono text-[var(--fg-muted)]">{t("spacedRepetition.outEF")}</p>
                     <p className="text-2xl font-extrabold text-emerald-500 mt-1">{calculations.newEF}</p>
                   </div>
                   <div className="bg-[var(--card-bg)] border border-[var(--border)] p-4 rounded-xl shadow-md text-center">
-                    <p className="text-[9px] uppercase font-mono text-[var(--fg-muted)]">Tekrar İlerleyişi</p>
+                    <p className="text-[9px] uppercase font-mono text-[var(--fg-muted)]">{t("spacedRepetition.outRepCount")}</p>
                     <p className="text-2xl font-extrabold text-amber-500 mt-1">#{calculations.nextRepCount}</p>
                   </div>
                 </div>
@@ -349,7 +379,7 @@ export default function SpacedRepetitionCalculator() {
                 <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-xl p-6 shadow-xl relative overflow-hidden">
                   <div className="flex items-center justify-between mb-4 border-b border-[var(--border)] pb-3">
                     <h3 className="text-sm font-bold flex items-center gap-1.5">
-                      <TrendingUp size={15} className="text-indigo-400" /> Bellek Hatırlama Oranı (%) / Zaman Grafiği
+                      <TrendingUp size={15} className="text-indigo-400" /> {t("spacedRepetition.chartTitle")}
                     </h3>
                   </div>
 
@@ -406,7 +436,7 @@ export default function SpacedRepetitionCalculator() {
                               fill="var(--fg-muted)"
                               className="font-mono"
                             >
-                              {day} G
+                              {day} {language === "tr" ? "G" : "d"}
                             </text>
                           </g>
                         );
@@ -468,7 +498,9 @@ export default function SpacedRepetitionCalculator() {
                               fill="#4f46e5"
                               className="font-mono font-bold"
                             >
-                              {idx === 0 ? (historyRepetitions > 0 ? `${historyRepetitions}. Gün` : "Öğrenme") : `${historyRepetitions + idx}. Tekrar`}
+                              {idx === 0 
+                                ? (historyRepetitions > 0 ? (language === "tr" ? `${historyRepetitions}. Gün` : `Day ${historyRepetitions}`) : (language === "tr" ? "Öğrenme" : "Learning")) 
+                                : (language === "tr" ? `${historyRepetitions + idx}. Tekrar` : `Review #${historyRepetitions + idx}`)}
                             </text>
                           </g>
                         );
@@ -480,11 +512,11 @@ export default function SpacedRepetitionCalculator() {
                   <div className="flex flex-wrap gap-4 items-center justify-center mt-6 text-xs border-t border-[var(--border)] pt-4">
                     <div className="flex items-center gap-2">
                       <span className="w-4 h-0.5 bg-[#4f46e5] inline-block" />
-                      <span className="font-semibold text-xs">SM-2 Aralıklı Tekrar (Sürekli %80+ Hatırlama)</span>
+                      <span className="font-semibold text-xs">{t("spacedRepetition.chartSpacedLegend")}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="w-4 h-0.5 bg-[#ef4444] border-dashed border-t border-spacing-1 inline-block" />
-                      <span className="text-[var(--fg-muted)] text-xs">Tekrarsız Klasik Unutma Eğrisi</span>
+                      <span className="text-[var(--fg-muted)] text-xs">{t("spacedRepetition.chartForgetLegend")}</span>
                     </div>
                   </div>
                 </div>
@@ -492,13 +524,17 @@ export default function SpacedRepetitionCalculator() {
                 {/* Repetition timeline */}
                 <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-xl p-5 shadow-lg">
                   <h3 className="text-xs font-bold flex items-center gap-2 mb-3 font-mono uppercase text-[var(--fg-muted)]">
-                    30 Günlük Plana Göre Tekrar Günleri
+                    {t("spacedRepetition.timelineTitle")}
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {graphPaths.repDays.map((day, idx) => (
                       <div key={day} className="px-3.5 py-1.5 bg-[var(--bg)] border border-[var(--border)] rounded flex flex-col items-center">
-                        <span className="text-[8px] font-mono text-[var(--fg-muted)] uppercase">{idx === 0 ? "Bugünkü Oturum" : `${historyRepetitions + idx}. Tekrar`}</span>
-                        <span className="text-xs font-extrabold text-[var(--fg)] mt-0.5">{day === 0 ? "Başlangıç" : `+${day} Gün`}</span>
+                        <span className="text-[8px] font-mono text-[var(--fg-muted)] uppercase">
+                          {idx === 0 ? t("spacedRepetition.timelineToday") : `${t("spacedRepetition.timelineRep")} #${historyRepetitions + idx}`}
+                        </span>
+                        <span className="text-xs font-extrabold text-[var(--fg)] mt-0.5">
+                          {day === 0 ? t("spacedRepetition.timelineStart") : `+${day} ${language === "tr" ? "Gün" : "Days"}`}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -510,28 +546,28 @@ export default function SpacedRepetitionCalculator() {
           {/* SECTION 3: MATHEMATICAL RULES */}
           <section className="border-t border-[var(--border)] pt-20 mb-20">
             <h2 className="text-2xl md:text-3xl font-extrabold text-[var(--fg)] mb-10 text-center">
-              Algoritmanın Matematik Kuralları
+              {t("spacedRepetition.mathTitle")}
             </h2>
             
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-[var(--card-bg)] border border-[var(--border)] p-6 rounded-lg">
                 <span className="text-2xl mb-4 block">1️⃣</span>
-                <h3 className="font-bold text-base text-[var(--fg)] mb-2">Aralık (Interval) Formulü</h3>
+                <h3 className="font-bold text-base text-[var(--fg)] mb-2">{t("spacedRepetition.mathRule1Title")}</h3>
                 <p className="text-xs text-[var(--fg-muted)] leading-relaxed">
-                  İlk tekrar 1 gün sonra, ikinci tekrar 6 gün sonra yapılır. Sonraki tekrarlar (n &gt; 2) için yeni aralık, bir önceki aralığın Kolaylık Katsayısı (EF) ile çarpılmasıyla hesaplanır.
+                  {t("spacedRepetition.mathRule1Desc")}
                 </p>
                 <code className="block bg-[var(--bg)] p-2.5 rounded font-mono text-[10px] mt-4 text-[var(--fg-muted)]">
-                  I(1) = 1 gün<br />
-                  I(2) = 6 gün<br />
+                  I(1) = 1 {language === "tr" ? "gün" : "day"}<br />
+                  I(2) = 6 {language === "tr" ? "gün" : "days"}<br />
                   n &gt; 2: I(n) = I(n-1) * EF
                 </code>
               </div>
 
               <div className="bg-[var(--card-bg)] border border-[var(--border)] p-6 rounded-lg">
                 <span className="text-2xl mb-4 block">2️⃣</span>
-                <h3 className="font-bold text-base text-[var(--fg)] mb-2">Kolaylık Katsayısı (EF)</h3>
+                <h3 className="font-bold text-base text-[var(--fg)] mb-2">{t("spacedRepetition.mathRule2Title")}</h3>
                 <p className="text-xs text-[var(--fg-muted)] leading-relaxed">
-                  Kartın öğrenilme zorluğunu belirtir. Varsayılan değer 2.50'dir. Kartı hatırlama kalitenize göre katsayı büyür (çalışma aralığı uzar) veya küçülür (daha sık gösterilir).
+                  {t("spacedRepetition.mathRule2Desc")}
                 </p>
                 <code className="block bg-[var(--bg)] p-2.5 rounded font-mono text-[10px] mt-4 text-[var(--fg-muted)]">
                   EF' = EF + (0.1 - (5 - q) *<br />
@@ -541,14 +577,14 @@ export default function SpacedRepetitionCalculator() {
 
               <div className="bg-[var(--card-bg)] border border-[var(--border)] p-6 rounded-lg">
                 <span className="text-2xl mb-4 block">3️⃣</span>
-                <h3 className="font-bold text-base text-[var(--fg)] mb-2">Sıfırlama Koşulu</h3>
+                <h3 className="font-bold text-base text-[var(--fg)] mb-2">{t("spacedRepetition.mathRule3Title")}</h3>
                 <p className="text-xs text-[var(--fg-muted)] leading-relaxed">
-                  Kullanıcının karta verdiği not 3'ün altında olursa (q &lt; 3), yani bilgi doğru hatırlanamazsa, tekrar sayısı (n) sıfırlanır ve kart 1. güne geri döner. EF değeri ise düşürülür.
+                  {t("spacedRepetition.mathRule3Desc")}
                 </p>
                 <code className="block bg-[var(--bg)] p-2.5 rounded font-mono text-[10px] mt-4 text-[var(--fg-muted)]">
                   q &lt; 3 ise:<br />
-                  n = 0 (Öğrenme Aşaması)<br />
-                  Sonraki Aralık = 1 Gün
+                  n = 0 ({language === "tr" ? "Öğrenme Aşaması" : "Learning Phase"})<br />
+                  Sonraki Aralık = 1 {language === "tr" ? "Gün" : "Day"}
                 </code>
               </div>
             </div>
@@ -561,10 +597,10 @@ export default function SpacedRepetitionCalculator() {
             </div>
             <div className="max-w-2xl">
               <h2 className="text-2xl md:text-3xl font-extrabold text-[var(--fg)] mb-4">
-                Bu Algoritma Polyvo'nun Kalbidir
+                {t("spacedRepetition.ctaTitle")}
               </h2>
               <p className="text-sm md:text-base text-[var(--fg-muted)] leading-relaxed">
-                Aralıklı tekrar algoritmasını kod düzeyinde kurcaladık ve etkisini grafikler üzerinde gördük. Dil öğrenme uygulamamız <strong>Polyvo</strong>, kelime destelerinizin tamamını bu SM-2 formülleriyle planlar. Siz sadece öğrenin, ne zaman tekrar edeceğinizi Polyvo düşünsün.
+                {t("spacedRepetition.ctaDesc")}
               </p>
             </div>
             <a 
@@ -573,29 +609,14 @@ export default function SpacedRepetitionCalculator() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all rounded-md group"
             >
-              Polyvo'yu Web'de Dene <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
+              {t("spacedRepetition.ctaBtn")} <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
             </a>
           </section>
 
         </div>
 
         {/* Footer */}
-        <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-between gap-4 max-w-5xl mx-auto mt-24">
-          <div className="flex flex-wrap items-center gap-6">
-            <Link href="/" className="text-[var(--fg-muted)] text-sm hover:text-[var(--fg)] transition-colors font-mono">
-              ← Polimelo Anasayfa
-            </Link>
-            <Link href="/blog" className="text-[var(--fg-muted)] text-xs hover:text-[var(--fg)] transition-colors font-mono">
-              Blog Listesi
-            </Link>
-            <Link href="/privacy" className="text-[var(--fg-muted)] text-xs hover:text-[var(--fg)] transition-colors font-mono">
-              Gizlilik Politikası
-            </Link>
-          </div>
-          <p className="text-[var(--fg-muted)] text-xs">
-            © {new Date().getFullYear()} Polimelo — Bellek Bilimi
-          </p>
-        </footer>
+        <Footer />
       </main>
     </>
   );

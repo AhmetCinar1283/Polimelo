@@ -5,35 +5,56 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, BookOpen, MessageSquare, Code } from "lucide-react";
 import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 import { BLOG_POSTS, BlogPost } from "@/data/posts";
+import { useLanguage } from "@/context/LanguageContext";
 
-const categories = ["Hepsi", "Eğitim", "Oyun Tasarımı", "Yazılım"] as const;
+const categories = ["all", "Education", "Game Design", "Software"] as const;
 
 export default function BlogIndexPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("Hepsi");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const { language, t } = useLanguage();
 
-  const filteredPosts = selectedCategory === "Hepsi"
+  const filteredPosts = selectedCategory === "all"
     ? BLOG_POSTS
-    : BLOG_POSTS.filter(post => post.category === selectedCategory);
+    : BLOG_POSTS.filter(post => post.category.en === selectedCategory);
 
-  const getCategoryIcon = (category: BlogPost["category"]) => {
-    switch (category) {
+  const getCategoryLabel = (cat: string) => {
+    switch (cat) {
+      case "all":
+        return language === "tr" ? "Hepsi" : "All";
+      case "Education":
       case "Eğitim":
-        return <BookOpen size={14} className="text-indigo-400" />;
+        return language === "tr" ? "Eğitim" : "Education";
+      case "Game Design":
       case "Oyun Tasarımı":
-        return <MessageSquare size={14} className="text-emerald-400" />;
+        return language === "tr" ? "Oyun Tasarımı" : "Game Design";
+      case "Software":
       case "Yazılım":
+        return language === "tr" ? "Yazılım" : "Software";
+      default:
+        return cat;
+    }
+  };
+
+  const getCategoryIcon = (category: BlogPost["category"]["en"]) => {
+    switch (category) {
+      case "Education":
+        return <BookOpen size={14} className="text-indigo-400" />;
+      case "Game Design":
+        return <MessageSquare size={14} className="text-emerald-400" />;
+      case "Software":
         return <Code size={14} className="text-amber-400" />;
     }
   };
 
-  const getCategoryColorClass = (category: BlogPost["category"]) => {
+  const getCategoryColorClass = (category: BlogPost["category"]["en"]) => {
     switch (category) {
-      case "Eğitim":
+      case "Education":
         return "text-indigo-400 border-indigo-500/20 bg-indigo-500/5";
-      case "Oyun Tasarımı":
+      case "Game Design":
         return "text-emerald-400 border-emerald-500/20 bg-emerald-500/5";
-      case "Yazılım":
+      case "Software":
         return "text-amber-400 border-amber-500/20 bg-amber-500/5";
     }
   };
@@ -51,7 +72,7 @@ export default function BlogIndexPage() {
             transition={{ delay: 0.1 }}
             className="font-mono text-xs tracking-[0.35em] uppercase text-[var(--fg-muted)] mb-5"
           >
-            Bilgi Bankası & Blog
+            {t("blog.badge")}
           </motion.p>
 
           <motion.h1
@@ -60,7 +81,7 @@ export default function BlogIndexPage() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="text-5xl md:text-7xl font-extrabold leading-none tracking-tight text-[var(--fg)] mb-8"
           >
-            Melodiler ve Kodlar.
+            {t("blog.title")}
           </motion.h1>
 
           <motion.div
@@ -76,7 +97,7 @@ export default function BlogIndexPage() {
             transition={{ delay: 0.4, duration: 0.7 }}
             className="text-lg md:text-xl text-[var(--fg-muted)] font-light leading-relaxed max-w-2xl"
           >
-            Öğrenme algoritmalarından bulmaca tasarımı mekaniklerine, çapraz platform yazılım mimarilerinden veri analitiğine kadar stüdyomuzun mutfağından teknik paylaşımlar.
+            {t("blog.desc")}
           </motion.p>
         </section>
 
@@ -96,7 +117,7 @@ export default function BlogIndexPage() {
                     : "bg-[var(--card-bg)] text-[var(--fg-muted)] border-[var(--border)] hover:border-[var(--fg-muted)]"
                 }`}
               >
-                {category}
+                {getCategoryLabel(category)}
               </motion.button>
             ))}
           </div>
@@ -106,7 +127,7 @@ export default function BlogIndexPage() {
         <section className="px-6 md:px-12 max-w-5xl mx-auto pb-32">
           {filteredPosts.length === 0 ? (
             <div className="text-center py-20 border border-dashed border-[var(--border)] rounded-lg">
-              <p className="text-[var(--fg-muted)]">Bu kategoride henüz yazı bulunmuyor.</p>
+              <p className="text-[var(--fg-muted)]">{t("blog.noPosts")}</p>
             </div>
           ) : (
             <div className="grid sm:grid-cols-2 gap-8">
@@ -124,33 +145,33 @@ export default function BlogIndexPage() {
                       <div>
                         {/* Meta Tags */}
                         <div className="flex items-center gap-3 mb-6">
-                          <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${getCategoryColorClass(post.category)}`}>
-                            {getCategoryIcon(post.category)}
-                            {post.category}
+                          <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${getCategoryColorClass(post.category.en)}`}>
+                            {getCategoryIcon(post.category.en)}
+                            {post.category[language]}
                           </span>
                           <span className="text-[var(--fg-muted)] text-xs font-mono">
-                            {post.readTime}
+                            {post.readTime[language]}
                           </span>
                         </div>
 
                         {/* Title */}
                         <h2 className="text-2xl font-bold group-hover:text-[var(--fg)] text-[var(--fg)] leading-snug mb-3 transition-colors duration-300">
-                          {post.title}
+                          {post.title[language]}
                         </h2>
 
                         {/* Description */}
                         <p className="text-[var(--fg-muted)] text-sm leading-relaxed mb-8">
-                          {post.description}
+                          {post.description[language]}
                         </p>
                       </div>
 
                       {/* Footer Actions */}
                       <div className="flex items-center justify-between pt-6 border-t border-[var(--border)]/40 mt-auto">
                         <span className="text-xs text-[var(--fg-muted)] font-mono">
-                          {post.date}
+                          {post.date[language]}
                         </span>
                         <span className="flex items-center gap-1 text-sm font-semibold text-[var(--fg-muted)] group-hover:text-[var(--fg)] transition-all duration-300 group-hover:translate-x-1">
-                          Yazıyı Oku <ArrowUpRight size={14} className="group-hover:rotate-45 transition-transform duration-300" />
+                          {t("common.readArticle")} <ArrowUpRight size={14} className="group-hover:rotate-45 transition-transform duration-300" />
                         </span>
                       </div>
                     </div>
@@ -162,22 +183,7 @@ export default function BlogIndexPage() {
         </section>
 
         {/* FOOTER */}
-        <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-between gap-4 max-w-6xl mx-auto">
-          <div className="flex flex-wrap items-center gap-6">
-            <Link href="/" className="text-[var(--fg-muted)] text-sm hover:text-[var(--fg)] transition-colors font-mono">
-              ← Polimelo Anasayfa
-            </Link>
-            <Link href="/privacy" className="text-[var(--fg-muted)] text-xs hover:text-[var(--fg)] transition-colors font-mono">
-              Gizlilik Politikası
-            </Link>
-            <Link href="/terms" className="text-[var(--fg-muted)] text-xs hover:text-[var(--fg)] transition-colors font-mono">
-              Kullanım Koşulları
-            </Link>
-          </div>
-          <p className="text-[var(--fg-muted)] text-xs">
-            © {new Date().getFullYear()} Polimelo — Blog
-          </p>
-        </footer>
+        <Footer />
       </main>
     </>
   );

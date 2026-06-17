@@ -4,93 +4,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowUpRight, ExternalLink, Globe, Smartphone, BrainCircuit, BookOpen, PenLine, Layers, Gamepad2 } from "lucide-react";
 import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
-
-// Polyvo veri modelleri ve özellikleri
-const studyModes = [
-  {
-    icon: BookOpen,
-    name: "Flashcard",
-    desc: "Bilişsel temelli kart çevirme; kelimenin telaffuzu, Türkçe/İngilizce tanımları, eş anlamlıları ve cümle içindeki örnekleriyle derinlemesine öğrenme.",
-  },
-  {
-    icon: PenLine,
-    name: "Cloze",
-    desc: "Cümle içindeki boşluğu bağlamdan tahmin etme. Kelimeleri izole kelime listeleri yerine doğal ve gerçekçi kullanım yapılarıyla öğrenmenizi sağlar.",
-  },
-  {
-    icon: Layers,
-    name: "Test",
-    desc: "Çoktan seçmeli interaktif testlerle bilginizi ölçün. Hatalı cevaplanan tüm kelimeler SM-2 tarafından otomatik olarak yeniden planlanır.",
-  },
-  {
-    icon: BrainCircuit,
-    name: "Deeplearn",
-    desc: "Gelişmiş tekrar seansı. Kart sıralama, zorluk katsayısı ve odaklanılmış öğrenme oturumları üzerinde tam kontrol elde etmenizi sağlar.",
-  },
-];
-
-const games = [
-  {
-    name: "PolyFlip",
-    desc: "Eşleştirme kartı oyunu. Kelimelerin Türkçe karşılıklarını hafızanızda en hızlı şekilde eşleştirmek için zamana karşı yarışın.",
-    emoji: "🃏",
-  },
-  {
-    name: "FlapyChicken",
-    desc: "Hız ve refleks odaklı kelime seçimi. Uçan tavukla engelleri aşarken doğru kelime anlamına yönelin, yanlışta düşüşe geçin.",
-    emoji: "🐔",
-  },
-  {
-    name: "Tug of War",
-    desc: "Kelime yazma yarışı. Yapay zeka destekli rakibinize karşı kelimeleri en hızlı ve doğru yazarak halatı kendi tarafınıza çekin.",
-    emoji: "💪",
-  },
-  {
-    name: "Bil ve Fethet",
-    desc: "Altıgen haritada stratejik toprak fethi. Doğru cevaplar vererek haritadaki kaleleri ve toprakları ele geçirin, alanınızı büyütün.",
-    emoji: "🗺️",
-  },
-];
-
-const features = [
-  {
-    title: "Çevrimdışı Çalışma",
-    desc: "İnternet bağlantınız olmasa dahi Dexie.js (IndexedDB) yerel veritabanı sayesinde tüm uygulamayı kullanabilirsiniz. Bağlantı geldiğinde otomatik senkronize olur.",
-  },
-  {
-    title: "Gelişmiş PDF Okuyucu",
-    desc: "Öğrenmek istediğiniz dilde kitapları okurken bilinmeyen kelimelerin üzerine tıklayarak anında kendi çalışma destenize ekleyebilir ve Polyvo ekosistemine dahil edebilirsiniz.",
-  },
-  {
-    title: "Bulut Senkronizasyonu",
-    desc: "Firebase Firestore ve Cloudflare Workers + D1 + KV hibrit altyapısı sayesinde tüm cihazlarınızda (Web ve Android) verileriniz anında eşitlenir.",
-  },
-  {
-    title: "Bireysel Deste Yönetimi",
-    desc: "Kendi özel kelime destelerinizi oluşturabilir, kategorilere ayırabilir ve toplulukla paylaşarak kolektif bir öğrenme başlatabilirsiniz.",
-  },
-];
-
-const platforms = [
-  {
-    icon: Globe,
-    name: "Web",
-    detail: "polyvo.polimelo.com — tarayıcınızdan kurulum gerektirmeden anında çalışın",
-    url: "https://polyvo.polimelo.com",
-    cta: "Web Uygulaması",
-    available: true,
-  },
-  {
-    icon: Smartphone,
-    name: "Android",
-    detail: "Capacitor altyapısıyla geliştirilen native uygulama sayesinde mobil cihazlarda pürüzsüz kaydırma ve bildirim destekli deneyim.",
-    url: "#",
-    cta: "Yakında Google Play'de",
-    available: false,
-  },
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 /* ─── sayfa ─────────────────────────────────────────────── */
 
@@ -98,6 +15,7 @@ const ACCENT = "#4f46e5";
 const ACCENT_LIGHT = "#818cf8";
 
 export default function PolyvoPage() {
+  const { language, t } = useLanguage();
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -105,6 +23,118 @@ export default function PolyvoPage() {
   });
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+
+  const studyModes = [
+    {
+      icon: BookOpen,
+      name: "Flashcard",
+      desc: language === "tr"
+        ? "Bilişsel temelli kart çevirme; kelimenin telaffuzu, Türkçe/İngilizce tanımları, eş anlamlıları ve cümle içindeki örnekleriyle derinlemesine öğrenme."
+        : "Cognitive-based card flipping; deep learning with word pronunciation, Turkish/English definitions, synonyms, and contextual examples.",
+    },
+    {
+      icon: PenLine,
+      name: "Cloze",
+      desc: language === "tr"
+        ? "Cümle içindeki boşluğu bağlamdan tahmin etme. Kelimeleri izole kelime listeleri yerine doğal ve gerçekçi kullanım yapılarıyla öğrenmenizi sağlar."
+        : "Guessing blanks in a sentence based on context. Allows you to learn words through natural and realistic usage structures rather than isolated word lists.",
+    },
+    {
+      icon: Layers,
+      name: "Test",
+      desc: language === "tr"
+        ? "Çoktan seçmeli interaktif testlerle bilginizi ölçün. Hatalı cevaplanan tüm kelimeler SM-2 tarafından otomatik olarak yeniden planlanır."
+        : "Measure your knowledge with interactive multiple-choice tests. All incorrectly answered words are automatically rescheduled by SM-2.",
+    },
+    {
+      icon: BrainCircuit,
+      name: "Deeplearn",
+      desc: language === "tr"
+        ? "Gelişmiş tekrar seansı. Kart sıralama, zorluk katsayısı ve odaklanılmış öğrenme oturumları üzerinde tam kontrol elde etmenizi sağlar."
+        : "Advanced review session. Gives you full control over card sorting, difficulty factor, and focused study sessions.",
+    },
+  ];
+
+  const games = [
+    {
+      name: "PolyFlip",
+      desc: language === "tr"
+        ? "Eşleştirme kartı oyunu. Kelimelerin Türkçe karşılıklarını hafızanızda en hızlı şekilde eşleştirmek için zamana karşı yarışın."
+        : "Matching card game. Race against time to match the meanings of words in your memory as quickly as possible.",
+      emoji: "🃏",
+    },
+    {
+      name: "FlapyChicken",
+      desc: language === "tr"
+        ? "Hız ve refleks odaklı kelime seçimi. Uçan tavukla engelleri aşarken doğru kelime anlamına yönelin, yanlışta düşüşe geçin."
+        : "Speed and reflex-based word selection. Navigate obstacles with a flying chicken and steer towards the correct word meaning, drop down on wrong ones.",
+      emoji: "🐔",
+    },
+    {
+      name: "Tug of War",
+      desc: language === "tr"
+        ? "Kelime yazma yarışı. Yapay zeka destekli rakibinize karşı kelimeleri en hızlı ve doğru yazarak halatı kendi tarafınıza çekin."
+        : "Word typing race. Pull the rope to your side by typing words the fastest and most accurately against an AI-powered opponent.",
+      emoji: "💪",
+    },
+    {
+      name: "Bil ve Fethet",
+      desc: language === "tr"
+        ? "Altıgen haritada stratejik toprak fethi. Doğru cevaplar vererek haritadaki kaleleri ve toprakları ele geçirin, alanınızı büyütün."
+        : "Strategic land conquest on a hexagonal map. Conquer castles and territories on the map by giving correct answers, expanding your area.",
+      emoji: "🗺️",
+    },
+  ];
+
+  const features = [
+    {
+      title: language === "tr" ? "Çevrimdışı Çalışma" : "Offline Study",
+      desc: language === "tr"
+        ? "İnternet bağlantınız olmasa dahi Dexie.js (IndexedDB) yerel veritabanı sayesinde tüm uygulamayı kullanabilirsiniz. Bağlantı geldiğinde otomatik senkronize olur."
+        : "Even without an internet connection, you can use the entire app thanks to the Dexie.js (IndexedDB) local database. Automatically syncs once connection is restored.",
+    },
+    {
+      title: language === "tr" ? "Gelişmiş PDF Okuyucu" : "Advanced PDF Reader",
+      desc: language === "tr"
+        ? "Öğrenmek istediğiniz dilde kitapları okurken bilinmeyen kelimelerin üzerine tıklayarak anında kendi çalışma destenize ekleyebilir ve Polyvo ekosistemine dahil edebilirsiniz."
+        : "While reading books in the language you want to learn, click on unknown words to instantly add them to your study decks and integrate them into the Polyvo ecosystem.",
+    },
+    {
+      title: language === "tr" ? "Bulut Senkronizasyonu" : "Cloud Sync",
+      desc: language === "tr"
+        ? "Firebase Firestore ve Cloudflare Workers + D1 + KV hibrit altyapısı sayesinde tüm cihazlarınızda (Web ve Android) verileriniz anında eşitlenir."
+        : "Thanks to Firebase Firestore and Cloudflare Workers + D1 + KV hybrid infrastructure, your data is instantly synced across all your devices (Web and Android).",
+    },
+    {
+      title: language === "tr" ? "Bireysel Deste Yönetimi" : "Custom Deck Management",
+      desc: language === "tr"
+        ? "Kendi özel kelime destelerinizi oluşturabilir, kategorilere ayırabilir ve toplulukla paylaşarak kolektif bir öğrenme başlatabilirsiniz."
+        : "You can create your own custom vocabulary decks, categorize them, and share them with the community to start collective learning.",
+    },
+  ];
+
+  const platforms = [
+    {
+      icon: Globe,
+      name: "Web",
+      detail: language === "tr"
+        ? "polyvo.polimelo.com — tarayıcınızdan kurulum gerektirmeden anında çalışın"
+        : "polyvo.polimelo.com — run instantly from your browser without any installation",
+      url: "https://polyvo.polimelo.com",
+      cta: language === "tr" ? "Web Uygulaması" : "Web Application",
+      available: true,
+    },
+    {
+      icon: Smartphone,
+      name: "Android",
+      detail: language === "tr"
+        ? "Capacitor altyapısıyla geliştirilen native uygulama sayesinde mobil cihazlarda pürüzsüz kaydırma ve bildirim destekli deneyim."
+        : "Native application developed with Capacitor, providing smooth scrolling and notification-supported mobile experience.",
+      url: "#",
+      cta: language === "tr" ? "Yakında Google Play'de" : "Soon on Google Play",
+      available: false,
+    },
+  ];
 
   return (
     <>
@@ -141,7 +171,6 @@ export default function PolyvoPage() {
               initial={{ opacity: 0, x: 40, rotate: 3 }}
               animate={{ opacity: 1, x: 0, rotate: 3 }}
               transition={{ duration: 1.1, delay: 0.4 }}
-              // DİKKAT: aspect-[9/16] kısmını aspect-[430/932] olarak değiştirdik
               className="relative overflow-hidden shadow-2xl w-[min(32vw,340px)] aspect-[9/16] border flex flex-col items-center justify-center rounded-2xl"
               style={{ borderColor: `${ACCENT}25` }}
             >
@@ -163,7 +192,7 @@ export default function PolyvoPage() {
               className="font-mono text-xs tracking-[0.35em] uppercase mb-5"
               style={{ color: `${ACCENT_LIGHT}` }}
             >
-              Polimelo — Dil Öğrenme
+              {t("polyvo.subHeader")}
             </motion.p>
 
             <motion.h1
@@ -190,7 +219,7 @@ export default function PolyvoPage() {
               transition={{ delay: 0.85 }}
               className="text-[var(--fg-muted)] text-lg italic max-w-xs"
             >
-              "İngilizce öğrenmenin akıllı yolu."
+              {t("polyvo.tagline")}
             </motion.p>
 
             <motion.div
@@ -206,8 +235,18 @@ export default function PolyvoPage() {
                 className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-85"
                 style={{ background: ACCENT }}
               >
-                Web&apos;de Oyna <ExternalLink size={14} />
+                {t("common.playOnWeb")} <ExternalLink size={14} />
               </a>
+
+              {/* Sub-button style link specifically for Polyvo SM-2 science details */}
+              <div className="w-full mt-2">
+                <Link
+                  href="/spaced-repetition-calculator"
+                  className="inline-flex items-center gap-1 text-[11px] font-mono font-medium opacity-50 hover:opacity-100 text-[var(--fg)] transition-opacity"
+                >
+                  ⚡ {language === "tr" ? "SM-2 Algoritması ve Bellek Bilimi Analizi" : "SM-2 Algorithm & Memory Science Analysis"} <ArrowUpRight size={11} />
+                </Link>
+              </div>
             </motion.div>
           </motion.div>
         </section>
@@ -225,11 +264,10 @@ export default function PolyvoPage() {
                 className="font-mono text-xs tracking-[0.3em] uppercase mb-6"
                 style={{ color: ACCENT_LIGHT }}
               >
-                Akıllı Tekrar Sistemi
+                {t("polyvo.scienceTag")}
               </p>
-              <h2 className="text-3xl md:text-5xl font-extrabold leading-tight text-[var(--fg)]">
-                Doğru zamanda,<br />
-                <span style={{ color: ACCENT }}>doğru kelime.</span>
+              <h2 className="text-3xl md:text-5xl font-extrabold leading-tight text-[var(--fg)] whitespace-pre-line">
+                {t("polyvo.scienceTitle")}
               </h2>
             </motion.div>
 
@@ -241,18 +279,28 @@ export default function PolyvoPage() {
               className="space-y-5"
             >
               <p className="text-[var(--fg-muted)] text-base leading-relaxed">
-                Polyvo, her kelimeyi ne zaman unutmak üzere olduğunuzu hesaplar
-                ve tam o an önünüze getirir. Bildiğiniz kelimeleri boşuna
-                tekrarlamazsınız; zorlandıklarınız daha sık görünür.
+                {t("polyvo.scienceDesc1")}
               </p>
               <p className="text-[var(--fg-muted)] text-base leading-relaxed">
-                SM-2 algoritmasının özelleştirilmiş uygulaması: learning →
-                review → graduated aşamalarıyla her kelime uzun süreli
-                belleğe yerleşir.
+                {language === "tr" ? (
+                  <>
+                    <Link href="/spaced-repetition-calculator" className="underline font-semibold hover:text-[var(--fg)] transition-colors">
+                      SM-2
+                    </Link>{" "}
+                    algoritmasının özelleştirilmiş uygulaması: learning → review → graduated aşamalarıyla her kelime uzun süreli belleğe yerleşir.
+                  </>
+                ) : (
+                  <>
+                    A tailored implementation of the{" "}
+                    <Link href="/spaced-repetition-calculator" className="underline font-semibold hover:text-[var(--fg)] transition-colors">
+                      SM-2
+                    </Link>{" "}
+                    algorithm: using learning → review → graduated phases, each word settles into your long-term memory.
+                  </>
+                )}
               </p>
               <p className="text-[var(--fg-muted)] text-sm italic">
-                Temel inanç: saatler süren tekrarsız ezberden çok daha etkili
-                olan, doğru zamanda doğru yöntemle çalışmaktır.
+                {t("polyvo.scienceDesc3")}
               </p>
             </motion.div>
           </div>
@@ -268,7 +316,7 @@ export default function PolyvoPage() {
               className="font-mono text-xs tracking-[0.3em] uppercase mb-12"
               style={{ color: ACCENT_LIGHT }}
             >
-              Çalışma Modları
+              {t("polyvo.studyModesTag")}
             </motion.p>
 
             <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
@@ -306,11 +354,10 @@ export default function PolyvoPage() {
                   className="font-mono text-xs tracking-[0.3em] uppercase mb-6"
                   style={{ color: ACCENT_LIGHT }}
                 >
-                  Oyun Merkezi
+                  {t("polyvo.gameCenterTag")}
                 </p>
-                <h2 className="text-3xl md:text-5xl font-extrabold leading-tight text-[var(--fg)]">
-                  Öğren.<br />Oyna.<br />
-                  <span className="text-[var(--fg-muted)] font-light">Tekrar et.</span>
+                <h2 className="text-3xl md:text-5xl font-extrabold leading-tight text-[var(--fg)] whitespace-pre-line">
+                  {t("polyvo.gameCenterTitle")}
                 </h2>
               </motion.div>
 
@@ -321,9 +368,7 @@ export default function PolyvoPage() {
                 transition={{ duration: 0.7, delay: 0.15 }}
               >
                 <p className="text-[var(--fg-muted)] text-base leading-relaxed">
-                  4 aktif oyun da SM-2 sistemine bağlıdır. Oyun içinde yapılan
-                  doğru / yanlış tercihler öğrenme ilerlemenizi günceller. Oyun
-                  oynamak aynı zamanda çalışmaktır.
+                  {t("polyvo.gameCenterDesc")}
                 </p>
               </motion.div>
             </div>
@@ -361,7 +406,7 @@ export default function PolyvoPage() {
               className="font-mono text-xs tracking-[0.3em] uppercase mb-12"
               style={{ color: ACCENT_LIGHT }}
             >
-              Öne Çıkan Özellikler
+              {t("polyvo.featuresTag")}
             </motion.p>
 
             <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
@@ -400,7 +445,7 @@ export default function PolyvoPage() {
               className="font-mono text-xs tracking-[0.3em] uppercase mb-12"
               style={{ color: ACCENT_LIGHT }}
             >
-              Platformlar
+              {t("polyvo.platformsTag")}
             </motion.p>
 
             <div className="grid sm:grid-cols-2 gap-6 max-w-2xl">
@@ -448,10 +493,10 @@ export default function PolyvoPage() {
           <div className="max-w-6xl mx-auto">
             <div className="max-w-2xl mb-12">
               <span className="font-mono text-xs tracking-[0.3em] uppercase text-[var(--fg-muted)] mb-4 block">
-                Bilimsel Arka Plan
+                {t("polyvo.scienceBackTag")}
               </span>
               <h2 className="text-3xl md:text-5xl font-extrabold leading-tight text-[var(--fg)]">
-                Öğrenmenin Bilimsel Yönü
+                {t("polyvo.scienceBackTitle")}
               </h2>
             </div>
             
@@ -459,34 +504,34 @@ export default function PolyvoPage() {
               <div className="p-8 border border-[var(--border)] bg-[var(--bg)] flex flex-col justify-between rounded-lg">
                 <div>
                   <h3 className="text-xl font-bold text-[var(--fg)] mb-3">
-                    SM-2 Algoritması ve Hafıza Bilimi
+                    {t("polyvo.scienceSm2CardTitle")}
                   </h3>
                   <p className="text-sm text-[var(--fg-muted)] leading-relaxed mb-6">
-                    Polyvo'nun temelinde yatan SuperMemo-2 (SM-2) algoritması, insan beyninin unutma eğrisini nasıl tersine çevirir? Matematiksel altyapıyı ve bilimsel araştırmaları inceleyin.
+                    {t("polyvo.scienceSm2CardDesc")}
                   </p>
                 </div>
                 <Link
                   href="/blog/sm2-algoritmasi-ve-ogrenme"
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-500 hover:text-indigo-400"
                 >
-                  Detaylı Makaleyi Oku <ArrowUpRight size={14} />
+                  {t("common.readArticle")} <ArrowUpRight size={14} />
                 </Link>
               </div>
 
               <div className="p-8 border border-[var(--border)] bg-[var(--bg)] flex flex-col justify-between rounded-lg">
                 <div>
                   <h3 className="text-xl font-bold text-[var(--fg)] mb-3">
-                    Dil Öğreniminde Aktif Hatırlama (Active Recall)
+                    {t("polyvo.scienceActiveCardTitle")}
                   </h3>
                   <p className="text-sm text-[var(--fg-muted)] leading-relaxed mb-6">
-                    Sadece kelime listesi ezberlemek neden etkisizdir? Zihni zorlayan aktif geri çağırma yönteminin öğrenme hızınızı nasıl 3 katına çıkardığını öğrenin.
+                    {t("polyvo.scienceActiveCardDesc")}
                   </p>
                 </div>
                 <Link
                   href="/blog/dil-ogreniminde-aktif-geri-cagirma"
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-500 hover:text-indigo-400"
                 >
-                  Detaylı Makaleyi Oku <ArrowUpRight size={14} />
+                  {t("common.readArticle")} <ArrowUpRight size={14} />
                 </Link>
               </div>
             </div>
@@ -494,37 +539,7 @@ export default function PolyvoPage() {
         </section>
 
         {/* ── FOOTER / GERİ ───────────────────────────────── */}
-        <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-6">
-            <Link
-              href="/"
-              className="text-[var(--fg-muted)] text-sm hover:text-[var(--fg)] transition-colors font-mono"
-            >
-              ← Polimelo
-            </Link>
-            <Link
-              href="/blog"
-              className="text-[var(--fg-muted)] text-xs hover:text-[var(--fg)] transition-colors font-mono"
-            >
-              Blog
-            </Link>
-            <Link
-              href="/privacy"
-              className="text-[var(--fg-muted)] text-xs hover:text-[var(--fg)] transition-colors font-mono"
-            >
-              Gizlilik Politikası
-            </Link>
-            <Link
-              href="/terms"
-              className="text-[var(--fg-muted)] text-xs hover:text-[var(--fg)] transition-colors font-mono"
-            >
-              Kullanım Koşulları
-            </Link>
-          </div>
-          <p className="text-[var(--fg-muted)] text-xs">
-            © {new Date().getFullYear()} Polimelo — Polyvo
-          </p>
-        </footer>
+        <Footer />
       </main>
     </>
   );

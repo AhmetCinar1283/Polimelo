@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/terms",
     "/blog",
     "/contact",
-    "/spaced-repetition-hesaplayici"
+    "/spaced-repetition-calculator"
   ];
 
   const staticSitemap = routes.map((route) => ({

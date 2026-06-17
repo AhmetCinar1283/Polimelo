@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, ChevronDown } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface NavProps {
   /** Sayfa hero bölümü koyu arka planlıysa true — nav ilk yüklenişte beyaz harf gösterir */
@@ -14,6 +15,7 @@ interface NavProps {
 
 export default function Nav({ startsOverDark = false }: NavProps) {
   const { theme, toggleTheme } = useTheme();
+  const { language, toggleLanguage, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export default function Nav({ startsOverDark = false }: NavProps) {
         />
       </Link>
 
-      <div className="flex items-center gap-5 text-sm font-medium">
+      <div className="flex items-center gap-4 sm:gap-5 text-sm font-medium">
         <Link
           href="/#projeler"
           className={`hidden sm:block transition-colors duration-300 ${
@@ -62,7 +64,7 @@ export default function Nav({ startsOverDark = false }: NavProps) {
               : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
           }`}
         >
-          Projeler
+          {t("common.projects")}
         </Link>
         <Link
           href="/about"
@@ -72,7 +74,7 @@ export default function Nav({ startsOverDark = false }: NavProps) {
               : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
           }`}
         >
-          Hakkımızda
+          {t("common.aboutUs")}
         </Link>
         <Link
           href="/blog"
@@ -82,17 +84,7 @@ export default function Nav({ startsOverDark = false }: NavProps) {
               : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
           }`}
         >
-          Blog
-        </Link>
-        <Link
-          href="/spaced-repetition-hesaplayici"
-          className={`hidden sm:block transition-colors duration-300 ${
-            overDark
-              ? "text-white/60 hover:text-white"
-              : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
-          }`}
-        >
-          SM-2'nin gücü
+          {t("common.blog")}
         </Link>
         <Link
           href="/contact"
@@ -102,12 +94,27 @@ export default function Nav({ startsOverDark = false }: NavProps) {
               : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
           }`}
         >
-          İletişim
+          {t("common.contact")}
         </Link>
+        
+        {/* Language Switch Button */}
+        <button
+          onClick={toggleLanguage}
+          aria-label={t("common.changeLanguage")}
+          className={`w-12 h-8 flex items-center justify-center rounded-full border text-[10px] font-bold font-mono transition-all duration-300 cursor-pointer ${
+            overDark
+              ? "border-white/20 text-white/60 hover:border-white/60 hover:text-white"
+              : "border-[var(--border)] text-[var(--fg-muted)] hover:border-[var(--fg)] hover:text-[var(--fg)]"
+          }`}
+        >
+          {language === "en" ? "EN" : "TR"} <ChevronDown size={15} className="pl-1" />
+        </button>
+
+        {/* Theme Switch Button */}
         <button
           onClick={toggleTheme}
-          aria-label="Tema değiştir"
-          className={`w-8 h-8 flex items-center justify-center rounded-full border transition-all duration-300 ${
+          aria-label={t("common.toggleTheme")}
+          className={`w-8 h-8 flex items-center justify-center rounded-full border transition-all duration-300 cursor-pointer ${
             overDark
               ? "border-white/20 text-white/60 hover:border-white/60 hover:text-white"
               : "border-[var(--border)] text-[var(--fg-muted)] hover:border-[var(--fg)] hover:text-[var(--fg)]"
@@ -119,3 +126,4 @@ export default function Nav({ startsOverDark = false }: NavProps) {
     </motion.nav>
   );
 }
+

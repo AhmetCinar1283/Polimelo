@@ -5,8 +5,10 @@ import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 import Image from "next/image";
 import { BLOG_POSTS } from "@/data/posts";
+import { useLanguage } from "@/context/LanguageContext";
 
 /* ─── veri ─────────────────────────────────────────────── */
 
@@ -17,13 +19,21 @@ const apps = [
     slug: "/polyvo",
     number: "01",
     name: "Polyvo",
-    tagline: "İngilizce öğrenmenin akıllı yolu.",
-    description:
-      "Aralıklı tekrar (SM-2) algoritması, kişiselleştirilmiş kelime desteleri, entegre PDF okuyucu ve eğlenceli mini oyunlarla İngilizce kelime dağarcığınızı kalıcı şekilde geliştirin.",
+    tagline: {
+      tr: "İngilizce öğrenmenin akıllı yolu.",
+      en: "The smart way to learn English."
+    },
+    description: {
+      tr: "Aralıklı tekrar (SM-2) algoritması, kişiselleştirilmiş kelime desteleri, entegre PDF okuyucu ve eğlenceli mini oyunlarla İngilizce kelime dağarcığınızı kalıcı şekilde geliştirin.",
+      en: "Improve your English vocabulary permanently with a spaced repetition (SM-2) algorithm, personalized vocabulary decks, an integrated PDF reader, and fun mini-games."
+    },
     platforms: ["Web", "Android"],
     webUrl: "https://polyvo.polimelo.com",
     imageSrc: "/images/polyvo/tablet-home-screen.png", // Resim yolu
-    mediaFooter: "Polyvo Dashboard — Tablet Görünümü", // Alt bilgi
+    mediaFooter: {
+      tr: "Polyvo Dashboard — Tablet Görünümü",
+      en: "Polyvo Dashboard — Tablet View"
+    },
     dark: false,
     accentColor: "#4f46e5",
     mediaLabel: "Polyvo — uygulama ekranı (önerilen: 800×600, PNG/WEBP)",
@@ -33,13 +43,21 @@ const apps = [
     slug: "/syncron",
     number: "02",
     name: "Syncron",
-    tagline: "İki adım at, her ikisi de sayılsın.",
-    description:
-      "Grid tabanlı siberpunk bulmaca platformu. Tek tuşla iki objeyi aynı anda (zıt ve normal modda) hareket ettirin, buz slide'ları, ışınlayıcılar ve gelişmiş seviye editörüyle zihninizi zorlayın.",
+    tagline: {
+      tr: "İki adım at, her ikisi de sayılsın.",
+      en: "Take two steps, let both of them count."
+    },
+    description: {
+      tr: "Grid tabanlı siberpunk bulmaca platformu. Tek tuşla iki objeyi aynı anda (zıt ve normal modda) hareket ettirin, buz slide'ları, ışınlayıcılar ve gelişmiş seviye editörüyle zihninizi zorlayın.",
+      en: "Grid-based cyberpunk puzzle platformer. Move two objects simultaneously (in normal and reversed modes) with a single button, and challenge your mind with ice slides, teleporters, and an advanced level editor."
+    },
     platforms: ["Web", "Android", "Masaüstü"],
     webUrl: "https://syncron.polimelo.com",
     imageSrc: "/images/syncron/gameplay-tablet.png", // Resim yolu
-    mediaFooter: "Syncron — Seviye 12 Eş Zamanlılık Bulmacası", // Alt bilgi
+    mediaFooter: {
+      tr: "Syncron — Seviye 12 Eş Zamanlılık Bulmacası",
+      en: "Syncron — Level 12 Synchronicity Puzzle"
+    },
     dark: true,
     accentColor: "#4ade80",
     mediaLabel: "Syncron — oyun ekranı (önerilen: 800×600, 16:9, PNG/WEBP)",
@@ -50,6 +68,7 @@ const apps = [
 
 export default function Home() {
   const [isVideoActive, setIsVideoActive] = useState(false);
+  const { language, t } = useLanguage();
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: heroScroll } = useScroll({
     target: heroRef,
@@ -98,7 +117,7 @@ export default function Home() {
               transition={{ delay: 0.6, duration: 0.6 }}
               className="text-white/35 text-xs font-mono tracking-[0.35em] uppercase mb-5"
             >
-              Dijital Deneyimler Stüdyosu
+              {t("home.studioTag")}
             </motion.p>
 
             <motion.h1
@@ -133,8 +152,7 @@ export default function Home() {
                 transition={{ delay: 0.9, duration: 0.6 }}
                 className="text-white/45 text-base leading-relaxed max-w-xs"
               >
-                Öğrenmeyi, oynamayı ve keşfetmeyi — kalıcı deneyimlere
-                dönüştürüyoruz.
+                {t("home.tagline")}
               </motion.p>
 
               <motion.div
@@ -174,7 +192,7 @@ export default function Home() {
               className="w-px h-8 bg-white/20"
             />
             <span className="text-white/25 text-[10px] font-mono tracking-widest uppercase">
-              Kaydır
+              {t("home.scroll")}
             </span>
           </motion.div>
         </section>
@@ -195,7 +213,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-80px" }}
               className="inline-block text-[var(--fg-muted)] text-xs font-mono tracking-[0.3em] uppercase mb-10"
             >
-              Vizyon
+              {t("home.visionTag")}
             </motion.span>
 
             <motion.h2
@@ -205,9 +223,9 @@ export default function Home() {
               transition={{ duration: 0.75 }}
               className="text-4xl md:text-6xl font-extrabold leading-tight text-[var(--fg)] mb-6"
             >
-              Sadece kod değil —<br />
+              {t("home.manifestoTitleFirst")}<br />
               <em className="not-italic text-[var(--fg-muted)] font-light">
-                bir his inşa ediyoruz.
+                {t("home.manifestoTitleSecond")}
               </em>
             </motion.h2>
 
@@ -218,10 +236,7 @@ export default function Home() {
               transition={{ duration: 0.75, delay: 0.18 }}
               className="text-[var(--fg-muted)] text-lg leading-relaxed mb-12"
             >
-              İster akıllı algoritmalarla çalışan bir eğitim aracı olsun, ister
-              altıgenlerin dünyasında geçen stratejik bir bulmaca — amacımız
-              her zaman verimli, estetik ve kullanıcıyı gülümseten ürünler
-              ortaya koymak.
+              {t("home.manifestoDesc")}
             </motion.p>
 
             <motion.div
@@ -234,7 +249,7 @@ export default function Home() {
                 href="/about"
                 className="inline-flex items-center gap-2 text-[var(--fg)] font-semibold text-sm border-b border-[var(--fg)] pb-0.5 hover:pb-2 transition-all duration-300"
               >
-                Stüdyoyu tanıyın <ArrowUpRight size={14} />
+                {t("home.manifestoLink")} <ArrowUpRight size={14} />
               </Link>
             </motion.div>
           </div>
@@ -246,17 +261,17 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
               <div>
                 <span className="inline-block text-[var(--fg-muted)] text-xs font-mono tracking-[0.3em] uppercase mb-4">
-                  Kaynaklar & Yazılar
+                  {t("home.blogTag")}
                 </span>
                 <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--fg)] leading-tight">
-                  Stüdyodan Haberler
+                  {t("home.blogTitle")}
                 </h2>
               </div>
               <Link
                 href="/blog"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--fg)] border-b border-[var(--fg)] pb-0.5 hover:pb-1.5 transition-all duration-300"
               >
-                Tüm yazıları gör <ArrowUpRight size={14} />
+                {t("home.blogLink")} <ArrowUpRight size={14} />
               </Link>
             </div>
 
@@ -271,19 +286,19 @@ export default function Home() {
                   className="group flex flex-col justify-between p-6 bg-[var(--bg)] border border-[var(--border)] hover:border-[var(--fg-muted)] rounded-lg transition-all duration-300"
                 >
                   <div>
-                    <span className="text-xs font-mono text-[var(--fg-muted)] block mb-2">{post.category}</span>
+                    <span className="text-xs font-mono text-[var(--fg-muted)] block mb-2">{post.category[language]}</span>
                     <h3 className="text-lg font-bold text-[var(--fg)] mb-3 leading-snug group-hover:text-[var(--fg)]">
-                      {post.title}
+                      {post.title[language]}
                     </h3>
                     <p className="text-sm text-[var(--fg-muted)] leading-relaxed mb-6">
-                      {post.description}
+                      {post.description[language]}
                     </p>
                   </div>
                   <Link
                     href={`/blog/${post.slug}`}
                     className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--fg-muted)] group-hover:text-[var(--fg)] transition-all duration-300"
                   >
-                    Yazıyı Oku <ArrowUpRight size={12} />
+                    {t("common.readArticle")} <ArrowUpRight size={12} />
                   </Link>
                 </motion.div>
               ))}
@@ -292,48 +307,7 @@ export default function Home() {
         </section>
 
         {/* ── FOOTER ───────────────────────────────────────── */}
-        <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <Image
-              src="/polimelo-logo-round.webp"
-              alt="Polimelo Logo"
-              width={32}
-              height={32}
-              unoptimized
-              className="w-8 h-8 rounded-lg object-contain dark:invert transition-all duration-300 group-hover:scale-105"
-            />
-            <span className="font-bold text-lg text-[var(--fg)]">Polimelo</span>
-          </Link>
-          <nav className="flex flex-wrap items-center gap-6 text-sm text-[var(--fg-muted)]">
-            <Link href="/syncron" className="hover:text-[var(--fg)] transition-colors">
-              Syncron
-            </Link>
-            <Link href="/polyvo" className="hover:text-[var(--fg)] transition-colors">
-              Polyvo
-            </Link>
-            <Link href="/about" className="hover:text-[var(--fg)] transition-colors">
-              Hakkımızda
-            </Link>
-            <Link href="/blog" className="hover:text-[var(--fg)] transition-colors">
-              Blog
-            </Link>
-            <Link href="/spaced-repetition-hesaplayici" className="hover:text-[var(--fg)] transition-colors">
-              Hesaplayıcı
-            </Link>
-            <Link href="/contact" className="hover:text-[var(--fg)] transition-colors">
-              İletişim
-            </Link>
-            <Link href="/privacy" className="hover:text-[var(--fg)] transition-colors">
-              Gizlilik
-            </Link>
-            <Link href="/terms" className="hover:text-[var(--fg)] transition-colors">
-              Koşullar
-            </Link>
-          </nav>
-          <p className="text-[var(--fg-muted)] text-xs">
-            © {new Date().getFullYear()} Polimelo
-          </p>
-        </footer>
+        <Footer />
       </main>
     </>
   );
@@ -345,9 +319,10 @@ function AppFeatureSection({
   app,
   flip,
 }: {
-  app: (typeof apps)[number];
+  app: typeof apps[number];
   flip: boolean;
 }) {
+  const { language, t } = useLanguage();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -407,7 +382,7 @@ function AppFeatureSection({
             transition={{ delay: 0.15 }}
             className={`text-lg italic font-light mb-5 ${fgMuted}`}
           >
-            "{app.tagline}"
+            "{app.tagline[language]}"
           </motion.p>
 
           <motion.p
@@ -417,7 +392,27 @@ function AppFeatureSection({
             transition={{ delay: 0.22 }}
             className={`text-base leading-relaxed mb-10 max-w-md ${fgMuted}`}
           >
-            {app.description}
+            {app.id === "polyvo" ? (
+              language === "tr" ? (
+                <>
+                  Aralıklı tekrar (
+                  <Link href="/spaced-repetition-calculator" className="underline font-semibold hover:text-[var(--fg)] transition-colors">
+                    SM-2
+                  </Link>
+                  ) algoritması, kişiselleştirilmiş kelime desteleri, entegre PDF okuyucu ve eğlenceli mini oyunlarla İngilizce kelime dağarcığınızı kalıcı şekilde geliştirin.
+                </>
+              ) : (
+                <>
+                  Improve your English vocabulary permanently with a spaced repetition (
+                  <Link href="/spaced-repetition-calculator" className="underline font-semibold hover:text-[var(--fg)] transition-colors">
+                    SM-2
+                  </Link>
+                  ) algorithm, personalized vocabulary decks, an integrated PDF reader, and fun mini-games.
+                </>
+              )
+            ) : (
+              app.description[language]
+            )}
           </motion.p>
 
           <motion.div
@@ -432,7 +427,7 @@ function AppFeatureSection({
               className={`inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-opacity hover:opacity-80 ${app.dark ? "bg-white text-black" : "bg-[var(--fg)] text-[var(--bg)]"
                 }`}
             >
-              Ayrıntılar <ArrowUpRight size={15} />
+              {t("common.details")} <ArrowUpRight size={15} />
             </Link>
             <a
               href={app.webUrl}
@@ -443,8 +438,22 @@ function AppFeatureSection({
                 : "border-[var(--border)] text-[var(--fg-muted)] hover:border-[var(--fg)] hover:text-[var(--fg)]"
                 }`}
             >
-              Web&apos;de Oyna <ExternalLink size={13} />
+              {t("common.playOnWeb")} <ExternalLink size={13} />
             </a>
+
+            {/* Sub-button style link specifically for Polyvo SM-2 science details */}
+            {app.id === "polyvo" && (
+              <div className="w-full mt-2">
+                <Link
+                  href="/spaced-repetition-calculator"
+                  className={`inline-flex items-center gap-1 text-[11px] font-mono font-medium transition-opacity opacity-50 hover:opacity-100 ${
+                    app.dark ? "text-white" : "text-[var(--fg)]"
+                  }`}
+                >
+                  ⚡ {language === "tr" ? "SM-2 Algoritması ve Bellek Bilimi Analizi" : "SM-2 Algorithm & Memory Science Analysis"} <ArrowUpRight size={11} />
+                </Link>
+              </div>
+            )}
           </motion.div>
         </div>
 
@@ -482,7 +491,7 @@ function AppFeatureSection({
 
           {/* Alt bilgi (Data'dan geliyor) */}
           <p className={`mt-4 text-xs font-mono ${fgMuted} opacity-60 italic`}>
-            {app.mediaFooter}
+            {app.mediaFooter[language]}
           </p>
         </motion.div>
       </div>
@@ -585,4 +594,3 @@ function HeroBackgroundMedia({
     </div>
   );
 }
-

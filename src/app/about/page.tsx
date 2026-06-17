@@ -5,51 +5,65 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import Nav from "@/components/Nav";
-
-/* ─── veri ──────────────────────────────────────────────── */
-
-const values = [
-  {
-    number: "01",
-    title: "His önce gelir.",
-    desc: "Bir ürünü değerlendirirken ilk soru her zaman şudur: kullanıcı nasıl hissetti? Teknik mükemmellik bu hissin üstüne inşa edilir, altına değil.",
-  },
-  {
-    number: "02",
-    title: "Karmaşıklık gizlenir.",
-    desc: "Güçlü bir algoritma ya da derin bir sistem, perde arkasında kalmalı. Kullanıcı yalnızca sonucu görür: sadelik.",
-  },
-  {
-    number: "03",
-    title: "Öğrenme ve oyun ayrı değil.",
-    desc: "Beyin, merak ettiğinde öğrenir. Oyun tam da o merakı kışkırtan en doğal araçtır. İkisini birbirinden ayırmak yapay bir sınırdır.",
-  },
-  {
-    number: "04",
-    title: "Küçük ama dürüst.",
-    desc: "Geniş bir ekip yerine odaklı bir niyet. Her ürün, ne yapmak istediğini biliyor. İmkânın ötesine söz vermiyoruz.",
-  },
-];
-
-const works = [
-  {
-    name: "Polyvo",
-    tagline: "Akıllı aralıklı tekrarla İngilizce kelime öğrenme",
-    href: "/polyvo",
-    color: "#4f46e5",
-  },
-  {
-    name: "Syncron",
-    tagline: "Eş zamanlı hareketin bulmacası",
-    href: "/syncron",
-    color: "#4ade80",
-    dark: true,
-  },
-];
+import Footer from "@/components/Footer";
+import { useLanguage } from "@/context/LanguageContext";
 
 /* ─── sayfa ─────────────────────────────────────────────── */
 
 export default function AboutPage() {
+  const { language, t } = useLanguage();
+
+  const values = [
+    {
+      number: "01",
+      title: language === "tr" ? "His önce gelir." : "Feeling comes first.",
+      desc: language === "tr" 
+        ? "Bir ürünü değerlendirirken ilk soru her zaman şudur: kullanıcı nasıl hissetti? Teknik mükemmellik bu hissin üstüne inşa edilir, altına değil."
+        : "When evaluating a product, the first question is always: how did the user feel? Technical excellence is built on top of this feeling, not beneath it.",
+    },
+    {
+      number: "02",
+      title: language === "tr" ? "Karmaşıklık gizlenir." : "Complexity is hidden.",
+      desc: language === "tr"
+        ? "Güçlü bir algoritma ya da derin bir sistem, perde arkasında kalmalı. Kullanıcı yalnızca sonucu görür: sadelik."
+        : "A powerful algorithm or a deep system should remain behind the scenes. The user only sees the result: simplicity.",
+    },
+    {
+      number: "03",
+      title: language === "tr" ? "Öğrenme ve oyun ayrı değil." : "Learning and play are not separate.",
+      desc: language === "tr"
+        ? "Beyin, merak ettiğinde öğrenir. Oyun tam da o merakı kışkırtan en doğal araçtır. İkisini birbirinden ayırmak yapay bir sınırdır."
+        : "The brain learns when it is curious. Play is the most natural tool to provoke that curiosity. Separating the two is an artificial boundary.",
+    },
+    {
+      number: "04",
+      title: language === "tr" ? "Küçük ama dürüst." : "Small but honest.",
+      desc: language === "tr"
+        ? "Geniş bir ekip yerine odaklı bir niyet. Her ürün, ne yapmak istediğini biliyor. İmkânın ötesine söz vermiyoruz."
+        : "A focused intent rather than a large team. Every product knows what it wants to achieve. We do not promise beyond our means.",
+    },
+  ];
+
+  const works = [
+    {
+      name: "Polyvo",
+      tagline: language === "tr" 
+        ? "Akıllı aralıklı tekrarla İngilizce kelime öğrenme" 
+        : "Smart vocabulary building with spaced repetition",
+      href: "/polyvo",
+      color: "#4f46e5",
+    },
+    {
+      name: "Syncron",
+      tagline: language === "tr" 
+        ? "Eş zamanlı hareketin bulmacası" 
+        : "A puzzle of synchronous movement",
+      href: "/syncron",
+      color: "#4ade80",
+      dark: true,
+    },
+  ];
+
   return (
     <>
       <Nav />
@@ -79,7 +93,7 @@ export default function AboutPage() {
             transition={{ delay: 0.3 }}
             className="font-mono text-xs tracking-[0.35em] uppercase text-[var(--fg-muted)] mb-8"
           >
-            Stüdyo
+            {t("common.studio")}
           </motion.p>
 
           <motion.h1
@@ -88,7 +102,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="text-5xl md:text-8xl font-extrabold leading-none tracking-tight text-[var(--fg)] mb-8"
           >
-            Polimelo.
+            {t("about.title")}
           </motion.h1>
 
           <motion.div
@@ -104,8 +118,7 @@ export default function AboutPage() {
             transition={{ delay: 0.55, duration: 0.7 }}
             className="text-xl md:text-2xl text-[var(--fg-muted)] font-light leading-relaxed max-w-2xl"
           >
-            Öğrenmeyi, oynamayı ve keşfetmeyi — kalıcı dijital deneyimlere
-            dönüştüren küçük bir stüdyo.
+            {t("about.tagline")}
           </motion.p>
         </section>
 
@@ -118,14 +131,6 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="max-w-5xl mx-auto"
           >
-            {/* <div
-              className="w-full aspect-[16/7] border border-dashed border-[var(--border)] flex flex-col items-center justify-center gap-3"
-            >
-              <p className="text-[var(--fg-muted)] text-xs font-mono opacity-40 text-center px-4">
-                GÖRSEL: [ Stüdyo fotoğrafı veya atmosfer görseli ]<br />
-                Önerilen: 1600×700, geniş format, WEBP
-              </p>
-            </div> */}
           </motion.div>
         </section>
 
@@ -139,11 +144,10 @@ export default function AboutPage() {
               transition={{ duration: 0.7 }}
             >
               <p className="font-mono text-xs tracking-[0.3em] uppercase text-[var(--fg-muted)] mb-8">
-                Nereden Geldik?
+                {t("about.storyTag")}
               </p>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--fg)] leading-tight">
-                Bir ürün yaptık,<br />
-                duramadık.
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--fg)] leading-tight whitespace-pre-line">
+                {t("about.storyTitle")}
               </h2>
             </motion.div>
 
@@ -154,17 +158,11 @@ export default function AboutPage() {
               transition={{ duration: 0.7, delay: 0.15 }}
               className="space-y-6 text-[var(--fg-muted)] text-base leading-relaxed"
             >
-              {/* Polimelo poli-melodi isim hikayesi ve ürün felsefesi */}
               <p>
-                Müziği ve sanatı gerçek dünyaya taşıyan <b>Polimelo</b>,
-                müzikte bağımsız melodilerin bir araya gelerek oluşturduğu o kusursuz çok sesli uyum, 
-                geliştirdiğimiz her üründe farklı mekaniklerin ve kullanıcı deneyiminin harmonisini temsil ediyor.
+                {t("about.storyDesc1")}
               </p>
               <p>
-                İlk melodimiz olan Polyvo, dil öğrenimini akıllı algoritmalarla eşleştirme arayışımızdan doğdu. 
-                Ardından gelen Syncron ise, tıpkı müzikteki kontrpuan gibi, iki bağımsız nesnenin grid üzerinde 
-                aynı anda hareket ederek oluşturduğu eşsiz bir bulmaca ritmiydi. Her ürünümüz, kendi hikayesini 
-                anlatan ayrı bir tınıdır.
+                {t("about.storyDesc2")}
               </p>
             </motion.div>
           </div>
@@ -179,7 +177,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
               className="font-mono text-xs tracking-[0.3em] uppercase text-[var(--fg-muted)] mb-14"
             >
-              Neye İnanıyoruz?
+              {t("about.valuesTag")}
             </motion.p>
 
             <div className="space-y-px bg-[var(--border)]">
@@ -216,7 +214,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
               className="font-mono text-xs tracking-[0.3em] uppercase text-[var(--fg-muted)] mb-14"
             >
-              Ürünlerimiz
+              {t("about.worksTag")}
             </motion.p>
 
             <div className="grid sm:grid-cols-2 gap-6">
@@ -259,7 +257,7 @@ export default function AboutPage() {
                         className="mt-8 flex items-center gap-1 text-xs font-semibold transition-all duration-300 group-hover:gap-2"
                         style={{ color: w.color }}
                       >
-                        Keşfet <ArrowUpRight size={13} />
+                        {t("common.details")} <ArrowUpRight size={13} />
                       </div>
                     </div>
                   </Link>
@@ -279,7 +277,7 @@ export default function AboutPage() {
               transition={{ duration: 0.75 }}
               className="text-4xl md:text-6xl font-extrabold text-[var(--fg)] mb-6 leading-tight"
             >
-              Bir şey mi aklında?
+              {t("about.contactTitle")}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 14 }}
@@ -288,8 +286,7 @@ export default function AboutPage() {
               transition={{ duration: 0.7, delay: 0.15 }}
               className="text-[var(--fg-muted)] text-lg mb-12"
             >
-              Ürünler, fikirler veya işbirliği hakkında her zaman
-              konuşmaya açığız.
+              {t("about.contactDesc")}
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -297,42 +294,18 @@ export default function AboutPage() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, delay: 0.28 }}
             >
-              {/* E-posta/iletişim butonu — adresi sen ekleyeceksin */}
               <a
                 href="mailto:hello@polimelo.com"
-                className="inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold bg-[var(--fg)] text-[var(--bg)] transition-opacity hover:opacity-80"
+                className="inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold bg-[var(--fg)] text-[var(--bg)] transition-opacity hover:opacity-85"
               >
-                Merhaba de <ArrowUpRight size={15} />
+                {t("about.contactBtn")} <ArrowUpRight size={15} />
               </a>
             </motion.div>
           </div>
         </section>
 
-
         {/* ── FOOTER ───────────────────────────────────────── */}
-        <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <Image
-              src="/polimelo-logo-round.webp"
-              alt="Polimelo Logo"
-              width={32}
-              height={32}
-              unoptimized
-              className="w-8 h-8 rounded-lg object-contain dark:invert transition-all duration-300 group-hover:scale-105"
-            />
-            <span className="font-bold text-lg text-[var(--fg)]">Polimelo</span>
-          </Link>
-          <nav className="flex flex-wrap items-center gap-6 text-sm text-[var(--fg-muted)]">
-            <Link href="/syncron" className="hover:text-[var(--fg)] transition-colors">Syncron</Link>
-            <Link href="/polyvo" className="hover:text-[var(--fg)] transition-colors">Polyvo</Link>
-            <Link href="/blog" className="hover:text-[var(--fg)] transition-colors">Blog</Link>
-            <Link href="/privacy" className="hover:text-[var(--fg)] transition-colors">Gizlilik</Link>
-            <Link href="/terms" className="hover:text-[var(--fg)] transition-colors">Koşullar</Link>
-          </nav>
-          <p className="text-[var(--fg-muted)] text-xs">
-            © {new Date().getFullYear()} Polimelo
-          </p>
-        </footer>
+        <Footer />
       </main>
     </>
   );

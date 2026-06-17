@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { LanguageProvider } from "@/context/LanguageContext";
 import Script from "next/script";
 import CookieBanner from "@/components/CookieBanner";
 
@@ -17,9 +18,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://polimelo.com"),
-  title: "Polimelo — Dijital Deneyimler Stüdyosu",
+  title: "Polimelo — Dijital Deneyimler Stüdyosu | Digital Experiences Studio",
   description:
-    "Öğrenmeyi, oynamayı ve keşfetmeyi bir araya getiren modern dijital deneyimler.",
+    "Öğrenmeyi, oynamayı ve keşfetmeyi bir araya getiren modern dijital deneyimler. | Modern digital experiences bringing learning, play, and exploration together.",
   alternates: {
     canonical: "/",
   },
@@ -44,10 +45,12 @@ export default function RootLayout({
     >
     
       <body suppressHydrationWarning>
-        <ThemeProvider>
-          {children}
-          <CookieBanner />
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider>
+            {children}
+            <CookieBanner />
+          </ThemeProvider>
+        </LanguageProvider>
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3798429741438186"
@@ -58,3 +61,4 @@ export default function RootLayout({
     </html>
   );
 }
+

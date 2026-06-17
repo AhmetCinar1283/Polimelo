@@ -4,74 +4,15 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowUpRight, ExternalLink, Globe, Smartphone, Monitor, Star, Trophy, Users } from "lucide-react";
 import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 import Link from "next/link";
-
-/* ─── veri ──────────────────────────────────────────────── */
-// Syncron mekanikleri ve oynanış verileri
-const mechanics = [
-  {
-    title: "Eş Zamanlı Hareket",
-    desc: "Oyuncu tek bir yön tuşuna bastığında ızgara üzerindeki iki farklı objeyi aynı anda hareket ettirir. Biri normal yönde ilerlerken, diğeri zıt (reversed) yönde hareket edebilir.",
-  },
-  {
-    title: "Buz Zeminleri",
-    desc: "Kaygan yüzeyler momentumu korur. Objeler bir duvara ya da engele çarpana kadar durmaksızın kayar, bu da koordinasyon planlamasını derinleştirir.",
-  },
-  {
-    title: "Konveyör Bantları",
-    desc: "Objeleri yönlerinden bağımsız olarak bant yönünde fırlatan mekanik. Stratejik olarak kutuları itmek veya kendinizi konumlandırmak için kullanın.",
-  },
-  {
-    title: "Işınlayıcılar",
-    desc: "Portal çiftleri sayesinde objeleri haritanın diğer ucuna anında nakledin. Eşzamanlı geçiş kombinasyonları ile zihninizi zorlayın.",
-  },
-  {
-    title: "Kutular ve Ağırlıklar",
-    desc: "Izgaradaki kutuları iterek geçiş yolları açın, lazer engellerini kapatın veya siber zeminlerdeki ağırlık butonlarını tetikleyin.",
-  },
-  {
-    title: "Enerji Sistemleri",
-    desc: "Oyun alanındaki enerji jeneratörlerini ve kabloları aktif hale getirerek kapıları açın, siberpunk evrenin kurallarını lehinize çevirin.",
-  },
-];
-
-const platforms = [
-  {
-    icon: Globe,
-    name: "Web",
-    detail: "syncron.polimelo.com — Modern tarayıcılar üzerinden kurulum gerektirmeden, anında 60 FPS siber-bulmaca keyfi.",
-    url: "https://syncron.polimelo.com",
-    cta: "Web'de Oyna",
-    available: true,
-  },
-  {
-    icon: Smartphone,
-    name: "Android",
-    detail: "Capacitor entegrasyonu ile dokunmatik cihazlara özel swipe (kaydırma) hareketleriyle optimize edilmiş native mobil sürüm.",
-    url: "#",
-    cta: "Yakında Google Play'de",
-    available: false,
-  },
-  {
-    icon: Monitor,
-    name: "Masaüstü",
-    detail: "Electron tabanlı tam ekran klavye odaklı sürüm. Windows, macOS ve Linux üzerinde tam performanslı çalışır.",
-    url: "#",
-    cta: "Yakında Steam'de",
-    available: false,
-  },
-];
-
-const scores = [
-  { icon: Star, label: "1–3 Yıldız Derecesi", desc: "Çözdüğünüz her seviye, harcadığınız hamle sayısına göre derecelendirilir. En optimize yolu bulmaya çalışın." },
-  { icon: Trophy, label: "Level Editor (Editör)", desc: "Kendi siber-bulmacalarınızı tasarlayın, Dexie (IndexedDB) ile kaydedin veya Firebase Firestore ile buluta yükleyip paylaşın." },
-  { icon: Users, label: "Çevrimdışı & Bulut Eşitleme", desc: "İnternet olmasa da Dexie altyapısıyla kesintisiz oynayın, bağlandığınızda Firebase üzerinden ilerlemenizi tüm cihazlarda eşitleyin." },
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 // Tasarım sabitleri ve neon rengi
 const NEON = "#4ade80";
 
 export default function SyncronPage() {
+  const { language, t } = useLanguage();
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -79,6 +20,102 @@ export default function SyncronPage() {
   });
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
+  const mechanics = [
+    {
+      title: language === "tr" ? "Eş Zamanlı Hareket" : "Synchronous Movement",
+      desc: language === "tr"
+        ? "Oyuncu tek bir yön tuşuna bastığında ızgara üzerindeki iki farklı objeyi aynı anda hareket ettirir. Biri normal yönde ilerlerken, diğeri zıt (reversed) yönde hareket edebilir."
+        : "When the player presses a single directional key, they move two different objects on the grid at the same time. While one moves normally, the other can move in the opposite (reversed) direction.",
+    },
+    {
+      title: language === "tr" ? "Buz Zeminleri" : "Ice Floors",
+      desc: language === "tr"
+        ? "Kaygan yüzeyler momentumu korur. Objeler bir duvara ya da engele çarpana kadar durmaksızın kayar, bu da koordinasyon planlamasını derinleştirir."
+        : "Slippery surfaces preserve momentum. Objects slide continuously until they hit a wall or obstacle, deepening the coordination planning.",
+    },
+    {
+      title: language === "tr" ? "Konveyör Bantları" : "Conveyor Belts",
+      desc: language === "tr"
+        ? "Objeleri yönlerinden bağımsız olarak bant yönünde fırlatan mekanik. Stratejik olarak kutuları itmek veya kendinizi konumlandırmak için kullanın."
+        : "A mechanic that flings objects in the belt's direction regardless of their facing. Use it strategically to push boxes or position yourself.",
+    },
+    {
+      title: language === "tr" ? "Işınlayıcılar" : "Teleporters",
+      desc: language === "tr"
+        ? "Portal çiftleri sayesinde objeleri haritanın diğer ucuna anında nakledin. Eşzamanlı geçiş kombinasyonları ile zihninizi zorlayın."
+        : "Instantly transport objects to the other side of the map via portal pairs. Challenge your mind with synchronous passage combinations.",
+    },
+    {
+      title: language === "tr" ? "Kutular ve Ağırlıklar" : "Boxes and Weights",
+      desc: language === "tr"
+        ? "Izgaradaki kutuları iterek geçiş yolları açın, lazer engellerini kapatın veya siber zeminlerdeki ağırlık butonlarını tetikleyin."
+        : "Push boxes on the grid to clear paths, block laser obstacles, or trigger weight buttons on cyber floors.",
+    },
+    {
+      title: language === "tr" ? "Enerji Sistemleri" : "Energy Systems",
+      desc: language === "tr"
+        ? "Oyun alanındaki enerji jeneratörlerini ve kabloları aktif hale getirerek kapıları açın, siberpunk evrenin kurallarını lehinize çevirin."
+        : "Open gates by activating energy generators and wires in the game area, turning the rules of the cyberpunk universe to your advantage.",
+    },
+  ];
+
+  const platforms = [
+    {
+      icon: Globe,
+      name: "Web",
+      detail: language === "tr"
+        ? "syncron.polimelo.com — Modern tarayıcılar üzerinden kurulum gerektirmeden, anında 60 FPS siber-bulmaca keyfi."
+        : "syncron.polimelo.com — Instant 60 FPS cyber-puzzle fun through modern browsers, no installation required.",
+      url: "https://syncron.polimelo.com",
+      cta: language === "tr" ? "Web'de Oyna" : "Play on Web",
+      available: true,
+    },
+    {
+      icon: Smartphone,
+      name: "Android",
+      detail: language === "tr"
+        ? "Capacitor entegrasyonu ile dokunmatik cihazlara özel swipe (kaydırma) hareketleriyle optimize edilmiş native mobil sürüm."
+        : "Native mobile version optimized with touch-specific swipe gestures through Capacitor integration.",
+      url: "#",
+      cta: language === "tr" ? "Yakında Google Play'de" : "Soon on Google Play",
+      available: false,
+    },
+    {
+      icon: Monitor,
+      name: language === "tr" ? "Masaüstü" : "Desktop",
+      detail: language === "tr"
+        ? "Electron tabanlı tam ekran klavye odaklı sürüm. Windows, macOS ve Linux üzerinde tam performanslı çalışır."
+        : "Electron-based full-screen keyboard-focused edition. Runs with peak performance on Windows, macOS, and Linux.",
+      url: "#",
+      cta: language === "tr" ? "Yakında Steam'de" : "Soon on Steam",
+      available: false,
+    },
+  ];
+
+  const scores = [
+    { 
+      icon: Star, 
+      label: language === "tr" ? "1–3 Yıldız Derecesi" : "1–3 Star Rating", 
+      desc: language === "tr" 
+        ? "Çözdüğünüz her seviye, harcadığınız hamle sayısına göre derecelendirilir. En optimize yolu bulmaya çalışın." 
+        : "Every level you solve is rated based on the number of moves you spend. Try to find the most optimal path." 
+    },
+    { 
+      icon: Trophy, 
+      label: language === "tr" ? "Level Editor (Editör)" : "Level Editor", 
+      desc: language === "tr" 
+        ? "Kendi siber-bulmacalarınızı tasarlayın, Dexie (IndexedDB) ile kaydedin veya Firebase Firestore ile buluta yükleyip paylaşın." 
+        : "Design your own cyber-puzzles, save them with Dexie (IndexedDB), or upload and share them to the cloud with Firebase Firestore." 
+    },
+    { 
+      icon: Users, 
+      label: language === "tr" ? "Çevrimdışı & Bulut Eşitleme" : "Offline & Cloud Sync", 
+      desc: language === "tr" 
+        ? "İnternet olmasa da Dexie altyapısıyla kesintisiz oynayın, bağlandığınızda Firebase üzerinden ilerlemenizi tüm cihazlarda eşitleyin." 
+        : "Play uninterrupted with Dexie infrastructure even without internet, and sync your progress across all devices via Firebase when connected." 
+    },
+  ];
 
   return (
     <>
@@ -115,11 +152,10 @@ export default function SyncronPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.2, delay: 0.3 }}
-              // aspect-video yerine aspect-square kullandık ve boyutu kareye göre dengeledik
               className="relative overflow-hidden w-[min(55vw,450px)] aspect-square border rounded-xl shadow-2xl pointer-events-auto"
               style={{
                 borderColor: `${NEON}30`,
-                boxShadow: `0 0 60px ${NEON}15` // Neon estetiğine uygun dış parlama
+                boxShadow: `0 0 60px ${NEON}15`
               }}
             >
               <video
@@ -129,7 +165,6 @@ export default function SyncronPage() {
                 playsInline
                 className="w-full h-full object-cover"
               >
-                {/* Çektiğin kare videonun tam yolunu buraya yazacaksın */}
                 <source src="/images/syncron/gameplay-loop.mp4" type="video/mp4" />
                 Tarayıcınız video etiketini desteklemiyor.
               </video>
@@ -144,7 +179,7 @@ export default function SyncronPage() {
               className="font-mono text-xs tracking-[0.35em] uppercase mb-4"
               style={{ color: `${NEON}60` }}
             >
-              Polimelo — Bulmaca Oyunu
+              {t("syncron.subHeader")}
             </motion.p>
 
             <motion.h1
@@ -175,7 +210,7 @@ export default function SyncronPage() {
               transition={{ delay: 0.85 }}
               className="text-white/45 text-lg italic max-w-sm"
             >
-              "İki adım at, her ikisi de sayılsın."
+              {t("syncron.tagline")}
             </motion.p>
           </motion.div>
         </section>
@@ -193,11 +228,10 @@ export default function SyncronPage() {
                 className="font-mono text-xs tracking-[0.3em] uppercase mb-6"
                 style={{ color: `${NEON}50` }}
               >
-                Nasıl Bir Oyun?
+                {t("syncron.introTag")}
               </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-white leading-snug">
-                Tek başına değil —<br />
-                her zaman ikisi birden.
+              <h2 className="text-3xl md:text-4xl font-bold text-white leading-snug whitespace-pre-line">
+                {t("syncron.introTitle")}
               </h2>
             </motion.div>
 
@@ -208,15 +242,10 @@ export default function SyncronPage() {
               transition={{ duration: 0.7, delay: 0.15 }}
             >
               <p className="text-white/50 text-base leading-relaxed mb-6">
-                Standart bulmaca oyunları tek bir nesneyi kontrol ettirir.
-                Syncron&apos;da her tuşa bastığında iki nesne birden hareket eder.
-                Bu eş zamanlılık, beyin egzersizi olduğu kadar bir ritim ve
-                koordinasyon deneyimine de dönüşür.
+                {t("syncron.introDesc1")}
               </p>
               <p className="text-white/50 text-base leading-relaxed">
-                Hedef: kısa, tatmin edici ve tekrar oynanabilir bulmacalar.
-                Her seviye dakikalar içinde çözülebilecek kadar kompakt — ama
-                çözüme ulaşmak için gerçek bir "aha!" anı gerektiriyor.
+                {t("syncron.introDesc2")}
               </p>
             </motion.div>
           </div>
@@ -232,7 +261,7 @@ export default function SyncronPage() {
               className="font-mono text-xs tracking-[0.3em] uppercase mb-12"
               style={{ color: `${NEON}50` }}
             >
-              Harita Mekanikleri
+              {t("syncron.mechanicsTag")}
             </motion.p>
 
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-px bg-white/[0.05]">
@@ -276,17 +305,13 @@ export default function SyncronPage() {
                 className="font-mono text-xs tracking-[0.3em] uppercase mb-6"
                 style={{ color: `${NEON}50` }}
               >
-                Estetik
+                {t("syncron.aestheticTag")}
               </p>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-6">
-                Siyah zemin,<br />
-                <span style={{ color: NEON }}>neon ışıltısı.</span>
+              <h2 className="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-6 whitespace-pre-line">
+                {t("syncron.aestheticTitle")}
               </h2>
               <p className="text-white/45 text-base leading-relaxed">
-                Syncron&apos;un görsel kimliği, retro arcade oyunlarının atmosferini
-                modern minimalist bir tasarımla birleştiriyor. Her hamle, her
-                kaydırma ve her kazanma anında animasyonlar ve ışık efektleri
-                deneyimi canlı tutuyor.
+                {t("syncron.aestheticDesc")}
               </p>
             </motion.div>
 
@@ -373,7 +398,7 @@ export default function SyncronPage() {
               className="font-mono text-xs tracking-[0.3em] uppercase mb-12"
               style={{ color: `${NEON}50` }}
             >
-              Rekabet & Topluluk
+              {t("syncron.scoresTag")}
             </motion.p>
 
             <div className="grid sm:grid-cols-3 gap-8">
@@ -405,7 +430,7 @@ export default function SyncronPage() {
               className="font-mono text-xs tracking-[0.3em] uppercase mb-12"
               style={{ color: `${NEON}50` }}
             >
-              Platformlar
+              {t("syncron.platformsTag")}
             </motion.p>
 
             <div className="grid sm:grid-cols-3 gap-6">
@@ -447,10 +472,10 @@ export default function SyncronPage() {
           <div className="max-w-6xl mx-auto">
             <div className="max-w-2xl mb-12">
               <span className="font-mono text-xs tracking-[0.3em] uppercase mb-4 block" style={{ color: `${NEON}60` }}>
-                Geliştirme Günlükleri
+                {t("syncron.diariesTag")}
               </span>
               <h2 className="text-3xl md:text-5xl font-extrabold leading-tight text-white">
-                Oyun Tasarımının Detayları
+                {t("syncron.diariesTitle")}
               </h2>
             </div>
             
@@ -458,10 +483,10 @@ export default function SyncronPage() {
               <div className="p-8 border border-white/[0.06] bg-[#0a0a0a] flex flex-col justify-between rounded-lg">
                 <div>
                   <h3 className="text-xl font-bold text-white mb-3">
-                    Sıfırdan Bulmaca Oyunu Tasarlamak
+                    {t("syncron.diariesPuzzleCardTitle")}
                   </h3>
                   <p className="text-sm text-white/55 leading-relaxed mb-6">
-                    Syncron'un "Eş Zamanlı Hareket" mekaniği nasıl şekillendi? Sade kurallardan karmaşık ve tatmin edici bulmacalar üretmenin tasarım aşamaları.
+                    {t("syncron.diariesPuzzleCardDesc")}
                   </p>
                 </div>
                 <Link
@@ -469,17 +494,17 @@ export default function SyncronPage() {
                   className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors hover:text-white"
                   style={{ color: NEON }}
                 >
-                  Geliştirici Günlüğünü Oku <ArrowUpRight size={14} />
+                  {t("syncron.diariesReadDiary")} <ArrowUpRight size={14} />
                 </Link>
               </div>
 
               <div className="p-8 border border-white/[0.06] bg-[#0a0a0a] flex flex-col justify-between rounded-lg">
                 <div>
                   <h3 className="text-xl font-bold text-white mb-3">
-                    Veriye Dayalı Zorluk Ayarlama
+                    {t("syncron.diariesDifficultyCardTitle")}
                   </h3>
                   <p className="text-sm text-white/55 leading-relaxed mb-6">
-                    Bir bulmaca seviyesi ne zaman çok zor veya sıkıcıdır? Beta testlerinden gelen hamle sayıları ve sıfırlama metrikleriyle zorluk dengesini kurma.
+                    {t("syncron.diariesDifficultyCardDesc")}
                   </p>
                 </div>
                 <Link
@@ -487,7 +512,7 @@ export default function SyncronPage() {
                   className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors hover:text-white"
                   style={{ color: NEON }}
                 >
-                  Detaylı Analizi Oku <ArrowUpRight size={14} />
+                  {t("syncron.diariesReadAnalysis")} <ArrowUpRight size={14} />
                 </Link>
               </div>
             </div>
@@ -495,37 +520,7 @@ export default function SyncronPage() {
         </section>
 
         {/* ── FOOTER / GERİ ───────────────────────────────── */}
-        <footer className="px-6 md:px-12 py-10 border-t border-white/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-6">
-            <Link
-              href="/"
-              className="text-white/40 text-sm hover:text-white transition-colors font-mono"
-            >
-              ← Polimelo
-            </Link>
-            <Link
-              href="/blog"
-              className="text-white/40 text-xs hover:text-white transition-colors font-mono"
-            >
-              Blog
-            </Link>
-            <Link
-              href="/privacy"
-              className="text-white/40 text-xs hover:text-white transition-colors font-mono"
-            >
-              Gizlilik Politikası
-            </Link>
-            <Link
-              href="/terms"
-              className="text-white/40 text-xs hover:text-white transition-colors font-mono"
-            >
-              Kullanım Koşulları
-            </Link>
-          </div>
-          <p className="text-white/20 text-xs">
-            © {new Date().getFullYear()} Polimelo — Syncron
-          </p>
-        </footer>
+        <Footer />
       </main>
     </>
   );

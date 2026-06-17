@@ -4,13 +4,16 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, MapPin, Send, CheckCircle, Clock } from "lucide-react";
 import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const { t } = useLanguage();
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -41,14 +44,14 @@ export default function ContactPage() {
           {/* Header */}
           <div className="mb-14">
             <p className="font-mono text-xs tracking-[0.35em] uppercase text-[var(--fg-muted)] mb-4">
-              İletişim
+              {t("common.contact")}
             </p>
             <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
-              Bize Ulaşın.
+              {t("contact.title")}
             </h1>
             <div className="h-px bg-[var(--border)] mt-6 mb-8" />
             <p className="text-lg text-[var(--fg-muted)] font-light max-w-xl">
-              Fikirlerinizi, ürün geri bildirimlerinizi paylaşmak veya bizimle işbirliği yapmak için aşağıdaki formdan mesaj gönderebilirsiniz.
+              {t("contact.desc")}
             </p>
           </div>
 
@@ -67,52 +70,52 @@ export default function ContactPage() {
                   >
                     {/* Name */}
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-semibold uppercase font-mono text-[var(--fg-muted)]">Ad Soyad *</label>
+                      <label className="text-xs font-semibold uppercase font-mono text-[var(--fg-muted)]">{t("contact.formName")}</label>
                       <input 
                         type="text" 
                         required
                         value={name} 
                         onChange={(e) => setName(e.target.value)}
                         className="px-3 py-2.5 bg-[var(--bg)] border border-[var(--border)] rounded-md text-sm text-[var(--fg)] focus:outline-none focus:border-indigo-500 transition-colors"
-                        placeholder="Örn: Ahmet Cinar"
+                        placeholder={t("contact.formNamePlaceholder")}
                       />
                     </div>
 
                     {/* Email */}
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-semibold uppercase font-mono text-[var(--fg-muted)]">E-posta Adresi *</label>
+                      <label className="text-xs font-semibold uppercase font-mono text-[var(--fg-muted)]">{t("contact.formEmail")}</label>
                       <input 
                         type="email" 
                         required
                         value={email} 
                         onChange={(e) => setEmail(e.target.value)}
                         className="px-3 py-2.5 bg-[var(--bg)] border border-[var(--border)] rounded-md text-sm text-[var(--fg)] focus:outline-none focus:border-indigo-500 transition-colors"
-                        placeholder="ahmet@example.com"
+                        placeholder={t("contact.formEmailPlaceholder")}
                       />
                     </div>
 
                     {/* Subject */}
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-semibold uppercase font-mono text-[var(--fg-muted)]">Konu</label>
+                      <label className="text-xs font-semibold uppercase font-mono text-[var(--fg-muted)]">{t("contact.formSubject")}</label>
                       <input 
                         type="text" 
                         value={subject} 
                         onChange={(e) => setSubject(e.target.value)}
                         className="px-3 py-2.5 bg-[var(--bg)] border border-[var(--border)] rounded-md text-sm text-[var(--fg)] focus:outline-none focus:border-indigo-500 transition-colors"
-                        placeholder="Örn: Polyvo Kelime Destesi Hakkında"
+                        placeholder={t("contact.formSubjectPlaceholder")}
                       />
                     </div>
 
                     {/* Message */}
                     <div className="flex flex-col gap-2">
-                      <label className="text-xs font-semibold uppercase font-mono text-[var(--fg-muted)]">Mesajınız *</label>
+                      <label className="text-xs font-semibold uppercase font-mono text-[var(--fg-muted)]">{t("contact.formMessage")}</label>
                       <textarea 
                         required
                         rows={5}
                         value={message} 
                         onChange={(e) => setMessage(e.target.value)}
                         className="px-3 py-2.5 bg-[var(--bg)] border border-[var(--border)] rounded-md text-sm text-[var(--fg)] focus:outline-none focus:border-indigo-500 transition-colors resize-none"
-                        placeholder="Mesajınızı buraya yazın..."
+                        placeholder={t("contact.formMessagePlaceholder")}
                       />
                     </div>
 
@@ -122,7 +125,7 @@ export default function ContactPage() {
                       disabled={isSubmitting}
                       className="mt-2 py-3 bg-[var(--fg)] text-[var(--bg)] font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer flex items-center justify-center gap-2 rounded-md disabled:opacity-50"
                     >
-                      {isSubmitting ? "Gönderiliyor..." : "Mesajı Gönder"}
+                      {isSubmitting ? t("contact.formSending") : t("contact.formSend")}
                       {!isSubmitting && <Send size={14} />}
                     </button>
                   </motion.form>
@@ -135,15 +138,15 @@ export default function ContactPage() {
                     exit={{ opacity: 0 }}
                   >
                     <CheckCircle size={52} className="text-emerald-500 mb-6 animate-bounce" />
-                    <h3 className="text-xl font-bold text-[var(--fg)] mb-2">Mesajınız İletildi!</h3>
+                    <h3 className="text-xl font-bold text-[var(--fg)] mb-2">{t("contact.successTitle")}</h3>
                     <p className="text-sm text-[var(--fg-muted)] max-w-xs leading-relaxed">
-                      Bize ulaştığınız için teşekkür ederiz. Mesajınız başarıyla iletildi, en kısa sürede dönüş yapacağız.
+                      {t("contact.successDesc")}
                     </p>
                     <button
                       onClick={() => setIsSuccess(false)}
                       className="mt-8 px-6 py-2 bg-[var(--fg)] text-[var(--bg)] hover:opacity-90 font-semibold text-xs rounded-md transition-opacity cursor-pointer"
                     >
-                      Yeni Mesaj Gönder
+                      {t("contact.newFormBtn")}
                     </button>
                   </motion.div>
                 )}
@@ -155,7 +158,7 @@ export default function ContactPage() {
               {/* Studio Info Card */}
               <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-xl p-6 shadow-lg flex flex-col gap-6">
                 <h3 className="text-sm font-bold uppercase font-mono text-[var(--fg-muted)] border-b border-[var(--border)] pb-2">
-                  Stüdyo Detayları
+                  {t("contact.infoTitle")}
                 </h3>
 
                 {/* Email */}
@@ -164,7 +167,7 @@ export default function ContactPage() {
                     <Mail size={16} className="text-indigo-500" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-semibold text-[var(--fg-muted)] font-mono uppercase">E-posta</h4>
+                    <h4 className="text-xs font-semibold text-[var(--fg-muted)] font-mono uppercase">{t("contact.infoEmail")}</h4>
                     <p className="text-sm font-bold text-[var(--fg)] mt-0.5">hello@polimelo.com</p>
                   </div>
                 </div>
@@ -175,8 +178,8 @@ export default function ContactPage() {
                     <MapPin size={16} className="text-indigo-500" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-semibold text-[var(--fg-muted)] font-mono uppercase">Lokasyon</h4>
-                    <p className="text-sm font-bold text-[var(--fg)] mt-0.5">Ankara, Türkiye</p>
+                    <h4 className="text-xs font-semibold text-[var(--fg-muted)] font-mono uppercase">{t("contact.infoLocation")}</h4>
+                    <p className="text-sm font-bold text-[var(--fg)] mt-0.5">{t("contact.infoLocationVal")}</p>
                   </div>
                 </div>
 
@@ -186,8 +189,8 @@ export default function ContactPage() {
                     <Clock size={16} className="text-indigo-500" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-semibold text-[var(--fg-muted)] font-mono uppercase">Yanıt Süresi</h4>
-                    <p className="text-sm font-bold text-[var(--fg)] mt-0.5">Ortalama 24 saat içinde</p>
+                    <h4 className="text-xs font-semibold text-[var(--fg-muted)] font-mono uppercase">{t("contact.infoResponse")}</h4>
+                    <p className="text-sm font-bold text-[var(--fg)] mt-0.5">{t("contact.infoResponseVal")}</p>
                   </div>
                 </div>
               </div>
@@ -196,22 +199,7 @@ export default function ContactPage() {
         </div>
 
         {/* Footer */}
-        <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-between gap-4 max-w-5xl mx-auto mt-24">
-          <div className="flex flex-wrap items-center gap-6">
-            <Link href="/" className="text-[var(--fg-muted)] text-sm hover:text-[var(--fg)] transition-colors font-mono">
-              ← Polimelo Anasayfa
-            </Link>
-            <Link href="/privacy" className="text-[var(--fg-muted)] text-xs hover:text-[var(--fg)] transition-colors font-mono">
-              Gizlilik Politikası
-            </Link>
-            <Link href="/terms" className="text-[var(--fg-muted)] text-xs hover:text-[var(--fg)] transition-colors font-mono">
-              Kullanım Koşulları
-            </Link>
-          </div>
-          <p className="text-[var(--fg-muted)] text-xs">
-            © {new Date().getFullYear()} Polimelo — İletişim
-          </p>
-        </footer>
+        <Footer />
       </main>
     </>
   );

@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { X, ShieldAlert } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function CookieBanner() {
   const [showBanner, setShowBanner] = useState(false);
+  const { language } = useLanguage();
 
   useEffect(() => {
     // Tarayıcı tarafında çalışırken localStorage kontrolü yapıyoruz
@@ -45,12 +47,14 @@ export default function CookieBanner() {
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-center gap-2">
               <ShieldAlert size={16} className="text-indigo-500 shrink-0 animate-pulse" />
-              <h4 className="text-sm font-bold text-[var(--fg)]">Çerez Aydınlatma Metni</h4>
+              <h4 className="text-sm font-bold text-[var(--fg)]">
+                {language === "tr" ? "Çerez Aydınlatma Metni" : "Cookie Consent Notice"}
+              </h4>
             </div>
             <button
               onClick={() => setShowBanner(false)}
               className="text-[var(--fg-muted)] hover:text-[var(--fg)] p-1 rounded-full hover:bg-[var(--border)] transition-colors cursor-pointer"
-              aria-label="Kapat"
+              aria-label={language === "tr" ? "Kapat" : "Close"}
             >
               <X size={14} />
             </button>
@@ -58,14 +62,29 @@ export default function CookieBanner() {
 
           {/* Description */}
           <p className="text-xs leading-relaxed text-[var(--fg-muted)]">
-            Deneyiminizi optimize etmek, site trafiğini analiz etmek ve <strong>Google AdSense</strong> aracılığıyla kişiselleştirilmiş reklamlar sunmak amacıyla çerezler (cookies) kullanıyoruz. Kabul ederek çerez politikamızı onaylamış olursunuz. Detaylar için{" "}
-            <Link
-              href="/privacy"
-              className="text-[var(--fg)] font-semibold underline hover:opacity-80 transition-opacity"
-            >
-              Gizlilik Politikası
-            </Link>{" "}
-            sayfamızı inceleyebilirsiniz.
+            {language === "tr" ? (
+              <>
+                Deneyiminizi optimize etmek, site trafiğini analiz etmek ve <strong>Google AdSense</strong> aracılığıyla kişiselleştirilmiş reklamlar sunmak amacıyla çerezler (cookies) kullanıyoruz. Kabul ederek çerez politikamızı onaylamış olursunuz. Detaylar için{" "}
+                <Link
+                  href="/privacy"
+                  className="text-[var(--fg)] font-semibold underline hover:opacity-80 transition-opacity"
+                >
+                  Gizlilik Politikası
+                </Link>{" "}
+                sayfamızı inceleyebilirsiniz.
+              </>
+            ) : (
+              <>
+                We use cookies to optimize your experience, analyze site traffic, and deliver personalized ads via <strong>Google AdSense</strong>. By accepting, you consent to our cookie policy. For details, you can review our{" "}
+                <Link
+                  href="/privacy"
+                  className="text-[var(--fg)] font-semibold underline hover:opacity-80 transition-opacity"
+                >
+                  Privacy Policy
+                </Link>{" "}
+                page.
+              </>
+            )}
           </p>
 
           {/* Actions */}
@@ -74,13 +93,13 @@ export default function CookieBanner() {
               onClick={handleDecline}
               className="px-4 py-2 text-xs font-semibold text-[var(--fg-muted)] hover:text-[var(--fg)] border border-transparent hover:border-[var(--border)] transition-all cursor-pointer rounded-md"
             >
-              Reddet
+              {language === "tr" ? "Reddet" : "Decline"}
             </button>
             <button
               onClick={handleAccept}
               className="px-4 py-2 text-xs font-semibold bg-[var(--fg)] text-[var(--bg)] hover:opacity-90 transition-opacity cursor-pointer rounded-md"
             >
-              Kabul Et
+              {language === "tr" ? "Kabul Et" : "Accept"}
             </button>
           </div>
         </motion.div>
@@ -88,3 +107,4 @@ export default function CookieBanner() {
     </AnimatePresence>
   );
 }
+
