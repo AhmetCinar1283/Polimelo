@@ -43,7 +43,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
     
-      <body>
+      <body suppressHydrationWarning>
         <ThemeProvider>
           {children}
           <CookieBanner />
