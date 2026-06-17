@@ -115,34 +115,16 @@ export default function Home() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
-              className="text-white/35 text-xs font-mono tracking-[0.35em] uppercase mb-5"
+              className="text-white/35 text-xs font-mono tracking-[0.35em] uppercase mb-4"
             >
               {t("home.studioTag")}
             </motion.p>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 30, filter: "blur(0px)" }}
-              animate={
-                isVideoActive
-                  ? { opacity: 0, y: -45, filter: "blur(24px)" }
-                  : { opacity: 1, y: 0, filter: "blur(0px)" }
-              }
-              transition={
-                isVideoActive
-                  ? { duration: 1.5, ease: [0.16, 1, 0.3, 1] }
-                  : { duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }
-              }
-              className="text-white font-extrabold leading-[0.9] tracking-tight pointer-events-none"
-              style={{ fontSize: "clamp(4.5rem, 15vw, 17rem)" }}
-            >
-              Polimelo
-            </motion.h1>
 
             <motion.div
               initial={{ scaleX: 0, originX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 1.1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="h-px bg-white/15 mt-8 mb-7"
+              className="h-px bg-white/15 mt-4 mb-7"
             />
 
             <div className="flex flex-col sm:flex-row sm:items-end gap-6 sm:gap-16">
@@ -511,6 +493,7 @@ function HeroBackgroundMedia({
   const [videoEnded, setVideoEnded] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoUnmounted, setVideoUnmounted] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
     // Mobil kontrolü (768px altı mobil sayılır)
@@ -536,8 +519,11 @@ function HeroBackgroundMedia({
       setShouldPlayVideo(true);
       // İlk boyamayı (initial paint) engellememek için kaynağı mount sonrasında atıyoruz
       setVideoSrc("/videos/hero");
+    } else {
+      // Mobil veya yavaş bağlantıda doğrudan son kareyi gösteriyoruz ve yazıyı kaldırıyoruz
+      onVideoActive(true);
     }
-  }, []);
+  }, [onVideoActive]);
 
   const handleVideoEnded = () => {
     setVideoEnded(true);
@@ -547,12 +533,17 @@ function HeroBackgroundMedia({
     }, 1000);
   };
 
+  const handleVideoError = () => {
+    setVideoError(true);
+    onVideoActive(true);
+  };
+
   return (
     <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden select-none z-0">
-      {/* 1. İlk Kare / Yedek Görsel (Video yüklenene kadar veya video yüklenemezse gösterilir) */}
-      {(!videoLoaded || !shouldPlayVideo) && (
+      {/* 1. Geçici İlk Kare Görseli (Sadece video yüklenene kadar gösterilir) */}
+      {shouldPlayVideo && !videoLoaded && !videoError && (
         <div
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-25 animate-pulse-slow"
+          className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-25"
           style={{
             backgroundImage: "url('/images/hero-first-frame.webp')",
             backgroundColor: "#080808",
@@ -561,13 +552,14 @@ function HeroBackgroundMedia({
       )}
 
       {/* 2. Arka Plan Videosu */}
-      {shouldPlayVideo && videoSrc && !videoUnmounted && (
+      {shouldPlayVideo && videoSrc && !videoUnmounted && !videoError && (
         <video
           autoPlay
           muted
           playsInline
           preload="auto"
           onEnded={handleVideoEnded}
+          onError={handleVideoError}
           onCanPlay={() => {
             setVideoLoaded(true);
             onVideoActive(true);
@@ -576,13 +568,13 @@ function HeroBackgroundMedia({
             videoLoaded && !videoEnded ? "opacity-25" : "opacity-0"
           }`}
         >
-          <source src={`${videoSrc}.webm`} type="video/webm" />
-          <source src={`${videoSrc}.mp4`} type="video/mp4" />
+          <source src={`${videoSrc}.webm`} type="video/webm" onError={handleVideoError} />
+          <source src={`${videoSrc}.mp4`} type="video/mp4" onError={handleVideoError} />
         </video>
       )}
 
-      {/* 3. Son Kare Görseli (Video bittiğinde gösterilir) */}
-      {videoEnded && (
+      {/* 3. Yedek/Son Kare Görseli (Video yükleneme veya video bittiğinde gösterilir) */}
+      {(!shouldPlayVideo || videoError || videoEnded) && (
         <div
           className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-25"
           style={{
