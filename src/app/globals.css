@@ -30,6 +30,20 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Scroll Snapping for Desktop Home Page */
+@media (min-width: 768px) {
+  .home-scroll-snap {
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 0px;
+  }
+
+  .snap-align-start {
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+  }
+}
+
+
 body {
   background: var(--bg);
   color: var(--fg);

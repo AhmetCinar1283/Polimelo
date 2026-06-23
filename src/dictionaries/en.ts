@@ -29,7 +29,9 @@ export const en: typeof tr = {
     categoryEducation: "Education",
     categoryGameDesign: "Game Design",
     categorySoftware: "Software",
-    categoryAll: "All"
+    categoryAll: "All",
+    laboratory: "Polimelo Lab",
+    launchLab: "Launch Laboratory"
   },
   cookieBanner: {
     title: "Cookie Consent Notice",
@@ -56,7 +58,7 @@ export const en: typeof tr = {
     storyTag: "Where We Came From",
     storyTitle: "We made a product,\nand we couldn't stop.",
     storyDesc1: "Polimelo, bringing music and art into the digital world, is named after poly-melody—representing the perfect polyphonic harmony formed by independent melodies coming together. In every product we develop, it stands for the harmony between different mechanics and user experience.",
-    storyDesc2: "Our first melody, Polyvo, was born from our search for pairing language learning with smart algorithms. Syncron, which followed, was like a counterpoint in music—a unique puzzle rhythm created by two independent objects moving simultaneously on a grid. Every product of ours is a distinct tone telling its own story.",
+    storyDesc2: "Our first melody, Polyvo, was born from our search for pairing language learning with smart algorithms. Syncron, which followed, was like a counterpoint in music—a unique puzzle rhythm created by two independent objects moving simultaneously on a grid. Our latest focus, Polimelo Lab, is an open-source and experimental academic space where we visualize artificial intelligence and mathematical theories. Every product of ours is a distinct tone telling its own story.",
     valuesTag: "What We Believe In",
     worksTag: "Our Products",
     contactTitle: "Something on your mind?",
@@ -186,5 +188,23 @@ export const en: typeof tr = {
   legal: {
     badge: "Legal Documents",
     lastUpdated: "Last Updated: May 28, 2026"
+  },
+  lab: {
+    badge: "Experimental Sandbox & Courses",
+    title: "Polimelo Lab.",
+    desc: "We materialize artificial intelligence, mathematics, and computer science theories through live in-browser simulations, code, and academic notes.",
+    theoryTitle: "Academic Outline & Courses",
+    theoryDesc: "Study notes deriving the mathematical foundations of AI and data structures from first principles.",
+    sandboxTitle: "Digital Laboratory (Sandbox)",
+    sandboxDesc: "Interactive experiment modules running directly in your browser using WebAssembly, Web Workers, and HTML5 Canvas.",
+    launchModule: "Launch Simulation() ↗",
+    readLecture: "Read Lecture Note() ↗",
+    duration: "Duration:",
+    difficulty: "Difficulty:",
+    keywords: "Keywords:",
+    referencedLectures: "Referenced Lectures:",
+    openSourceNote: "Open Source & Vision",
+    openSourceDesc: "Polimelo Lab is an open-source project built on the belief that knowledge grows when shared. Our goal is to visualize the notes and experiments we make during our learning journey, while providing a modular portfolio ecosystem where other developers can contribute their own interactive experiments in the future.",
+    viewOnGithub: "View on GitHub ↗"
   }
 };

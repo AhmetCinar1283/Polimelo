@@ -21,6 +21,9 @@ export default function Footer() {
         <span className="font-bold text-lg text-[var(--fg)]">Polimelo</span>
       </Link>
       <nav className="flex flex-wrap items-center gap-6 text-sm text-[var(--fg-muted)]">
+        <Link href="/lab" className="hover:text-[var(--fg)] transition-colors">
+          Polimelo Lab
+        </Link>
         <Link href="/syncron" className="hover:text-[var(--fg)] transition-colors">
           Syncron
         </Link>

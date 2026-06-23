@@ -123,6 +123,36 @@ export default function BlogIndexPage() {
           </div>
         </section>
 
+        {/* POLIMELO LAB CALLOUT BANNER */}
+        <section className="px-6 md:px-12 max-w-5xl mx-auto mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="p-6 bg-gradient-to-r from-[#ef5a5a]/10 to-transparent border border-[#ef5a5a]/20 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+          >
+            <div>
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#ef5a5a] animate-pulse" />
+                <span className="font-mono text-[10px] font-bold tracking-widest text-[#ef5a5a] uppercase">
+                  Polimelo Laboratory Outpost
+                </span>
+              </div>
+              <p className="text-sm text-[var(--fg-muted)] leading-relaxed max-w-2xl font-serif">
+                {language === "tr"
+                  ? "Yapay zeka, veri yapıları ve lineer cebir kuramlarını tarayıcıda çalışan canlı simülasyonlar ve interaktif kodlarla öğrenmek ister misiniz? Polimelo Lab'deki interaktif derslere ve sandbox alanına göz atın."
+                  : "Want to learn artificial intelligence, data structures, and linear algebra theories with live in-browser simulations and interactive code? Explore the courses and sandbox modules in Polimelo Lab."}
+              </p>
+            </div>
+            <Link
+              href="/lab"
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[var(--fg)] hover:text-[#ef5a5a] border-b border-transparent hover:border-[#ef5a5a] transition-all duration-300 pb-0.5 whitespace-nowrap"
+            >
+              {language === "tr" ? "Laboratuvarı Keşfet" : "Explore Laboratory"} <ArrowUpRight size={13} />
+            </Link>
+          </motion.div>
+        </section>
+
         {/* ARTICLES GRID */}
         <section className="px-6 md:px-12 max-w-5xl mx-auto pb-32">
           {filteredPosts.length === 0 ? (

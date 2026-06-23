@@ -27,7 +27,9 @@ export const tr = {
     categoryEducation: "Eğitim",
     categoryGameDesign: "Oyun Tasarımı",
     categorySoftware: "Yazılım",
-    categoryAll: "Hepsi"
+    categoryAll: "Hepsi",
+    laboratory: "Polimelo Lab",
+    launchLab: "Laboratuvarı Başlat"
   },
   cookieBanner: {
     title: "Çerez Aydınlatma Metni",
@@ -54,7 +56,7 @@ export const tr = {
     storyTag: "Nereden Geldik?",
     storyTitle: "Bir ürün yaptık,\nduramadık.",
     storyDesc1: "Müziği ve sanatı gerçek dünyaya taşıyan Polimelo, müzikte bağımsız melodilerin bir araya gelerek oluşturduğu o kusursuz çok sesli uyum, geliştirdiğimiz her üründe farklı mekaniklerin ve kullanıcı deneyiminin harmonisini temsil ediyor.",
-    storyDesc2: "İlk melodimiz olan Polyvo, dil öğrenimini akıllı algoritmalarla eşleştirme arayışımızdan doğdu. Ardından gelen Syncron ise, tıpkı müzikteki kontrpuan gibi, iki bağımsız nesnenin grid üzerinde aynı anda hareket ederek oluşturduğu eşsiz bir bulmaca ritmiydi. Her ürünümüz, kendi hikayesini anlatan ayrı bir tınıdır.",
+    storyDesc2: "İlk melodimiz olan Polyvo, dil öğrenimini akıllı algoritmalarla eşleştirme arayışımızdan doğdu. Ardından gelen Syncron ise, tıpkı müzikteki kontrpuan gibi, iki bağımsız nesnenin grid üzerinde aynı anda hareket ederek oluşturduğu eşsiz bir bulmaca ritmiydi. En yeni odağımız olan Polimelo Lab ise yapay zeka ve matematik kuramlarını görselleştirdiğimiz, açık kaynaklı ve deneysel bir akademik alandır. Her ürünümüz, kendi hikayesini anlatan ayrı bir tınıdır.",
     valuesTag: "Neye İnanıyoruz?",
     worksTag: "Ürünlerimiz",
     contactTitle: "Bir şey mi aklında?",
@@ -184,5 +186,23 @@ export const tr = {
   legal: {
     badge: "Yasal Belgeler",
     lastUpdated: "Son Güncelleme: 28 Mayıs 2026"
+  },
+  lab: {
+    badge: "Deneysel Sandbox & Kurslar",
+    title: "Polimelo Lab.",
+    desc: "Yapay zeka, matematik ve bilgisayar bilimleri teorilerini tarayıcıda çalışan canlı simülasyonlar, kodlar ve akademik notlarla somutlaştırıyoruz.",
+    theoryTitle: "Akademik Altyapı & Dersler",
+    theoryDesc: "Yapay zekanın ve veri yapılarının matematiksel temellerini ilk prensiplerden türeterek anlatan ders notları.",
+    sandboxTitle: "Dijital Laboratuvar (Sandbox)",
+    sandboxDesc: "WebAssembly, Web Workers ve HTML5 Canvas kullanarak tarayıcı üzerinde doğrudan çalışan interaktif deney modülleri.",
+    launchModule: "Simülasyonu Başlat() ↗",
+    readLecture: "Ders Notunu Oku() ↗",
+    duration: "Süre:",
+    difficulty: "Zorluk:",
+    keywords: "Anahtar Kelimeler:",
+    referencedLectures: "Bağlantılı Ders Notları:",
+    openSourceNote: "Açık Kaynak & Vizyon",
+    openSourceDesc: "Polimelo Lab, bilginin paylaştıkça çoğaldığına inanan açık kaynaklı bir projedir. Amacımız, hem kendimizi geliştirirken aldığımız notları ve yaptığımız deneyleri görselleştirmek, hem de gelecekte diğer geliştiricilerin kendi deneylerini ekleyebileceği modüler bir portfolyo ekosistemi sunmaktır.",
+    viewOnGithub: "GitHub'da İncele ↗"
   }
 };

@@ -7,11 +7,13 @@ import { ArrowUpRight } from "lucide-react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 /* ─── sayfa ─────────────────────────────────────────────── */
 
 export default function AboutPage() {
   const { language, t } = useLanguage();
+  const { theme } = useTheme();
 
   const values = [
     {
@@ -45,6 +47,15 @@ export default function AboutPage() {
   ];
 
   const works = [
+    {
+      name: "Polimelo Lab",
+      tagline: language === "tr" 
+        ? "Yapay zeka ve matematik için deneysel sandbox" 
+        : "Experimental sandbox for AI and mathematics",
+      href: "/lab",
+      color: "#ef5a5a",
+      dark: true,
+    },
     {
       name: "Polyvo",
       tagline: language === "tr" 
@@ -218,51 +229,63 @@ export default function AboutPage() {
             </motion.p>
 
             <div className="grid sm:grid-cols-2 gap-6">
-              {works.map((w, i) => (
-                <motion.div
-                  key={w.name}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.12, duration: 0.6 }}
-                >
-                  <Link href={w.href} className="group block">
-                    <div
-                      className={`p-8 flex flex-col justify-between min-h-[200px] transition-all duration-300 ${
-                        w.dark ? "bg-[#0d0d0d]" : "bg-[var(--card-bg)]"
-                      } border border-[var(--border)] hover:border-transparent`}
-                      style={{ ["--tw-shadow" as string]: `0 0 0 2px ${w.color}40` }}
-                    >
-                      <div>
-                        <div
-                          className="w-2 h-2 rounded-full mb-6"
-                          style={{ background: w.color }}
-                        />
-                        <h3
-                          className={`text-2xl font-extrabold mb-2 ${
-                            w.dark ? "text-white" : "text-[var(--fg)]"
-                          }`}
-                        >
-                          {w.name}
-                        </h3>
-                        <p
-                          className={`text-sm leading-relaxed ${
-                            w.dark ? "text-white/45" : "text-[var(--fg-muted)]"
-                          }`}
-                        >
-                          {w.tagline}
-                        </p>
-                      </div>
+              {works.map((w, i) => {
+                const isLab = w.name === "Polimelo Lab";
+                const isDarkCard = isLab ? (theme === "dark") : w.dark;
+                const dynamicColor = isLab ? (theme === "dark" ? "#ef5a5a" : "#ac2323") : w.color;
+                return (
+                  <motion.div
+                    key={w.name}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.12, duration: 0.6 }}
+                  >
+                    <Link href={w.href} className="group block">
                       <div
-                        className="mt-8 flex items-center gap-1 text-xs font-semibold transition-all duration-300 group-hover:gap-2"
-                        style={{ color: w.color }}
+                        className={`p-8 flex flex-col justify-between min-h-[200px] transition-all duration-300 ${
+                          isLab
+                            ? (theme === "dark" ? "bg-[#1a1b20]" : "bg-[#f3efe6]")
+                            : (isDarkCard ? "bg-[#0d0d0d]" : "bg-[var(--card-bg)]")
+                        } border border-[var(--border)] hover:border-transparent`}
+                        style={{ ["--tw-shadow" as string]: `0 0 0 2px ${dynamicColor}40` }}
                       >
-                        {t("common.details")} <ArrowUpRight size={13} />
+                        <div>
+                          <div
+                            className="w-2 h-2 rounded-full mb-6"
+                            style={{ background: dynamicColor }}
+                          />
+                          <h3
+                            className={`text-2xl font-extrabold mb-2 ${
+                              isLab
+                                ? (theme === "dark" ? "text-[#d1d4db]" : "text-[#2b2a27]")
+                                : (isDarkCard ? "text-white" : "text-[var(--fg)]")
+                            } ${isLab ? "font-serif" : ""}`}
+                            style={isLab ? { fontFamily: "Georgia, serif" } : undefined}
+                          >
+                            {w.name}
+                          </h3>
+                          <p
+                            className={`text-sm leading-relaxed ${
+                              isLab
+                                ? (theme === "dark" ? "text-[#7a7e85]" : "text-[#66625d]")
+                                : (isDarkCard ? "text-white/45" : "text-[var(--fg-muted)]")
+                            }`}
+                          >
+                            {w.tagline}
+                          </p>
+                        </div>
+                        <div
+                          className="mt-8 flex items-center gap-1 text-xs font-semibold transition-all duration-300 group-hover:gap-2"
+                          style={{ color: dynamicColor }}
+                        >
+                          {t("common.details")} <ArrowUpRight size={13} />
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>

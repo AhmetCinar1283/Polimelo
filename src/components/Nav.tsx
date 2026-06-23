@@ -67,6 +67,16 @@ export default function Nav({ startsOverDark = false }: NavProps) {
           {t("common.projects")}
         </Link>
         <Link
+          href="/lab"
+          className={`hidden sm:block transition-colors duration-300 ${
+            overDark
+              ? "text-white/60 hover:text-white"
+              : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
+          }`}
+        >
+          {t("common.laboratory")}
+        </Link>
+        <Link
           href="/about"
           className={`hidden sm:block transition-colors duration-300 ${
             overDark
