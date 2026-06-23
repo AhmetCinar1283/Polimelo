@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import Link from "next/link";
-import { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -99,20 +99,11 @@ export default function Home() {
 
   useEffect(() => {
     const checkIsDesktop = () => {
-      const desktop = window.innerWidth >= 768;
-      setIsDesktop(desktop);
-      if (desktop) {
-        document.documentElement.classList.add("home-scroll-snap");
-      } else {
-        document.documentElement.classList.remove("home-scroll-snap");
-      }
+      setIsDesktop(window.innerWidth >= 768);
     };
     checkIsDesktop();
     window.addEventListener("resize", checkIsDesktop);
-    return () => {
-      window.removeEventListener("resize", checkIsDesktop);
-      document.documentElement.classList.remove("home-scroll-snap");
-    };
+    return () => window.removeEventListener("resize", checkIsDesktop);
   }, []);
   
   // Track scroll position of the Hero section
@@ -122,8 +113,8 @@ export default function Home() {
   });
 
   // Transform values for Hero fade and slide up effect on exit
-  const heroOpacity = useTransform(heroScroll, [0, 0.85], [1, isDesktop ? 0 : 1]);
-  const heroY = useTransform(heroScroll, [0, 1], ["0%", isDesktop ? "-12%" : "0%"]);
+  const heroOpacity = useTransform(heroScroll, [0.4, 1], [1, isDesktop ? 0.35 : 1]);
+  const heroY = useTransform(heroScroll, [0.4, 1], ["0%", isDesktop ? "-12%" : "0%"]);
 
   // Disable pointer events when hero is scrolled out of view to avoid click interception issues
   const [pointerEventsActive, setPointerEventsActive] = useState(true);
@@ -149,7 +140,7 @@ export default function Home() {
             pointerEvents: pointerEventsActive ? "auto" : "none",
             zIndex: 0
           }}
-          className="relative md:sticky md:top-0 min-h-screen md:h-screen bg-[#080808] overflow-hidden flex flex-col justify-end pb-16 px-6 md:px-12 select-none snap-align-start"
+          className="relative md:sticky md:top-0 min-h-screen md:h-screen bg-[#080808] overflow-hidden flex flex-col justify-end pb-16 px-6 md:px-12 select-none"
         >
           {/* Performance-optimized background video / fallback media */}
           <HeroBackgroundMedia onVideoActive={setIsVideoActive} />
@@ -243,18 +234,28 @@ export default function Home() {
           </motion.div>
         </motion.section>
 
+        {/* Spacer between Hero and Card 1 */}
+        <div className="hidden md:block h-[40vh]" />
+
         {/* ── PROJELER (Rendered as siblings with card stacking) ────────────────── */}
         {apps.map((app, i) => (
-          <AppFeatureSection 
-            key={app.id} 
-            app={app} 
-            flip={i % 2 === 1} 
-            zIndex={(i + 1) * 10}
-          />
+          <React.Fragment key={app.id}>
+            <AppFeatureSection 
+              app={app} 
+              flip={i % 2 === 1} 
+              zIndex={(i + 1) * 10}
+            />
+            {i < apps.length - 1 && (
+              <div className="hidden md:block h-[40vh]" />
+            )}
+          </React.Fragment>
         ))}
 
+        {/* Spacer after the last card before Manifesto */}
+        <div className="hidden md:block h-[40vh]" />
+
         {/* Wrap subsequent sections in z-40 relative with shadow elevation */}
-        <div className="relative z-40 bg-[var(--bg)] shadow-[0_-12px_40px_rgba(0,0,0,0.12)] dark:shadow-[0_-12px_40px_rgba(0,0,0,0.5)] snap-align-start">
+        <div className="relative z-40 bg-[var(--bg)] shadow-[0_-12px_40px_rgba(0,0,0,0.12)] dark:shadow-[0_-12px_40px_rgba(0,0,0,0.5)]">
           {/* ── MANİFESTO ─────────────────────────────────────── */}
           <section className="py-40 px-6 md:px-16 bg-[var(--bg)]">
             <div className="max-w-2xl">
@@ -397,8 +398,8 @@ function AppFeatureSection({
   });
 
   // Transform values for exit scroll animations (only on desktop)
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", isDesktop ? "-12%" : "0%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.85], [1, isDesktop ? 0 : 1]);
+  const contentY = useTransform(scrollYProgress, [0.4, 1], ["0%", isDesktop ? "-12%" : "0%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0.4, 1], [1, isDesktop ? 0.35 : 1]);
 
   // Disable pointer events when card is fully covered
   const [pointerEventsActive, setPointerEventsActive] = useState(true);
@@ -411,7 +412,7 @@ function AppFeatureSection({
   });
 
   // Exiting media Y offset
-  const mediaY = useTransform(scrollYProgress, [0, 1], ["0%", isDesktop ? "-4%" : "0%"]);
+  const mediaY = useTransform(scrollYProgress, [0.4, 1], ["0%", isDesktop ? "-4%" : "0%"]);
 
   const isDarkSection = app.id === "laboratory" ? (theme === "dark") : app.dark;
   const accentColor = app.id === "laboratory" ? (theme === "dark" ? "#ef5a5a" : "#ac2323") : app.accentColor;
@@ -439,7 +440,7 @@ function AppFeatureSection({
         zIndex,
         pointerEvents: pointerEventsActive ? "auto" : "none"
       }}
-      className={`relative md:sticky md:top-0 min-h-screen md:h-screen flex items-center overflow-hidden px-6 md:px-12 py-16 md:py-20 snap-align-start ${
+      className={`relative md:sticky md:top-0 min-h-screen md:h-screen flex items-center overflow-hidden px-6 md:px-12 py-16 md:py-20 ${
         app.id === "laboratory"
           ? (theme === "dark" ? "bg-[#121316]" : "bg-[#fbfaf7]")
           : (app.dark ? "bg-[#080808]" : "bg-[var(--bg)]")
