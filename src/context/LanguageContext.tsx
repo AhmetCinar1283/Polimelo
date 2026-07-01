@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { tr } from "@/dictionaries/tr";
 import { en } from "@/dictionaries/en";
+import { usePathname, useRouter } from "next/navigation";
 
 type Language = "tr" | "en";
 
@@ -17,32 +18,32 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("tr");
-  const [mounted, setMounted] = useState(false);
+export function LanguageProvider({ children, lang = "tr" }: { children: React.ReactNode; lang?: string }) {
+  const [language, setLanguageState] = useState<Language>((lang === "tr" || lang === "en" ? lang : "tr") as Language);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
-    // Read preference on client mount to prevent server hydration mismatches
-    const storedLang = localStorage.getItem("polimelo_lang") as Language | null;
-    if (storedLang === "tr" || storedLang === "en") {
-      setLanguageState(storedLang);
-      document.documentElement.setAttribute("lang", storedLang);
-    } else {
-      // Auto-detect browser language: if TR is preferred, use TR; otherwise default to EN
-      const userLangs = navigator.languages || [navigator.language];
-      const prefersTurkish = userLangs.some(lang => lang.toLowerCase().startsWith("tr"));
-      const detected: Language = prefersTurkish ? "tr" : "en";
-      
-      setLanguageState(detected);
-      document.documentElement.setAttribute("lang", detected);
+    if (lang === "tr" || lang === "en") {
+      setLanguageState(lang);
+      document.documentElement.setAttribute("lang", lang);
     }
-    setMounted(true);
-  }, []);
+  }, [lang]);
 
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
-    localStorage.setItem("polimelo_lang", lang);
-    document.documentElement.setAttribute("lang", lang);
+  const setLanguage = (newLang: Language) => {
+    setLanguageState(newLang);
+    localStorage.setItem("polimelo_lang", newLang);
+    document.documentElement.setAttribute("lang", newLang);
+    
+    // Update the pathname with the new language prefix
+    const segments = pathname.split("/");
+    if (segments[1] === "tr" || segments[1] === "en") {
+      segments[1] = newLang;
+      router.push(segments.join("/"));
+    } else {
+      // If there is no lang prefix in pathname (e.g. root redirection page)
+      router.push(`/${newLang}${pathname === "/" ? "" : pathname}`);
+    }
   };
 
   const toggleLanguage = () => {
@@ -91,3 +92,4 @@ export function useLanguage() {
   }
   return context;
 }
+
