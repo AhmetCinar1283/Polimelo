@@ -241,7 +241,7 @@ export default function PolyvoPage() {
               {/* Sub-button style link specifically for Polyvo SM-2 science details */}
               <div className="w-full mt-2">
                 <Link
-                  href="/spaced-repetition-calculator"
+                  href={`/${language}/spaced-repetition-calculator`}
                   className="inline-flex items-center gap-1 text-[11px] font-mono font-medium opacity-50 hover:opacity-100 text-[var(--fg)] transition-opacity"
                 >
                   ⚡ {language === "tr" ? "SM-2 Algoritması ve Bellek Bilimi Analizi" : "SM-2 Algorithm & Memory Science Analysis"} <ArrowUpRight size={11} />
@@ -284,7 +284,7 @@ export default function PolyvoPage() {
               <p className="text-[var(--fg-muted)] text-base leading-relaxed">
                 {language === "tr" ? (
                   <>
-                    <Link href="/spaced-repetition-calculator" className="underline font-semibold hover:text-[var(--fg)] transition-colors">
+                    <Link href={`/${language}/spaced-repetition-calculator`} className="underline font-semibold hover:text-[var(--fg)] transition-colors">
                       SM-2
                     </Link>{" "}
                     algoritmasının özelleştirilmiş uygulaması: learning → review → graduated aşamalarıyla her kelime uzun süreli belleğe yerleşir.
@@ -292,7 +292,7 @@ export default function PolyvoPage() {
                 ) : (
                   <>
                     A tailored implementation of the{" "}
-                    <Link href="/spaced-repetition-calculator" className="underline font-semibold hover:text-[var(--fg)] transition-colors">
+                    <Link href={`/${language}/spaced-repetition-calculator`} className="underline font-semibold hover:text-[var(--fg)] transition-colors">
                       SM-2
                     </Link>{" "}
                     algorithm: using learning → review → graduated phases, each word settles into your long-term memory.
@@ -511,7 +511,7 @@ export default function PolyvoPage() {
                   </p>
                 </div>
                 <Link
-                  href="/blog/sm2-algoritmasi-ve-ogrenme"
+                  href={`/${language}/blog/sm2-algoritmasi-ve-ogrenme`}
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-500 hover:text-indigo-400"
                 >
                   {t("common.readArticle")} <ArrowUpRight size={14} />
@@ -528,7 +528,7 @@ export default function PolyvoPage() {
                   </p>
                 </div>
                 <Link
-                  href="/blog/dil-ogreniminde-aktif-geri-cagirma"
+                  href={`/${language}/blog/dil-ogreniminde-aktif-geri-cagirma`}
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-500 hover:text-indigo-400"
                 >
                   {t("common.readArticle")} <ArrowUpRight size={14} />

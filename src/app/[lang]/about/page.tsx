@@ -241,7 +241,7 @@ export default function AboutPage() {
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.12, duration: 0.6 }}
                   >
-                    <Link href={w.href} className="group block">
+                    <Link href={`/${language}${w.href}`} className="group block">
                       <div
                         className={`p-8 flex flex-col justify-between min-h-[200px] transition-all duration-300 ${
                           isLab

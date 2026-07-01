@@ -205,7 +205,7 @@ export default function SpacedRepetitionCalculator() {
           {/* Back Button */}
           <div className="mb-8">
             <Link 
-              href="/blog" 
+              href={`/${language}/blog`} 
               className="inline-flex items-center gap-2 text-sm text-[var(--fg-muted)] hover:text-[var(--fg)] transition-colors group font-mono"
             >
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
@@ -587,6 +587,40 @@ export default function SpacedRepetitionCalculator() {
                   Sonraki Aralık = 1 {language === "tr" ? "Gün" : "Day"}
                 </code>
               </div>
+            </div>
+          </section>
+
+          {/* SECTION 5: DETAILED SCIENCE EXPLANATION */}
+          <section className="border-t border-[var(--border)] pt-20 mb-20">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-[var(--fg)] mb-8 text-center">
+              {language === "tr" ? "Bellek Güçlendirme ve Aralıklı Tekrarın Nörobiyolojisi" : "Neurobiology of Memory Consolidation and Spaced Repetition"}
+            </h2>
+            <div className="space-y-6 text-sm md:text-base text-[var(--fg-muted)] leading-relaxed max-w-4xl mx-auto text-justify">
+              {language === "tr" ? (
+                <>
+                  <p>
+                    İnsan beynindeki öğrenme ve hatırlama süreçleri, nöronlar arasındaki sinaptik bağlantıların güçlenmesi (Long-Term Potentiation - LTP) ile gerçekleşir. Bir bilgi ilk kez öğrenildiğinde, geçici bir elektrik aktivitesi oluşur. Eğer bu bilgi tekrar edilmezse, sinapslardaki kimyasal reseptör sayısı hızla azalır ve bilgi silinir. Bu durum, psikolog Hermann Ebbinghaus'un meşhur <strong>"Unutma Eğrisi"</strong> ile tanımlanmıştır. Ebbinghaus, yeni öğrenilen bilgilerin neredeyse %80'inin ilk 48 saat içinde unutulduğunu deneysel olarak kanıtlamıştır.
+                  </p>
+                  <p>
+                    Aralıklı tekrar (Spaced Repetition) yöntemi, beynin bu biyolojik çalışma prensibini bir avantaja dönüştürür. Bilgiyi sürekli (blok ezber - cramming) çalışmak yerine, tam unutulmaya yakın aşamalarda (hatırlama eşiği %10-20 aralığına düştüğünde) zihni o bilgiyi aktif olarak geri çağırmaya (Active Recall) zorlar. Zihin hatırlamak için her zorlandığında, nöronlar arasındaki sinaptik bağlar çok daha kalın ve dayanıklı hale gelir. Bu durum, bilginin kısa süreli bellekten (hipokampus) kalıcı belleğe (neokorteks) aktarılmasını (konsolidasyon) tetikler.
+                  </p>
+                  <p>
+                    SuperMemo-2 (SM-2) algoritması, bu nörobiyolojik süreci matematiksel formüllerle taklit eder. Her tekrardan sonra verilen cevap kalitesine (0-5 arası q puanı) bağlı olarak <strong>Kolaylık Katsayısı (EF)</strong> dinamik olarak güncellenir. Eğer kart kolayca hatırlandıysa (q = 5), sonraki tekrar aralığı katlanarak uzatılır. Zorlanma durumunda (q &lt; 3) ise tekrar sayısı sıfırlanarak kart öğrenme fazına geri döndürülür. Bu sayede, binlerce kelimelik veri tabanları minimum zaman harcanarak yıllar boyunca unutulmayacak şekilde zihne kazınabilir.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    Learning and memory processes in the human brain occur through the strengthening of connections between neurons, a biological process known as <strong>Long-Term Potentiation (LTP)</strong>. When information is first acquired, it triggers transient electrical activity. Without reinforcement, the chemical receptors at the synapses rapidly decay, leading to memory loss. This is described by Hermann Ebbinghaus's famous <strong>"Forgetting Curve,"</strong> which shows that approximately 80% of new information is lost within the first 48 hours if no reviews occur.
+                  </p>
+                  <p>
+                    Spaced Repetition exploits this biological mechanism. Rather than studying continuously (cramming), which only overloads working memory, it schedules reviews at the precise moment of near-forgetting (when retrievability drops to 10-20%). Forcing the brain to engage in **Active Recall** under these conditions triggers neural signaling that restructures synaptic pathways, accelerating the transfer of data from the hippocampus (short-term memory) to the neocortex (long-term memory).
+                  </p>
+                  <p>
+                    The SuperMemo-2 (SM-2) algorithm models this neurobiological consolidation mathematically. Based on the user's response quality (0-5 rating, q), the <strong>Easiness Factor (EF)</strong> is recalculated. High-quality answers (q = 5) cause subsequent intervals to grow exponentially, while low-quality recalls (q &lt; 3) reset the repetition cycle back to the learning phase. This ensures study times are minimized while long-term retention metrics are optimized.
+                  </p>
+                </>
+              )}
             </div>
           </section>
 

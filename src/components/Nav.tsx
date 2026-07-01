@@ -39,7 +39,7 @@ export default function Nav({ startsOverDark = false }: NavProps) {
       }`}
     >
       <Link
-        href="/"
+        href={`/${language}`}
         className="flex items-center"
       >
         <Image
@@ -57,7 +57,7 @@ export default function Nav({ startsOverDark = false }: NavProps) {
 
       <div className="flex items-center gap-4 sm:gap-5 text-sm font-medium">
         <Link
-          href="/#projeler"
+          href={`/${language}/#projeler`}
           className={`hidden sm:block transition-colors duration-300 ${
             overDark
               ? "text-white/60 hover:text-white"
@@ -67,7 +67,7 @@ export default function Nav({ startsOverDark = false }: NavProps) {
           {t("common.projects")}
         </Link>
         <Link
-          href="/lab"
+          href={`/${language}/lab`}
           className={`hidden sm:block transition-colors duration-300 ${
             overDark
               ? "text-white/60 hover:text-white"
@@ -77,7 +77,7 @@ export default function Nav({ startsOverDark = false }: NavProps) {
           {t("common.laboratory")}
         </Link>
         <Link
-          href="/about"
+          href={`/${language}/about`}
           className={`hidden sm:block transition-colors duration-300 ${
             overDark
               ? "text-white/60 hover:text-white"
@@ -87,7 +87,7 @@ export default function Nav({ startsOverDark = false }: NavProps) {
           {t("common.aboutUs")}
         </Link>
         <Link
-          href="/blog"
+          href={`/${language}/blog`}
           className={`hidden sm:block transition-colors duration-300 ${
             overDark
               ? "text-white/60 hover:text-white"
@@ -97,7 +97,7 @@ export default function Nav({ startsOverDark = false }: NavProps) {
           {t("common.blog")}
         </Link>
         <Link
-          href="/contact"
+          href={`/${language}/contact`}
           className={`hidden sm:block transition-colors duration-300 ${
             overDark
               ? "text-white/60 hover:text-white"

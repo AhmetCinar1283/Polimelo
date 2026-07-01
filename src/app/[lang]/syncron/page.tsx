@@ -490,7 +490,7 @@ export default function SyncronPage() {
                   </p>
                 </div>
                 <Link
-                  href="/blog/puzzle-oyunu-tasarlamak"
+                  href={`/${language}/blog/puzzle-oyunu-tasarlamak`}
                   className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors hover:text-white"
                   style={{ color: NEON }}
                 >
@@ -508,7 +508,7 @@ export default function SyncronPage() {
                   </p>
                 </div>
                 <Link
-                  href="/blog/puzzle-oyunlarinda-zorluk-ayarlama"
+                  href={`/${language}/blog/puzzle-oyunlarinda-zorluk-ayarlama`}
                   className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors hover:text-white"
                   style={{ color: NEON }}
                 >

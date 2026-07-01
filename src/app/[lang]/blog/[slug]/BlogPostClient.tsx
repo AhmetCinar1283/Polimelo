@@ -39,7 +39,7 @@ export default function BlogPostClient({ post, finalRelated }: BlogPostClientPro
           {/* Back Button */}
           <div className="mb-10">
             <Link 
-              href="/blog" 
+              href={`/${language}/blog`} 
               className="inline-flex items-center gap-2 text-sm text-[var(--fg-muted)] hover:text-[var(--fg)] transition-colors group"
             >
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
@@ -91,7 +91,7 @@ export default function BlogPostClient({ post, finalRelated }: BlogPostClientPro
               {finalRelated.map((related) => (
                 <Link 
                   key={related.slug}
-                  href={`/blog/${related.slug}`}
+                  href={`/${language}/blog/${related.slug}`}
                   className="group block p-6 bg-[var(--card-bg)] border border-[var(--border)] rounded-lg hover:border-[var(--fg-muted)] transition-all duration-300 h-full flex flex-col justify-between"
                 >
                   <div>

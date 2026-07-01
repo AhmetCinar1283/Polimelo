@@ -527,4 +527,739 @@ For n &gt; 2: I(n) = I(n-1) * EF</code></pre>
       `
     }
   }
+,
+  {
+    slug: "webassembly-tarayicida-performans-analizi",
+    title: {
+      tr: "WebAssembly ile Tarayıcıda Performans Analizi ve Gelecek",
+      en: "Performance Analysis and the Future of WebAssembly in the Browser"
+    },
+    description: {
+      tr: "Tarayıcıda C++ ve Rust gibi dilleri çalıştırmanın gücünü ve WebAssembly'nin JS performansına kıyasla sunduğu avantajları keşfedin.",
+      en: "Explore the power of running low-level languages like C++ and Rust in the browser and the performance benefits WebAssembly brings compared to JavaScript."
+    },
+    category: {
+      tr: "Yazılım",
+      en: "Software"
+    },
+    readTime: {
+      tr: "7 dk",
+      en: "7 min"
+    },
+    date: {
+      tr: "22 Mayıs 2026",
+      en: "May 22, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>WebAssembly (WASM), modern tarayıcıların JavaScript dışında derlenmiş ikili (binary) kodları çalıştırmasını sağlayan devrim niteliğinde bir web standardıdır. JavaScript'in yorumlanma ve derlenme (JIT) aşamalarındaki gecikmeleri ortadan kaldırarak, tarayıcıda neredeyse yerel (near-native) hızlarda hesaplama yapılmasına olanak tanır. Polimelo Lab'deki interaktif modüllerimizde bu teknolojiyi aktif olarak kullanmaktayız.</p>
+        <h3>JS ve WASM Performans Karşılaştırması</h3>
+        <p>JavaScript tek iş parçacıklı (single-threaded) ve dinamik tipli bir dildir. Bu, çalışma zamanında sürekli tip kontrolleri yapılmasına neden olur. WebAssembly ise statik tipli ve optimize edilmiş ikili formattadır. CPU talimatlarına çok daha yakın olduğu için yoğun matematiksel döngüler, 3D çizimler ve veri analizlerinde JavaScript'ten 10 ila 100 kat daha hızlı sonuç üretebilir.</p>
+        <h3>Hangi Alanlarda WASM Tercih Edilmelidir?</h3>
+        <p>Tüm sitenizi WebAssembly ile yazmak mantıklı değildir; arayüz ve DOM etkileşimleri için JavaScript hala en iyi seçenektir. Ancak video işleme, fizik motorları, tarayıcı tabanlı oyunlar ve yapay zeka çıkarımları (AI inference) gibi CPU yükü yüksek modüllerde Rust veya C++ kodlarınızı WASM'e derleyerek sisteme entegre etmelisiniz.</p>
+      `,
+      en: `
+<p>WebAssembly (WASM) is a revolutionary web standard that allows modern browsers to run compiled binary code alongside JavaScript. By eliminating the latency of JavaScript interpretation and JIT compilation, WASM enables near-native execution speed. We actively use this technology in our interactive sandboxes within Polimelo Lab.</p>
+        <h3>JS vs. WASM Performance Comparison</h3>
+        <p>JavaScript is a single-threaded, dynamically-typed language, which leads to overhead during runtime type checks. In contrast, WebAssembly is statically-typed and distributed in an optimized binary format. Being closer to raw CPU instructions, it performs heavy mathematical iterations, 3D rendering, and data analysis 10x to 100x faster than JS.</p>
+        <h3>When Should You Use WASM?</h3>
+        <p>Rebuilding your entire site in WASM is counterproductive, as JavaScript remains ideal for DOM manipulation. However, for CPU-heavy tasks like video encoding, physics simulation, browser-based games, and client-side AI inference, compiling Rust or C++ codebases into WASM is the gold standard.</p>
+      `
+    }
+  },
+  {
+    slug: "react-19-compiler-ve-yenilikler",
+    title: {
+      tr: "React 19 Compiler: Otomatik Performans Optimizasyonları",
+      en: "React 19 Compiler: Automatic Performance Optimizations"
+    },
+    description: {
+      tr: "React 19 ile gelen yeni derleyici motorunun useMemo ve useCallback ihtiyacını nasıl ortadan kaldırdığını inceleyin.",
+      en: "Examine how the new React 19 Compiler engine automatically eliminates the need for manual useMemo and useCallback hooks."
+    },
+    category: {
+      tr: "Yazılım",
+      en: "Software"
+    },
+    readTime: {
+      tr: "6 dk",
+      en: "6 min"
+    },
+    date: {
+      tr: "18 Mayıs 2026",
+      en: "May 18, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>React 19 sürümünün en heyecan verici yeniliklerinden biri şüphesiz <strong>React Compiler</strong> (kod adı React Forget) motorudur. Geleneksel React geliştirmede, gereksiz re-render'ları engellemek için kodumuza manuel olarak <code>useMemo</code>, <code>useCallback</code> ve <code>React.memo</code> eklemek zorundaydık. React 19 ise bu süreci derleme (build) aşamasında tamamen otomatik hale getiriyor.</p>
+        <h3>Derleyicinin Çalışma Mantığı</h3>
+        <p>React Compiler, bileşen kodlarınızı analiz ederek hangi verilerin hangi render adımlarında değiştiğini tespit eder. Yalnızca değişen verilerin etki ettiği alt düğümleri (DOM) güncelleyecek şekilde kod seviyesinde otomatik memoization uygular. Bu sayede kod tabanımız hem kısalır hem de okunabilirliği artar.</p>
+        <h3>Geliştiricilere Etkileri</h3>
+        <p>Artık bağımlılık dizileri (dependency arrays) ile vakit kaybetmenize veya memoization hatalarından kaynaklanan bellek sızıntılarını ayıklamanıza gerek kalmadı. React 19, geliştirici konforunu (developer experience) en üst düzeye çıkarırken en optimum performansı da beraberinde getiriyor.</p>
+      `,
+      en: `
+<p>One of the most exciting breakthroughs in React 19 is the integration of the <strong>React Compiler</strong> (formerly known as React Forget). In previous versions, developers had to manually optimize renders using hooks like <code>useMemo</code> and <code>useCallback</code>. React 19 automates this entire cycle during compilation.</p>
+        <h3>How the Compiler Works</h3>
+        <p>The compiler parses your component syntax tree to determine which values mutate and when. It then injects memoization directives under the hood, targeting only the DOM nodes affected by changes. This results in shorter, cleaner, and less error-prone codebases.</p>
+        <h3>Impact on Developers</h3>
+        <p>You no longer need to spend time configuring dependency arrays or debugging performance issues related to stale closure references. React 19 elevates developer experience (DX) while delivering optimal out-of-the-box runtime performance.</p>
+      `
+    }
+  },
+  {
+    slug: "offline-first-mimari-ve-dexie-js",
+    title: {
+      tr: "Dexie.js ile Offline-First (Önce Çevrimdışı) Uygulama Mimarisi",
+      en: "Offline-First Application Architecture with Dexie.js"
+    },
+    description: {
+      tr: "İnternet kesintilerinde dahi çalışabilen web uygulamaları tasarlamak. Dexie.js ve IndexedDB kullanımı.",
+      en: "Designing web applications that remain functional during network outages. Using Dexie.js and browser IndexedDB."
+    },
+    category: {
+      tr: "Yazılım",
+      en: "Software"
+    },
+    readTime: {
+      tr: "8 dk",
+      en: "8 min"
+    },
+    date: {
+      tr: "15 Mayıs 2026",
+      en: "May 15, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>İnternet bağlantısının dalgalı veya tamamen kesik olduğu durumlarda kullanıcıların uygulamanızı kullanmaya devam edebilmesini istemez misiniz? <strong>Offline-First</strong> yaklaşımı, verileri önce istemcinin yerel veritabanında (IndexedDB) barındırmayı, ardından ağ bağlantısı kurulduğunda bulut sunucularıyla eşitlemeyi hedefler. Polyvo projemizde bu mimariyi başarıyla kurguladık.</p>
+        <h3>IndexedDB ve Dexie.js Kolaylığı</h3>
+        <p>Tarayıcılardaki yerel veritabanı olan IndexedDB, düşük seviyeli ve kullanımı oldukça karmaşık bir API sunar. <strong>Dexie.js</strong> ise bu API'yi sararak modern Promise tabanlı, kullanımı son derece kolay ve verimli bir arayüz sağlar. Dexie ile veri sorgulamaları, index tanımları ve işlem yönetimi (transactions) çok basit hale gelir.</p>
+        <h3>Senkronizasyon Stratejisi</h3>
+        <p>Çevrimdışı modda yapılan tüm işlemler (yeni kelime ekleme, ilerleme kaydetme) yerel IndexedDB'ye yazılır. Cihaz online olduğunda, bir arka plan servisi (background sync) devreye girerek yerel verilerdeki son değişiklikleri (güncelleme zaman damgalarını kullanarak) Firebase Firestore ile eşitler. Bu sayede veri kayıpları tamamen engellenmiş olur.</p>
+      `,
+      en: `
+<p>Do you want your users to access and interact with your web application even during sudden network disconnections? An <strong>Offline-First</strong> architecture achieves this by storing data locally in the browser database (IndexedDB) first, and then synchronizing with cloud servers when network connectivity is available. We implemented this in our Polyvo application.</p>
+        <h3>Simplifying IndexedDB with Dexie.js</h3>
+        <p>IndexedDB offers a low-level, complex transactional database API. <strong>Dexie.js</strong> wraps IndexedDB into a modern, Promise-based abstraction that makes handling index schemas, structured queries, and write transactions straightforward and efficient.</p>
+        <h3>Synchronization Logic</h3>
+        <p>All writes in offline mode (such as saving study decks or progress) are written to local stores. When internet connectivity is restored, background workers detect the state and push updates to Firebase Firestore, utilizing transaction logs and timestamps to resolve merge conflicts safely.</p>
+      `
+    }
+  },
+  {
+    slug: "capacitor-js-ile-native-kopruler-kurmak",
+    title: {
+      tr: "Capacitor.js ile JavaScript ve Native Cihaz API'leri Arasında Köprü Kurma",
+      en: "Bridge JavaScript and Native Device APIs with Capacitor.js"
+    },
+    description: {
+      tr: "Cordova yerine neden Capacitor tercih edilmeli? Javascript projelerinizi mobil native API'lerle nasıl entegre edebilirsiniz?",
+      en: "Why should you choose Capacitor over Cordova? How to integrate your Javascript projects with mobile native APIs."
+    },
+    category: {
+      tr: "Yazılım",
+      en: "Software"
+    },
+    readTime: {
+      tr: "7 dk",
+      en: "7 min"
+    },
+    date: {
+      tr: "12 Mayıs 2026",
+      en: "May 12, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Web teknolojileri ile mobil uygulama geliştirirken en büyük zorluk, cihazın yerel özelliklerine (kamera, bildirimler, GPS vb.) erişmektir. <strong>Capacitor.js</strong>, Ionic ekibi tarafından geliştirilen ve web kodunuz ile iOS/Android işletim sistemleri arasında modern köprüler kuran açık kaynaklı bir araçtır.</p>
+        <h3>Neden Cordova Değil de Capacitor?</h3>
+        <p>Cordova, projeyi sarmak için soyutlanmış bir yapı kullanırdı ve hata ayıklama (debugging) süreçleri son derece zordu. Capacitor ise mobil projeleri (Xcode ve Android Studio projeleri) doğrudan geliştiricinin yönetimine sunar. Web çıktınızı bu yerel projelere kopyalar ve yerel kod yazarak özel eklentiler (custom plugins) geliştirmenizi kolaylaştırır.</p>
+        <h3>Nasıl Çalışır?</h3>
+        <p>Capacitor, JavaScript katmanında bir <code>Capacitor.toNative()</code> çağrısı yapıldığında bunu arka plandaki Swift/Kotlin sınıflarına aktarır. İşlem tamamlandığında ise Promise yapısı üzerinden sonucu web arayüzünüze geri döndürür. Polyvo mobil sürümünde anlık bildirimler (push notifications) ve yerel ses çalma özelliklerini bu şekilde kurguladık.</p>
+      `,
+      en: `
+<p>When developing mobile applications using web stacks, accessing hardware APIs (camera, geolocation, push notifications) can be challenging. <strong>Capacitor.js</strong>, built by the Ionic team, solves this by establishing modern, performant bridges between web assets and native iOS/Android engines.</p>
+        <h3>Why Choose Capacitor over Cordova?</h3>
+        <p>Unlike Cordova, which abstracted away native code directories, Capacitor keeps native Xcode and Android Studio directories visible and editable in your workspace. You can easily write custom Kotlin or Swift code to create platform-specific plugin bridges.</p>
+        <h3>Under the Hood</h3>
+        <p>When you trigger native features via Javascript, Capacitor serializes the requests and forwards them to platform-specific runtime classes. Once processed, responses are dispatched back to your React/Next.js layers using standard Javascript Promises.</p>
+      `
+    }
+  },
+  {
+    slug: "tailwind-css-v4-derleyici-motoru",
+    title: {
+      tr: "Tailwind CSS v4: Rust Tabanlı Yeni Derleyici ve Performans",
+      en: "Tailwind CSS v4: The New Rust-based Compiler and Performance"
+    },
+    description: {
+      tr: "PostCSS ihtiyacını kaldıran ve derleme hızlarını 10 kat artıran Tailwind CSS v4 mimarisini inceleyin.",
+      en: "Explore the Tailwind CSS v4 architecture that removes PostCSS dependencies and speeds up compilation times by 10x."
+    },
+    category: {
+      tr: "Yazılım",
+      en: "Software"
+    },
+    readTime: {
+      tr: "5 dk",
+      en: "5 min"
+    },
+    date: {
+      tr: "8 Mayıs 2026",
+      en: "May 8, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Tailwind CSS v4, stil motorunu baştan aşağı yeniledi. En büyük değişiklik, JavaScript tabanlı derleme süreçlerinden vazgeçilerek **Rust tabanlı özel bir derleyici (compiler)** geliştirilmiş olmasıdır. Bu yenilik, büyük projelerdeki derleme (build) sürelerini milisaniyeler seviyesine indiriyor.</p>
+        <h3>Sıfır Yapılandırma (Zero Configuration)</h3>
+        <p>v4 ile birlikte artık karmaşık <code>tailwind.config.js</code> dosyalarına gerek kalmadı. CSS dosyanızın en tepesine ekleyeceğiniz <code>@theme</code> direktifleri ile tüm özelleştirmelerinizi (renkler, fontlar vb.) doğrudan standart CSS kuralları içinde tanımlayabiliyorsunuz. PostCSS bağımlılıkları da ortadan kalktığı için proje kurulumu çok daha sadeleşti.</p>
+        <h3>Polimelo Arayüzündeki Etkisi</h3>
+        <p>Polimelo portfolyomuzu v4 sürümüne yükselttikten sonra, yerel geliştirme sunucusunun (dev server) stil değişikliklerini tarayıcıya yansıtma hızı anlık hale geldi. Ayrıca üretim çıktısındaki CSS dosyası boyutu önemli ölçüde küçüldü.</p>
+      `,
+      en: `
+<p>Tailwind CSS v4 reinvents utility styling from the ground up. The highlight is the new **Rust-based engine**, which deprecates old Javascript parsing and cuts build times down to milliseconds in large-scale applications.</p>
+        <h3>Zero Configuration Files</h3>
+        <p>In v4, the complex <code>tailwind.config.js</code> is no longer needed. Theme tokens (colors, animations, fonts) are now declared directly inside your index CSS file using the <code>@theme</code> directive. This eliminates PostCSS dependencies, resulting in faster and cleaner bundlers.</p>
+        <h3>Impact on Polimelo</h3>
+        <p>After upgrading Polimelo to Tailwind v4, style hot-reloading (HMR) became instantaneous. In addition, the compiled CSS bundle size decreased significantly, speeding up initial page loads.</p>
+      `
+    }
+  },
+  {
+    slug: "framer-motion-mikro-etkilesimler",
+    title: {
+      tr: "Framer Motion ile Kullanıcı Deneyimini Artıran Mikro Animasyonlar",
+      en: "Micro-interactions That Enhance UX Using Framer Motion"
+    },
+    description: {
+      tr: "Kullanıcı etkileşimlerini pürüzsüz kılmak için Framer Motion kütüphanesini kullanma rehberi.",
+      en: "A guide on using Framer Motion to create smooth micro-interactions that elevate overall user experience."
+    },
+    category: {
+      tr: "Oyun Tasarımı",
+      en: "Game Design"
+    },
+    readTime: {
+      tr: "6 dk",
+      en: "6 min"
+    },
+    date: {
+      tr: "5 Mayıs 2026",
+      en: "May 5, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Kullanıcı arayüzlerinde animasyon, sadece görsellikten ibaret değildir. Doğru kurgulanmış mikro etkileşimler, kullanıcının eylemlerine anlamlı geri bildirimler vererek uygulamanın daha "canlı" ve premium hissettirmesini sağlar. React ekosisteminin en popüler animasyon kütüphanesi olan <strong>Framer Motion</strong>, bu süreçte bize büyük kolaylıklar sunar.</p>
+        <h3>Fizik Tabanlı Yay Animasyonları (Spring Physics)</h3>
+        <p>Zaman tabanlı (duration) animasyonlar genellikle yapay görünür. Framer Motion, varsayılan olarak gerçek dünya fizik yasalarına göre çalışan yay (spring) animasyonları kullanır. Bileşenlerin kütlesi (mass), sürtünme katsayısı (damping) ve gerginliği (stiffness) gibi değerleri ayarlayarak son derece organik hareketler elde edebilirsiniz.</p>
+        <h3>Syncron ve Polyvo Animasyon Detayları</h3>
+        <p>Syncron oyunumuzda karelerin grid üzerinde kayarken momentumlarını korumasını ve duvarlara çarptıklarında hafifçe esnemelerini Framer Motion'ın spring efektleri ile kodladık. Bu ufak dokunuşlar, oyun hissini (game feel) çok ciddi şekilde iyileştirdi.</p>
+      `,
+      en: `
+<p>In digital design, animations are not merely decorative. Well-designed micro-interactions provide intuitive feedback to user actions, making interfaces feel tactile and responsive. <strong>Framer Motion</strong> makes orchestrating these animations in React very intuitive.</p>
+        <h3>Organic Motion via Spring Physics</h3>
+        <p>Linear duration-based transitions often feel robotic. Framer Motion defaults to physics-based animations that simulate weight, friction, and tension (stiffness/damping). This results in fluid, natural animations that mimic real-world physical feedback.</p>
+        <h3>Case Study: Syncron</h3>
+        <p>In our game Syncron, the neon tiles slide on the grid preserving momentum, bouncing slightly when they hit walls. Configuring spring physics in Framer Motion allowed us to fine-tune this visual feel, improving engagement metrics.</p>
+      `
+    }
+  },
+  {
+    slug: "nextjs-static-export-optimizasyonlari",
+    title: {
+      tr: "Next.js Static Export (Statik Çıktı) İpuçları ve Sınırlar",
+      en: "Next.js Static Export Tips and Architecture Boundaries"
+    },
+    description: {
+      tr: "output: 'export' ayarını yaparken dikkat edilmesi gereken dinamik rota yönetimi ve veri çekme stratejileri.",
+      en: "Dynamic routing strategies and API fetching policies to consider when using the output: 'export' setting."
+    },
+    category: {
+      tr: "Yazılım",
+      en: "Software"
+    },
+    readTime: {
+      tr: "7 dk",
+      en: "7 min"
+    },
+    date: {
+      tr: "2 Mayıs 2026",
+      en: "May 2, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Next.js, sunucu tarafında çalışan dinamik bir Node.js uygulaması olarak tasarlanmıştır. Ancak bazı projelerde (örneğin Polimelo gibi portfolyo veya basit uygulamalarda) sunucu maliyetlerini sıfırlamak ve maksimum hıza ulaşmak için sitenizi statik HTML/CSS/JS dosyaları olarak dışa aktarmak istersiniz. Bunun için <code>next.config.ts</code> dosyasına <code>output: 'export'</code> ekleriz.</p>
+        <h3>Statik Export ile Neler Yapılamaz?</h3>
+        <p>Sunucu tabanlı özellikler (Next.js Middleware, dinamik API rotaları (API Routes), sunucu bileşenlerinde runtime veri çekme vb.) statik export modunda çalışmaz. Her sayfa derleme aşamasında (build-time) statik dosyalara dönüştürülmek zorundadır. Bu yüzden dinamik rotalar için mutlaka <code>generateStaticParams()</code> fonksiyonu ile olası tüm parametreleri tanımlamanız gerekir.</p>
+        <h3>Arama Parametreleri (Search Params) ve Çözümler</h3>
+        <p>Derleme anında URL'deki query parametrelerini (örneğin <code>?ref=google</code>) okuyamazsınız. Bu gibi durumları çözmek için query parametrelerini sayfa yüklendikten sonra istemci tarafında (Client Component - <code>useSearchParams</code>) yakalamak ve arayüzü ona göre güncellemek gerekir.</p>
+      `,
+      en: `
+<p>Next.js defaults to a dynamic server-rendered runtime. However, for portfolios and serverless deployments like Polimelo, compilation to static assets via <code>output: 'export'</code> is highly cost-effective and performs exceptionally fast on global CDNs.</p>
+        <h3>Static Export Trade-offs</h3>
+        <p>Node.js runtime server features (like Middleware, dynamic runtime headers, or runtime API endpoints) are not supported. Every page route must resolve to HTML pages at build-time. For dynamic paths, this means utilizing <code>generateStaticParams()</code> to pre-render all URLs.</p>
+        <h3>Handling Client Parameters</h3>
+        <p>Since URL search queries (like <code>?id=123</code>) are unavailable during static HTML compilation, you must handle them on the client side. Accessing query states via <code>useSearchParams</code> within wrapper Client Components is the standard practice.</p>
+      `
+    }
+  },
+  {
+    slug: "indexeddb-performans-ve-limitler",
+    title: {
+      tr: "Tarayıcıda Dev Veri Depolama: IndexedDB Performans Sınırları",
+      en: "Large Scale Client Storage: IndexedDB Performance Limits"
+    },
+    description: {
+      tr: "Tarayıcı veritabanlarının depolama kapasiteleri, performans darboğazları ve büyük verileri yönetme teknikleri.",
+      en: "Storage quotas, transactional throughput bottlenecks, and optimization patterns for browser databases."
+    },
+    category: {
+      tr: "Yazılım",
+      en: "Software"
+    },
+    readTime: {
+      tr: "6 dk",
+      en: "6 min"
+    },
+    date: {
+      tr: "29 Nisan 2026",
+      en: "April 29, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>LocalStorage, 5MB'lık dar sınırı ve senkron (engellemeli) yapısıyla büyük veri işlemlerinde yetersiz kalır. Tarayıcıda veri yönetimi yaparken gerçek bir ilişkisel/doküman veritabanı performansına ihtiyaç duyduğumuzda tek seçeneğimiz asenkron çalışan **IndexedDB**'dir.</p>
+        <h3>Depolama Limitleri (Storage Quota)</h3>
+        <p>IndexedDB depolama limiti, cihazın disk boyutuna ve tarayıcıya göre dinamik olarak değişir. Genellikle tarayıcılar disk boş alanının %10-20'sine kadar veri depolama hakkı tanır. Ancak mobil WebView ortamlarda bu limitler daha sıkı olabileceğinden uygulamanızda mutlaka yer kaplama durumunu <code>navigator.storage.estimate()</code> ile takip etmelisiniz.</p>
+        <h3>Performans İpuçları</h3>
+        <p>Her okuma ve yazma işlemini tek tek başlatmak yerine verileri toplu (bulk transactions) işleyin. Ayrıca indeksleme yaparken sadece sorgularda filtreleme için kullanacağınız kritik alanları indeksleyin; aşırı indeksleme yazma performansını olumsuz etkiler.</p>
+      `,
+      en: `
+<p>LocalStorage, with its 5MB limit and synchronous runtime thread blocking, is ill-suited for rich data processing. For true query power, developers must turn to **IndexedDB**, a client-side transactional object database.</p>
+        <h3>Quota Estimations</h3>
+        <p>IndexedDB size allocations depend on free disk capacity. Browsers typically allow web origins to request up to 20% of remaining storage. In mobile environments, quotas are tighter, making it crucial to query <code>navigator.storage.estimate()</code> to prevent memory failures.</p>
+        <h3>Performance Optimizations</h3>
+        <p>To maximize throughput, minimize database opens, batch writes inside single transactions, and index only fields used in query filters. Bloating object stores with unnecessary indexes degrades overall write speeds.</p>
+      `
+    }
+  },
+  {
+    slug: "siberpunk-tasarim-estetigi",
+    title: {
+      tr: "Web Arayüzlerinde Siberpunk Estetiği ve Neon Tasarım Rehberi",
+      en: "Applying Cyberpunk Aesthetics and Neon Styling in Web Interfaces"
+    },
+    description: {
+      tr: "Karanlık temalar, yoğun kontrast renk şemaları, HSL neon filtreleri ve dijital tasarımın karanlık yönünü keşfedin.",
+      en: "Exploring dark theme contrasts, HSL drop shadows, neon bloom effects, and the dark side of digital interface design."
+    },
+    category: {
+      tr: "Oyun Tasarımı",
+      en: "Game Design"
+    },
+    readTime: {
+      tr: "7 dk",
+      en: "7 min"
+    },
+    date: {
+      tr: "25 Nisan 2026",
+      en: "April 25, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Siberpunk tasarım estetiği, yüksek teknoloji ile düşük yaşam standartlarının çarpışmasını yansıtır. Web tasarımdaki izdüşümü ise; derin siyah arka planlar, yüksek doygunlukta neon renkler (cyan, magenta, neon green) ve retro-fütüristik çizgi şemalarıdır. Syncron oyunumuzun görsel dili bu prensiplere dayanır.</p>
+        <h3>Neon Glow (Işıma) Etkisi</h3>
+        <p>CSS ile neon ışıltısı tasarlamak için <code>box-shadow</code> ve <code>drop-shadow</code> filtrelerini birlikte kullanmalısınız. Renkleri tanımlarken **HSL** (Hue, Saturation, Lightness) renk formatını tercih etmek, gölgelerin opaklıklarını ve parlaklıklarını dinamik hesaplarken büyük kolaylık sağlar:</p>
+        <pre className="bg-neutral-900 p-4 rounded block font-mono text-xs"><code>.neon-glow {
+  box-shadow: 0 0 10px hsla(140, 80%, 50%, 0.5),
+              0 0 20px hsla(140, 80%, 50%, 0.2);
+}</code></pre>
+        <h3>Tipografi Tercihleri</h3>
+        <p>Yüksek kontrastlı, sert köşeli sans-serif veya monospaced fontlar siberpunk atmosferini destekler. Ayrıca kod satırlarını andıran ince ızgara (grid) overlay çizgileri eklemek, derinlik hissini artırır.</p>
+      `,
+      en: `
+<p>Cyberpunk styling represents the juxtaposition of high tech and low life. Translated into UI design, this manifests as deep void backdrops, hyper-saturated neon glows (cyans, magentas, neon greens), and retro-futuristic grid guidelines. We utilized these rules to structure our game Syncron.</p>
+        <h3>Implementing Neon Bloom in CSS</h3>
+        <p>To style high-quality glowing elements, stack multiple layers of translucent shadows. Declaring colors in **HSL** (Hue, Saturation, Lightness) syntax is optimal, allowing you to quickly define glow shades with varying alphas:</p>
+        <pre className="bg-neutral-900 p-4 rounded block font-mono text-xs"><code>.neon-glow {
+  box-shadow: 0 0 10px hsla(140, 80%, 50%, 0.5),
+              0 0 20px hsla(140, 80%, 50%, 0.2);
+}</code></pre>
+        <h3>Visual Hierarchy</h3>
+        <p>Use clean, high-contrast sans-serif or monospaced font pairings (like Geist Mono). Adding structural scanlines or subtle grid overlays adds texture, simulating hardware terminal screens.</p>
+      `
+    }
+  },
+  {
+    slug: "yapay-sinir-aglari-matematigi",
+    title: {
+      tr: "Derin Öğrenmeye Giriş: Yapay Sinir Ağlarının Arkasındaki Matematik",
+      en: "Introduction to Deep Learning: The Math Behind Neural Networks"
+    },
+    description: {
+      tr: "Yapay sinir ağlarındaki ağırlık güncellemelerini, aktivasyon fonksiyonlarını ve geriye yayılım (backpropagation) formüllerini öğrenin.",
+      en: "Understand weight optimization steps, activation functions, and the backpropagation chain-rule formulas in deep learning."
+    },
+    category: {
+      tr: "Eğitim",
+      en: "Education"
+    },
+    readTime: {
+      tr: "9 dk",
+      en: "9 min"
+    },
+    date: {
+      tr: "20 Nisan 2026",
+      en: "April 20, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Yapay sinir ağları, temelde yüksek boyutlu matris çarpımları ve türev tabanlı optimizasyonlardan oluşan matematiksel yapılardır. Gelişmiş yapay zeka modellerinin nasıl öğrendiğini anlamak için lineer cebir ve kalkülüs kurallarını bilmek gerekir. Bu yazıda, geriye yayılımın (backpropagation) matematiksel türetimini inceleyeceğiz.</p>
+        <h3>İleri Besleme (Forward Propagation) ve Aktivasyon</h3>
+        <p>Girdiler (X), ağırlıklar (W) ile çarpılıp sapma (bias) değeri eklendikten sonra doğrusal olmayan (non-linear) bir aktivasyon fonksiyonundan (ReLU, Sigmoid vb.) geçirilir. Bu doğrusal olmama durumu, ağın karmaşık, doğrusal olmayan ilişkileri öğrenmesini sağlar:</p>
+        <p className="italic text-center">[z = W cdot X + b]</p>
+        <p className="italic text-center">[a = sigma(z)]</p>
+        <h3>Hata Azaltma ve Geriye Yayılım (Backpropagation)</h3>
+        <p>Modelin tahmin hatası (Loss), gradyan inişi (gradient descent) yöntemi ve zincir kuralı (chain rule) kullanılarak ağdaki tüm ağırlıklara göre türetilir. Her geriye yayılım adımında, ağırlıklar hata yönünün tersine doğru güncellenerek modelin doğruluk oranı artırılır.</p>
+      `,
+      en: `
+<p>At their core, neural networks are multidimensional matrix operations combined with derivative-based optimization. Comprehending how deep learning models learn requires exploring linear algebra and calculus. In this write-up, we derive backpropagation mathematically.</p>
+        <h3>Forward Pass and Non-Linearities</h3>
+        <p>Input variables (X) are multiplied by weight parameters (W), offset by biases (b), and passed to non-linear activation layers (such as ReLU or Sigmoid). This non-linearity allows the network to model highly complex mathematical functions:</p>
+        <p className="italic text-center">[z = W cdot X + b]</p>
+        <p className="italic text-center">[a = sigma(z)]</p>
+        <h3>Error Correction and Backpropagation</h3>
+        <p>Model errors are propagated backward using calculus chain-rule derivatives. We compute gradients representing how output loss reacts to weight fluctuations, updating parameters in the opposite direction of the gradient to iteratively minimize error.</p>
+      `
+    }
+  },
+  {
+    slug: "supermemo-sm2-vs-sm17-karsilastirma",
+    title: {
+      tr: "Aralıklı Tekrar Algoritmaları: SuperMemo SM-2 vs SM-17",
+      en: "Spaced Repetition Algorithms: SuperMemo SM-2 vs. SM-17"
+    },
+    description: {
+      tr: "Aralıklı tekrar teorisinin ilk matematik modeli SM-2 ile modern veri tabanlı makine öğrenimi modeli SM-17 karşılaştırması.",
+      en: "Comparing the classic SM-2 formula with the modern data-driven SM-17 machine learning model of spaced repetition."
+    },
+    category: {
+      tr: "Eğitim",
+      en: "Education"
+    },
+    readTime: {
+      tr: "8 dk",
+      en: "8 min"
+    },
+    date: {
+      tr: "16 Nisan 2026",
+      en: "April 16, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Aralıklı tekrarın babası Piotr Wozniak, hafızanın matematiksel seyir modelini çizmek için onlarca yıl çalışmıştır. Geliştirdiği ilk bilgisayarlı formül olan **SM-2**, bugün Anki ve Polyvo gibi birçok yazılımın temelini oluşturur. Ancak günümüzün gelişmiş veri setleri, daha karmaşık algoritmaları doğurmuştur: **SM-17**.</p>
+        <h3>Klasik SM-2 Modelinin Sınırları</h3>
+        <p>SM-2, aralıkları sadece sabit formüllere ve kullanıcının anlık puanına göre belirler. Kolaylık Katsayısı (EF) hızlı değişmez ve geçmişteki uzun vadeli unutma örüntülerini analiz edemez. Bu, bazen kelimelerin gereğinden sık veya nadir çıkmasına neden olur.</p>
+        <h3>Modern SM-17 Yaklaşımı</h3>
+        <p>SM-17, sabit katsayılar yerine üç boyutlu bir hafıza uzayı (Hatırlanabilirlik, Zorluk ve Kararlılık) tanımlar. Milyonlarca tekrar verisinden beslenen bir makine öğrenimi algoritması gibi çalışarak, her bireyin kendine has unutma eğrisini çok daha yüksek bir hassasiyetle tahmin eder.</p>
+      `,
+      en: `
+<p>Dr. Piotr Wozniak devoted decades to modeling memory decay mathematically. His second digital attempt, the **SM-2** algorithm, serves as the engine for platforms like Anki and Polyvo. However, years of learning data eventually birthed the highly sophisticated **SM-17** algorithm.</p>
+        <h3>Limitations of the SM-2 Model</h3>
+        <p>SM-2 schedules intervals using fixed algebraic steps based on instant user quality ratings. Its Easiness Factor (EF) lacks memory of historical patterns, occasionally leading to redundant card reviews or unexpected forgetting spikes.</p>
+        <h3>The Modern SM-17 Paradigm</h3>
+        <p>SM-17 represents memory status as a coordinate inside a three-dimensional space: Retrievability, Stability, and Difficulty. By fitting individual response histories to global datasets, it forecasts memory decay rates with far greater precision.</p>
+      `
+    }
+  },
+  {
+    slug: "html5-canvas-ile-vektor-gorsellestirme",
+    title: {
+      tr: "HTML5 Canvas ile Vektör ve Matris Dönüşümlerini Görselleştirme",
+      en: "Visualizing Vector and Matrix Transformations with HTML5 Canvas"
+    },
+    description: {
+      tr: "Tarayıcı üzerinde doğrusal cebir kavramlarını (vektör uzayları, rotasyonlar) 2D Canvas API kullanarak çizdirme rehberi.",
+      en: "A guide to drawing linear algebra concepts (vector spaces, coordinate rotation) in-browser using the 2D Canvas API."
+    },
+    category: {
+      tr: "Yazılım",
+      en: "Software"
+    },
+    readTime: {
+      tr: "7 dk",
+      en: "7 min"
+    },
+    date: {
+      tr: "12 Nisan 2026",
+      en: "April 12, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Lineer cebir ders kitaplarında gördüğümüz 2D/3D vektör rotasyonlarını veya matris dönüşümlerini zihinde canlandırmak zordur. Polimelo Lab'de geliştirdiğimiz vektör görselleştirici, tarayıcıda doğrudan çizim yapan asenkron bir **HTML5 Canvas** katmanı kullanır.</p>
+        <h3>Matris Dönüşümlerini Çizdirmek</h3>
+        <p>Bir grid çizgisini veya vektörü başka bir koordinat sistemine taşımak için matris çarpımı kullanılır. Canvas API'nin sunduğu <code>ctx.transform(a, b, c, d, e, f)</code> fonksiyonu, matris elemanlarını doğrudan donanım ivmeli (hardware accelerated) ekran kartına göndererek pürüzsüz animasyonlar sağlar.</p>
+        <h3>Canvas vs SVG Performansı</h3>
+        <p>Binlerce çizgi ve hareketli vektör barındıran simülasyonlarda DOM yükü oluşturan SVG yerine piksel tabanlı Canvas tercih edilmelidir. Canvas, WebGL veya standart 2D bağlamı (context) ile saniyede 60 kare (FPS) akıcılığında çizim yapmayı mümkün kılar.</p>
+      `,
+      en: `
+<p>Understanding linear mappings or vector spaces from textbooks is notoriously dry. In Polimelo Lab, we solve this by building hardware-accelerated grid layers utilizing **HTML5 Canvas**.</p>
+        <h3>Drawing Coordinate Transforms</h3>
+        <p>Translating grid nodes or vector arrows between spaces requires matrix multiplication. Leveraging the native <code>ctx.transform(a, b, c, d, e, f)</code> Canvas API allows sending transform coefficients directly to the GPU, yielding smooth rendering updates.</p>
+        <h3>Canvas vs. SVG for Simulations</h3>
+        <p>For applications rendering thousands of vector matrices dynamically, Canvas is superior to SVG because it operates on a flat pixel buffer rather than overloading the DOM tree, maintaining stable 60 FPS updates.</p>
+      `
+    }
+  },
+  {
+    slug: "pyodide-ile-tarayicida-python-calistirmak",
+    title: {
+      tr: "Pyodide Nedir? Web Tarayıcısında İstemci Taraflı Python",
+      en: "What is Pyodide? Client-side Python in the Web Browser"
+    },
+    description: {
+      tr: "WebAssembly tabanlı Pyodide motoru sayesinde tarayıcıda NumPy ve Pandas gibi Python kütüphanelerini nasıl çalıştıracağınızı öğrenin.",
+      en: "Learn how to execute Python code and scientific packages like NumPy and Pandas in-browser using WebAssembly-based Pyodide."
+    },
+    category: {
+      tr: "Yazılım",
+      en: "Software"
+    },
+    readTime: {
+      tr: "8 dk",
+      en: "8 min"
+    },
+    date: {
+      tr: "8 Nisan 2026",
+      en: "April 8, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Web geliştirme dünyasında Python ve JavaScript genellikle farklı sunucularda çalışır. Ancak WebAssembly'nin gücü sayesinde artık Python derleyicisini ve popüler veri analizi kütüphanelerini doğrudan tarayıcı içerisine yükleyebiliyoruz. Bunu sağlayan en popüler araç **Pyodide** motorudur.</p>
+        <h3>Pyodide'in Mimari Yapısı</h3>
+        <p>Pyodide, standart CPython yorumlayıcısını WebAssembly'ye derler. Ayrıca NumPy, Pandas ve SciPy gibi C-uzantılı bilimsel Python paketlerini de WASM ikilileri olarak tarayıcıda çalışabilir hale getirir. JavaScript ile Python arasında çift yönlü veri köprüleri (data binding) kurarak veri paylaşımını kolaylaştırır.</p>
+        <h3>Polimelo Lab'deki Entegrasyonu</h3>
+        <p>Polimelo Lab altındaki Python modülümüzde, kullanıcının girdiği Python kodları hiçbir sunucuya gönderilmeden tamamen tarayıcı işlemcisinde Pyodide tarafından koşturulur. Bu, hem sunucu yükünü sıfıra indirir hem de kullanıcı veri gizliliğini en üst seviyede tutar.</p>
+      `,
+      en: `
+<p>Historically, Python and JavaScript operated on separate stacks. Using WebAssembly, we can compile Python interpreters and numerical toolkits to execute in sandboxed browser tabs. **Pyodide** makes this possible.</p>
+        <h3>Pyodide Architecture</h3>
+        <p>Pyodide compiles the standard CPython interpreter into WebAssembly binaries. It also ports native C-extended libraries like NumPy, Pandas, and SciPy to WASM. Pyodide sets up bidirectional data sharing, allowing Javascript code to call Python variables natively.</p>
+        <h3>Use Case: Polimelo Lab</h3>
+        <p>Our client-side Python terminal loads Pyodide on boot. When users run scripts, execution is handled entirely in their browser tab without sending requests to external web servers, protecting code privacy while eliminating cloud computing costs.</p>
+      `
+    }
+  },
+  {
+    slug: "css-degiskenleri-ve-tema-motorlari",
+    title: {
+      tr: "Modern CSS Değişkenleri ile Dinamik Tema Motorları Tasarlamak",
+      en: "Designing Dynamic Theme Engines with CSS Custom Properties"
+    },
+    description: {
+      tr: "Sayfa yenilenmeden açık/koyu tema geçişleri yapabilen, CSS Custom Properties tabanlı esnek stil sistemleri kurgulamak.",
+      en: "Building a theme engine using CSS Custom Properties to switch between dark and light modes dynamically without page flashes."
+    },
+    category: {
+      tr: "Yazılım",
+      en: "Software"
+    },
+    readTime: {
+      tr: "5 dk",
+      en: "5 min"
+    },
+    date: {
+      tr: "5 Nisan 2026",
+      en: "April 5, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Geleneksel temalandırma yöntemlerinde açık ve koyu temalar için ayrı CSS dosyaları yüklenirdi. Bu, tema geçişlerinde sayfanın göz kırpmasına (flicker) veya yavaş yüklenmesine sebep olurdu. Modern web geliştirmede ise bu sorun **CSS Değişkenleri (Custom Properties)** ile çözülür.</p>
+        <h3>CSS Değişkenlerinin Dinamik Yapısı</h3>
+        <p>SASS/LESS değişkenlerinin aksine, CSS Custom Properties (<code>--variable-name</code>) tarayıcı tarafından çalışma zamanında (runtime) okunur ve güncellenebilir. Örneğin root seçiciye tema sınıfları ekleyerek tüm sitenin renk paletini tek satır JavaScript ile değiştirebilirsiniz:</p>
+        <pre className="bg-neutral-900 p-4 rounded block font-mono text-xs"><code>document.documentElement.setAttribute('data-theme', 'dark');</code></pre>
+        <h3>Polimelo Tema Mimarisi</h3>
+        <p>Polimelo'da, renkleri <code>[ThemeContext.tsx](file:///c:/Users/ahmet/Desktop/Projects/myReactApps/polimelo/src/context/ThemeContext.tsx)</code> ile takip ediyor ve <code>documentElement.classList</code> üzerinden <code>dark</code> sınıfını atıyoruz. CSS dosyamızda ise <code>var(--bg)</code>, <code>var(--fg)</code> gibi değişkenler bu sınıfa göre otomatik güncelleniyor.</p>
+      `,
+      en: `
+<p>Old style sheets loaded separate CSS files for dark and light modes, creating performance lags. Modern websites manage skin switches using native **CSS Custom Properties** (Variables).</p>
+        <h3>Dynamic Styles at Runtime</h3>
+        <p>Unlike pre-processor variables (like SASS/LESS), CSS Custom Properties (<code>--variable-name</code>) are reactive at runtime. Toggling themes is as simple as adding a class or dataset attribute to the document element:</p>
+        <pre className="bg-neutral-900 p-4 rounded block font-mono text-xs"><code>document.documentElement.setAttribute('data-theme', 'dark');</code></pre>
+        <h3>Theme Architecture in Polimelo</h3>
+        <p>In Polimelo, we wrap our root in a <code>ThemeContext</code> and toggle the <code>dark</code> class on the HTML container. CSS variables like <code>var(--bg)</code> and <code>var(--fg)</code> adjust instantly, generating smooth, flicker-free transitions.</p>
+      `
+    }
+  },
+  {
+    slug: "bulmaca-oyunlarinda-kullanici-deneyimi-ux",
+    title: {
+      tr: "Bulmaca Oyunlarında Oyuncu Psikolojisi ve UX Tasarımı",
+      en: "Player Psychology and UX Design in Puzzle Games"
+    },
+    description: {
+      tr: "Kullanıcıyı sıkmadan veya pes ettirmeden zihinsel meydan okumalar sunmanın tasarımı.",
+      en: "Designing intellectual challenges that keep players engaged without causing premature fatigue or frustration."
+    },
+    category: {
+      tr: "Oyun Tasarımı",
+      en: "Game Design"
+    },
+    readTime: {
+      tr: "6 dk",
+      en: "6 min"
+    },
+    date: {
+      tr: "2 Nisan 2026",
+      en: "April 2, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Bulmaca oyunları tasarlarken en kritik denge, oyuncunun zekasını sınarken onu oyundan soğutmamaktır. Bir bulmaca çok kolay olduğunda "sıkıcı", çözülemez göründüğünde ise "moral bozucu" olur. Bu dengeyi korumak için oyuncu psikolojisini ve kullanıcı deneyimi (UX) prensiplerini iyi bilmek gerekir.</p>
+        <h3>Görsel İpuçları ve Sezgisellik</h3>
+        <p>Oyuncuya kuralları uzun metinlerle okutmak yerine seviye tasarımları ile sezgisel olarak öğretmelisiniz. Örneğin Syncron'da, buz zeminin kaygan olduğunu anlatmak yerine ilk seviyede oyuncuyu bu zemine basmaya zorlayarak sonucu gözleriyle görmesini sağladık. Sezgisel görsel semboller, bulmaca karmaşıklığını azaltır.</p>
+        <h3>Aha! Hissi ve Ödüllendirme</h3>
+        <p>Oyuncunun bulmacayı çözdüğü an hissettiği zihinsel patlama en büyük ödüldür. Bu anı taçlandırmak için seviye sonlarında ekranda tetiklenen neon efektler, tatlı sesler ve akıcı geçiş animasyonları gibi mikro ödüller sunarak oynama motivasyonunu canlı tutuyoruz.</p>
+      `,
+      en: `
+<p>Designing puzzle layouts is a fine balancing act: testing the player's brain without inducing frustration. If a level is too simple, it is boring; if it is impossible, it leads to quitting. Maintaining this equilibrium requires analyzing player psychology.</p>
+        <h3>Visual Cues over Tutorials</h3>
+        <p>Avoid walls of text. Show, don't tell. In Syncron, instead of writing instructions on ice behavior, we crafted the opening level to force a slide, allowing players to learn the rule organically through experience.</p>
+        <h3>The Joy of Epiphany</h3>
+        <p>The core reward of a puzzle game is the intellectual spark when the solution clicks. We reinforce this "Aha!" moment with micro-rewards: satisfying sound effects, glowing neon bursts, and slick animations that keep players engaged.</p>
+      `
+    }
+  },
+  {
+    slug: "i18n-sitemap-ve-robots-txt-seo-yapilandirmasi",
+    title: {
+      tr: "Çok Dilli (i18n) Sitelerde Sitemap ve Robots.txt Yapılandırması",
+      en: "Sitemap and Robots.txt Configurations for Multilingual (i18n) Sites"
+    },
+    description: {
+      tr: "Google'ın çok dilli siteleri tararken kullandığı hreflang etiketleri, robots.txt kuralları ve sitemap şablonları.",
+      en: "How to configure robots.txt, dynamic sitemaps, and hreflang tag hierarchies for search engine optimization on multilingual websites."
+    },
+    category: {
+      tr: "Yazılım",
+      en: "Software"
+    },
+    readTime: {
+      tr: "6 dk",
+      en: "6 min"
+    },
+    date: {
+      tr: "29 Mart 2026",
+      en: "March 29, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Web sitenizi birden fazla dilde yayınladığınızda, arama motorlarının bu dillerin her birini doğru indekslemesini sağlamak kritik bir SEO konusudur. Google, farklı dillerdeki aynı sayfaların kopya içerik (duplicate content) olarak algılanmaması için özel yapılandırmalar talep eder.</p>
+        <h3>Hreflang Etiketlerinin Önemi</h3>
+        <p>Her sayfanın HTML başlığında (head), o sayfanın diğer dillerdeki karşılıklarını gösteren <code>hreflang</code> etiketleri bulunmalıdır. Bu etiketler Google'a "Bu sayfa Türkçe versiyondur, İngilizce arayan kullanıcılara ise şu adresi göster" talimatını verir. Polimelo sitemap.xml dosyamızda bu yapıyı dinamik olarak kurguladık.</p>
+        <h3>Robots.txt ve Tarama Bütçesi</h3>
+        <p>Çok dilli sitelerde tarayıcı botlarının (Googlebot, AdSense Bot) tüm dil klasörlerinize erişebildiğinden emin olun. Robots.txt dosyanızda dil yollarını (örneğin <code>/tr/</code> ve <code>/en/</code>) engelleyecek yanlış kuralların bulunmadığını kontrol etmeli ve sitemap dosyanızın yerini net olarak belirtmelisiniz.</p>
+      `,
+      en: `
+<p>When publishing a multilingual website, ensuring that search engines parse and categorize each language version correctly is paramount for SEO. Incorrect structure leads to pages competing with each other or being flagged as duplicates.</p>
+        <h3>Hreflang Directives</h3>
+        <p>Every language variant needs to link to its counterparts using <code>hreflang</code> metadata. This tells search bots: "This is the Turkish variant, show the English variant to users searching in English." We dynamically build these alternate nodes into our sitemap.</p>
+        <h3>Tuning Robots.txt for Crawling</h3>
+        <p>Verify that your robots.txt file does not restrict crawlers from scanning subroutes (like <code>/en/</code> or <code>/tr/</code>). The configuration should explicitly expose all paths and provide a direct pointer to the <code>sitemap.xml</code> root.</p>
+      `
+    }
+  },
+  {
+    slug: "firestore-offline-senkronizasyon-politikasi",
+    title: {
+      tr: "Cloud Firestore ile Çevrimdışı Veri Eşitleme Politikaları",
+      en: "Offline Synchronization and Conflict Resolution with Cloud Firestore"
+    },
+    description: {
+      tr: "Firebase Firestore'un offline persistence özelliğini kullanarak tarayıcıda veri tutarlılığı ve senkronizasyonu yönetmek.",
+      en: "Handling transactional client consistency and write operations using Firebase Firestore's offline persistence layers."
+    },
+    category: {
+      tr: "Yazılım",
+      en: "Software"
+    },
+    readTime: {
+      tr: "7 dk",
+      en: "7 min"
+    },
+    date: {
+      tr: "25 Mart 2026",
+      en: "March 25, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Firebase Firestore, mobil ve web uygulamalarında gerçek zamanlı veri yönetimi için mükemmel çözümler sunar. Ancak en güçlü özelliklerinden biri, çevrimdışı önbellekleme (offline persistence) ve otomatik veri eşitleme altyapısıdır.</p>
+        <h3>Firestore Çevrimdışı Çalışma Mantığı</h3>
+        <p>Offline persistence etkinleştirildiğinde, Firestore yaptığınız tüm yazma ve okuma işlemlerini cihazın yerel önbelleğine (IndexedDB) kaydeder. İnternet kesildiğinde bile veritabanı okuma/yazma istekleri hata vermez, yerel önbellek üzerinden işlem devam eder.</p>
+        <h3>Çakışmaları Çözme (Conflict Resolution)</h3>
+        <p>İnternet bağlantısı geldiğinde, Firestore sıraya alınmış yerel yazma işlemlerini Firebase sunucularına gönderir. Eğer aynı veri sunucuda başka bir cihaz tarafından değiştirilmişse, Firestore varsayılan olarak "son yazan kazanır" (last-write-wins) politikasını uygular. Daha karmaşık çakışmaları çözmek için veritabanı işlemlerinizde timestamp veya transaction kullanmalısınız.</p>
+      `,
+      en: `
+<p>Cloud Firestore provides dynamic tools for synchronizing realtime datasets. One of its standout components is its native offline caching layer, enabling apps to continue functioning when disconnected.</p>
+        <h3>How Offline Caching Works</h3>
+        <p>Once persistence is active, Firestore intercepts queries and localizes modifications to an internal IndexedDB store. Data operations execute instantly, queuing network calls until connection is recovered.</p>
+        <h3>Resolving Out-of-sync Conflicts</h3>
+        <p>When the client reconnects, the SDK pushes the queue of local mutations online. By default, a "last-write-wins" rule is applied. To build safer applications, implement transactions or metadata timestamps to detect and merge differences.</p>
+      `
+    }
+  },
+  {
+    slug: "webview-ortamlarinda-guvenli-auth-yonetimi",
+    title: {
+      tr: "Capacitor ve Hybrid Webview Ortamlarında Güvenli Yetkilendirme (Auth) Yönetimi",
+      en: "Secure Authentication in Capacitor and Hybrid WebView Environments"
+    },
+    description: {
+      tr: "Mobil WebView uygulamalarında JWT, OAuth ve kullanıcı oturum verilerini sızmalara karşı koruma rehberi.",
+      en: "Best practices for protecting JWT, OAuth, and user session storage against security breaches in mobile hybrid applications."
+    },
+    category: {
+      tr: "Yazılım",
+      en: "Software"
+    },
+    readTime: {
+      tr: "7 dk",
+      en: "7 min"
+    },
+    date: {
+      tr: "22 Mart 2026",
+      en: "March 22, 2026"
+    },
+    author: "Polimelo Stüdyo",
+    content: {
+      tr: `
+<p>Capacitor veya Cordova ile geliştirilen hibrit mobil uygulamalar, web kodunuzu yerel bir WebView (sistem tarayıcısı) içinde çalıştırır. Arayüz web tabanlı olduğu için, standart web güvenlik açıkları (XSS vb.) mobil uygulamanızı da tehdit edebilir. Bu nedenle oturum yönetimi (Auth) yaparken çok dikkatli olunmalıdır.</p>
+        <h3>Neden LocalStorage Güvenli Değildir?</h3>
+        <p>LocalStorage, asenkron ve şifrelenmemiş düz metin olarak çalışır. WebView içindeki bir XSS açığı ile tüm session token'larınız (JWT) kolayca çalınabilir. Hibrit mobil uygulamalarda hassas verileri LocalStorage yerine cihazın güvenli saklama alanında (Android Keystore, iOS Keychain) barındırmalısınız.</p>
+        <h3>Güvenli Depolama (Secure Storage) Çözümleri</h3>
+        <p>Capacitor için geliştirilmiş <code>@capacitor-community/secure-storage</code> gibi eklentiler, verilerinizi işletim sisteminin native şifreleme altyapısına yazar. Oturum anahtarlarınızı bu şekilde saklayarak, web katmanı hacklense dahi token'larınızın çalınmasını tamamen engelleyebilirsiniz.</p>
+      `,
+      en: `
+<p>Hybrid applications running inside mobile WebViews present unique security considerations. Because the UI layer is web-based, vulnerabilities like Cross-Site Scripting (XSS) can compromise app security, making secure auth crucial.</p>
+        <h3>Why LocalStorage is Vulnerable</h3>
+        <p>LocalStorage stores keys in unencrypted plain text. An XSS exploit can read this storage, leaking JWT access tokens. In hybrid environments, authentication credentials must be kept in hardware-backed storage (Keystore/Keychain).</p>
+        <h3>Implementing Secure Storage</h3>
+        <p>Using plugins like <code>@capacitor-community/secure-storage</code> allows writing credentials directly to native Keystores. Keeping your session tokens encrypted here protects them even if the web client layer is compromised.</p>
+      `
+    }
+  }
 ];

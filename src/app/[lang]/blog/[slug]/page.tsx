@@ -4,17 +4,20 @@ import { BLOG_POSTS } from "@/data/posts";
 import BlogPostClient from "./BlogPostClient";
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ lang: string; slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({
-    slug: post.slug,
-  }));
+  const params: { lang: string; slug: string }[] = [];
+  for (const post of BLOG_POSTS) {
+    params.push({ lang: "tr", slug: post.slug });
+    params.push({ lang: "en", slug: post.slug });
+  }
+  return params;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { lang, slug } = await params;
   const post = BLOG_POSTS.find((p) => p.slug === slug);
   
   if (!post) {
@@ -23,17 +26,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
+  const validLang = lang === "en" ? "en" : "tr";
+
   return {
-    title: `${post.title.tr} | ${post.title.en} — Polimelo Blog`,
-    description: `${post.description.tr} | ${post.description.en}`,
+    title: `${post.title[validLang]} — Polimelo Blog`,
+    description: post.description[validLang],
     alternates: {
-      canonical: `/blog/${post.slug}`,
+      canonical: `/${validLang}/blog/${post.slug}`,
     },
   };
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const { slug } = await params;
+  const { lang, slug } = await params;
   const post = BLOG_POSTS.find((p) => p.slug === slug);
 
   if (!post) {
@@ -54,3 +59,4 @@ export default async function BlogPostPage({ params }: PageProps) {
     <BlogPostClient post={post} finalRelated={finalRelated} />
   );
 }
+

@@ -363,6 +363,41 @@ export default function LabCatalogPage() {
           </div>
         </section>
 
+        {/* SECTION 2.5: DETAILED LAB ARCHITECTURE AND MATHEMATICS */}
+        <section className="px-6 md:px-12 max-w-5xl mx-auto pb-20 border-t border-[var(--border)] pt-20 mb-10">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-[var(--fg)] mb-8 text-center font-serif" style={{ fontFamily: "Georgia, serif" }}>
+            {language === "tr" ? "Hesaplamalı Laboratuvar Altyapısı ve Metodoloji" : "Computational Lab Infrastructure & Methodology"}
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8 text-sm text-[var(--fg-muted)] leading-relaxed font-serif text-justify">
+            <div>
+              <h3 className="text-lg font-bold text-[var(--fg)] mb-3">{language === "tr" ? "İstemci Tarafında Python ve Pyodide Mimarisi" : "Client-Side Python & Pyodide Architecture"}</h3>
+              <p className="mb-4">
+                {language === "tr" 
+                  ? "Geleneksel web uygulamalarında Python kodlarını çalıştırmak, uzak sunucuda (server-side) izole sanal makineler veya sandbox kapları (Docker) kurmayı gerektirir. Bu yaklaşım hem yüksek sunucu maliyeti yaratır hem de ağ gecikmelerine neden olur. Polimelo Lab, tarayıcı çekirdeğinde istemci taraflı Python 3.11 yorumlayıcısını barındıran Pyodide motorunu kullanır."
+                  : "Traditionally, executing custom Python scripts requires hosting virtual environments or containerized microservices (Docker) on remote web servers, inducing significant cloud upkeep fees and network latency. Polimelo Lab utilizes the Pyodide runtime to execute Python 3.11 directly inside the client's browser thread."}
+              </p>
+              <p>
+                {language === "tr"
+                  ? "CPython derleyicisinin Emscripten aracılığıyla WebAssembly (WASM) bytecode'una derlenmesiyle çalışan Pyodide, NumPy ve Pandas gibi popüler bilimsel paketleri de tarayıcıya WASM modülleri olarak yükler. Bu sayede, kullanıcının girdiği kodlar hiçbir sunucuya iletilmeden doğrudan cihazın kendi işlemcisinde (CPU) milisaniyeler seviyesinde güvenli ve izole bir şekilde yürütülür."
+                  : "By compiling the CPython core using Emscripten to WebAssembly (WASM) binaries, Pyodide loads core scientific libraries like NumPy and Pandas as WASM blobs. Scripts compile and evaluate directly on local hardware, maximizing user data privacy and reducing latency to millisecond thresholds."}
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-[var(--fg)] mb-3">{language === "tr" ? "Lineer Cebir Görselleştirmeleri ve Regresyon Matematiksel Modeli" : "Linear Algebra Visualizations & Regression Models"}</h3>
+              <p className="mb-4">
+                {language === "tr"
+                  ? "Laboratuvardaki lineer cebir görselleştiricisi, matris işlemlerinin ve koordinat dönüşümlerinin geometrik izdüşümlerini çıkarır. Nokta çarpım (dot product) hücresel animasyonu, doğrusal dönüşümlerin vektör uzaylarında oluşturduğu değişimi (rotasyon, ölçekleme ve kayma) donanım ivmeli (GPU) HTML5 Canvas API kullanarak saniyede 60 kare hızında canlandırır."
+                  : "The matrix multiplier and vector sandbox translate linear algebra equations into interactive geometries. The cellular dot product animation renders coordinate system mappings (such as scaling, shearing, and rotation) using hardware-accelerated GPU graphics buffers at a fluid 60 frames per second."}
+              </p>
+              <p>
+                {language === "tr"
+                  ? "Gradyan uydurma modülü ise etkileşimli lineer regresyon modelini çalıştırır. Kullanıcıların ekrana yerleştirdiği veri noktalarına en küçük kareler (least-squares) yöntemiyle y = mx + b doğrusunu uydurur. Eğim (m) ve kesme noktası (b), hata karesi toplamını en aza indiren kısmi türev formülleriyle asenkron olarak hesaplanır ve anlık olarak çizdirilir."
+                  : "The linear regression simulator models predictive curve fitting. Using plotted data coordinates, the application fits a line of best fit y = mx + b using the Ordinary Least Squares (OLS) mathematical model. The slope (m) and intercept (b) are calculated asynchronously using partial derivatives to minimize squared residual sums."}
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* SECTION 3: OPEN SOURCE PHILOSOPHY */}
         <section className="px-6 md:px-12 max-w-5xl mx-auto pb-32">
           <motion.div

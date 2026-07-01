@@ -145,7 +145,7 @@ export default function BlogIndexPage() {
               </p>
             </div>
             <Link
-              href="/lab"
+              href={`/${language}/lab`}
               className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[var(--fg)] hover:text-[#ef5a5a] border-b border-transparent hover:border-[#ef5a5a] transition-all duration-300 pb-0.5 whitespace-nowrap"
             >
               {language === "tr" ? "Laboratuvarı Keşfet" : "Explore Laboratory"} <ArrowUpRight size={13} />
@@ -170,7 +170,7 @@ export default function BlogIndexPage() {
                   transition={{ delay: i * 0.08, duration: 0.6 }}
                   className="group"
                 >
-                  <Link href={`/blog/${post.slug}`} className="block h-full">
+                  <Link href={`/${language}/blog/${post.slug}`} className="block h-full">
                     <div className="h-full p-8 flex flex-col justify-between bg-[var(--card-bg)] border border-[var(--border)] rounded-lg hover:border-[var(--fg-muted)] transition-all duration-300">
                       <div>
                         {/* Meta Tags */}

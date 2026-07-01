@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import Script from "next/script";
@@ -34,18 +34,28 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export async function generateStaticParams() {
+  return [{ lang: "tr" }, { lang: "en" }];
+}
+
+export default async function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  params,
+}: Readonly<{
+  children: React.ReactNode;
+  params: Promise<{ lang: string }>;
+}>) {
+  const { lang } = await params;
+  const validLang = lang === "en" ? "en" : "tr";
+
   return (
     <html
-      lang="tr"
+      lang={validLang}
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       suppressHydrationWarning
     >
-    
       <body suppressHydrationWarning>
-        <LanguageProvider>
+        <LanguageProvider lang={validLang}>
           <ThemeProvider>
             {children}
             <CookieBanner />
@@ -61,4 +71,5 @@ export default function RootLayout({
     </html>
   );
 }
+
 

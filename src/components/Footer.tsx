@@ -5,11 +5,11 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
 
   return (
     <footer className="px-6 md:px-12 py-10 border-t border-[var(--border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 w-full max-w-7xl mx-auto">
-      <Link href="/" className="flex items-center gap-2.5 group">
+      <Link href={`/${language}`} className="flex items-center gap-2.5 group">
         <Image
           src="/polimelo-logo-round.webp"
           alt="Polimelo Logo"
@@ -21,28 +21,28 @@ export default function Footer() {
         <span className="font-bold text-lg text-[var(--fg)]">Polimelo</span>
       </Link>
       <nav className="flex flex-wrap items-center gap-6 text-sm text-[var(--fg-muted)]">
-        <Link href="/lab" className="hover:text-[var(--fg)] transition-colors">
+        <Link href={`/${language}/lab`} className="hover:text-[var(--fg)] transition-colors">
           Polimelo Lab
         </Link>
-        <Link href="/syncron" className="hover:text-[var(--fg)] transition-colors">
+        <Link href={`/${language}/syncron`} className="hover:text-[var(--fg)] transition-colors">
           Syncron
         </Link>
-        <Link href="/polyvo" className="hover:text-[var(--fg)] transition-colors">
+        <Link href={`/${language}/polyvo`} className="hover:text-[var(--fg)] transition-colors">
           Polyvo
         </Link>
-        <Link href="/about" className="hover:text-[var(--fg)] transition-colors">
+        <Link href={`/${language}/about`} className="hover:text-[var(--fg)] transition-colors">
           {t("common.aboutUs")}
         </Link>
-        <Link href="/blog" className="hover:text-[var(--fg)] transition-colors">
+        <Link href={`/${language}/blog`} className="hover:text-[var(--fg)] transition-colors">
           {t("common.blog")}
         </Link>
-        <Link href="/contact" className="hover:text-[var(--fg)] transition-colors">
+        <Link href={`/${language}/contact`} className="hover:text-[var(--fg)] transition-colors">
           {t("common.contact")}
         </Link>
-        <Link href="/privacy" className="hover:text-[var(--fg)] transition-colors">
+        <Link href={`/${language}/privacy`} className="hover:text-[var(--fg)] transition-colors">
           {t("common.privacy")}
         </Link>
-        <Link href="/terms" className="hover:text-[var(--fg)] transition-colors">
+        <Link href={`/${language}/terms`} className="hover:text-[var(--fg)] transition-colors">
           {t("common.terms")}
         </Link>
       </nav>

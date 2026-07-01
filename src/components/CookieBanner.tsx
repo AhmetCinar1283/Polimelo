@@ -66,7 +66,7 @@ export default function CookieBanner() {
               <>
                 Deneyiminizi optimize etmek, site trafiğini analiz etmek ve <strong>Google AdSense</strong> aracılığıyla kişiselleştirilmiş reklamlar sunmak amacıyla çerezler (cookies) kullanıyoruz. Kabul ederek çerez politikamızı onaylamış olursunuz. Detaylar için{" "}
                 <Link
-                  href="/privacy"
+                  href={`/${language}/privacy`}
                   className="text-[var(--fg)] font-semibold underline hover:opacity-80 transition-opacity"
                 >
                   Gizlilik Politikası
@@ -77,7 +77,7 @@ export default function CookieBanner() {
               <>
                 We use cookies to optimize your experience, analyze site traffic, and deliver personalized ads via <strong>Google AdSense</strong>. By accepting, you consent to our cookie policy. For details, you can review our{" "}
                 <Link
-                  href="/privacy"
+                  href={`/${language}/privacy`}
                   className="text-[var(--fg)] font-semibold underline hover:opacity-80 transition-opacity"
                 >
                   Privacy Policy
