@@ -27,10 +27,21 @@ export default function RootPage() {
   return (
     <html lang="tr">
       <head>
-        <meta name="robots" content="noindex, follow" />
+        <meta name="robots" content="index, follow" />
+        <meta httpEquiv="refresh" content="0;url=/tr" />
         <title>Polimelo</title>
       </head>
-      <body className="bg-[#080808]"></body>
+      <body className="bg-[#080808] text-white flex items-center justify-center min-h-screen font-sans">
+        <div className="text-center p-8">
+          <h1 className="text-2xl font-bold mb-4">Polimelo</h1>
+          <p className="text-gray-400 mb-6">Yönlendiriliyorsunuz... / Redirecting...</p>
+          <div className="space-x-4">
+            <a href="/tr" className="text-indigo-400 hover:underline">Türkçe Ana Sayfa</a>
+            <span className="text-gray-600">|</span>
+            <a href="/en" className="text-indigo-400 hover:underline">English Homepage</a>
+          </div>
+        </div>
+      </body>
     </html>
   );
 }

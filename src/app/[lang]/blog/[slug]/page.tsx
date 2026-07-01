@@ -1,15 +1,17 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BLOG_POSTS } from "@/data/posts";
+import { BLOG_POSTS, ARCHIVED_BLOG_POSTS } from "@/data/posts";
 import BlogPostClient from "./BlogPostClient";
 
 interface PageProps {
   params: Promise<{ lang: string; slug: string }>;
 }
 
+const ALL_POSTS = [...BLOG_POSTS, ...ARCHIVED_BLOG_POSTS];
+
 export async function generateStaticParams() {
   const params: { lang: string; slug: string }[] = [];
-  for (const post of BLOG_POSTS) {
+  for (const post of ALL_POSTS) {
     params.push({ lang: "tr", slug: post.slug });
     params.push({ lang: "en", slug: post.slug });
   }
@@ -18,7 +20,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { lang, slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const post = ALL_POSTS.find((p) => p.slug === slug);
   
   if (!post) {
     return {
@@ -27,10 +29,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const validLang = lang === "en" ? "en" : "tr";
+  const isArchived = ARCHIVED_BLOG_POSTS.some((p) => p.slug === slug);
 
   return {
     title: `${post.title[validLang]} — Polimelo Blog`,
     description: post.description[validLang],
+    robots: {
+      index: !isArchived,
+      follow: true,
+    },
     alternates: {
       canonical: `/${validLang}/blog/${post.slug}`,
     },
@@ -39,13 +46,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { lang, slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const post = ALL_POSTS.find((p) => p.slug === slug);
 
   if (!post) {
     notFound();
   }
 
   // Related articles (filtered by category, excluding current)
+  // We prefer showing active BLOG_POSTS as related, fallback to ALL_POSTS
   const relatedPosts = BLOG_POSTS
     .filter((p) => p.slug !== post.slug && p.category.en === post.category.en)
     .slice(0, 2);
