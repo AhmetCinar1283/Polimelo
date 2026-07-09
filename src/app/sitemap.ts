@@ -15,7 +15,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/terms",
     "/blog",
     "/contact",
-    "/spaced-repetition-calculator"
+    "/spaced-repetition-calculator",
+    "/lab"
   ];
 
   const staticSitemap: any[] = [];
@@ -45,5 +46,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...staticSitemap, ...blogSitemap];
 }
-
-

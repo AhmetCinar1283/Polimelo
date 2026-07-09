@@ -47,21 +47,21 @@ export const BLOG_POSTS: BlogPost[] = [
   puzzle_oyunlarinda_zorluk_ayarlama,
   nextjs_capacitor_electron_entegrasyonu,
   kullanici_verilerini_dogru_analiz_etme,
-  polimelo_lab_interaktif_yapay_zeka_ogrenimi
+  polimelo_lab_interaktif_yapay_zeka_ogrenimi,
+  react_19_compiler_ve_yenilikler,
+  tailwind_css_v4_derleyici_motoru,
+  framer_motion_mikro_etkilesimler,
+  supermemo_sm2_vs_sm17_karsilastirma
 ];
 
 export const ARCHIVED_BLOG_POSTS: BlogPost[] = [
   webassembly_tarayicida_performans_analizi,
-  react_19_compiler_ve_yenilikler,
   offline_first_mimari_ve_dexie_js,
   capacitor_js_ile_native_kopruler_kurmak,
-  tailwind_css_v4_derleyici_motoru,
-  framer_motion_mikro_etkilesimler,
   nextjs_static_export_optimizasyonlari,
   indexeddb_performans_ve_limitler,
   siberpunk_tasarim_estetigi,
   yapay_sinir_aglari_matematigi,
-  supermemo_sm2_vs_sm17_karsilastirma,
   html5_canvas_ile_vektor_gorsellestirme,
   pyodide_ile_tarayicida_python_calistirmak,
   css_degiskenleri_ve_tema_motorlari,
