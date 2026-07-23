@@ -18,8 +18,8 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children, lang = "tr" }: { children: React.ReactNode; lang?: string }) {
-  const [language, setLanguageState] = useState<Language>((lang === "tr" || lang === "en" ? lang : "tr") as Language);
+export function LanguageProvider({ children, lang = "en" }: { children: React.ReactNode; lang?: string }) {
+  const [language, setLanguageState] = useState<Language>((lang === "tr" || lang === "en" ? lang : "en") as Language);
   const pathname = usePathname();
   const router = useRouter();
 
